@@ -420,7 +420,7 @@ const FrameworkCard: React.FC<{ framework: Framework }> = ({ framework }) => {
 
   return (
     <motion.div
-      layout
+      layout="position"
       className={`rounded-xl border transition-all duration-300 overflow-hidden ${
         isOpen 
           ? 'bg-slate-800 border-rose-500 shadow-[0_0_15px_rgba(225,29,72,0.15)] col-span-1 md:col-span-2 lg:col-span-3' 
@@ -452,7 +452,7 @@ const FrameworkCard: React.FC<{ framework: Framework }> = ({ framework }) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <div className="px-5 pb-8 pt-2">
               <div className="h-px w-full bg-slate-700/50 mb-6"></div>
@@ -550,7 +550,7 @@ export const Frameworks: React.FC = () => {
         {/* Content Area */}
         <div className="min-h-[400px]">
           <motion.div
-            layout
+            layout="position"
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min"
           >
             <AnimatePresence mode='popLayout'>
