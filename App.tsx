@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { Problem } from './components/Problem';
 import { Stance } from './components/Stance';
 import { WhyInHouse } from './components/WhyInHouse';
+import { Frameworks } from './components/Frameworks';
 import { Approach } from './components/Approach';
 import { Evidence } from './components/Evidence';
 import { Closing } from './components/Closing';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Problem />
         <Stance />
         <WhyInHouse />
+        <Frameworks />
         <Approach />
         <Evidence />
         <Closing />

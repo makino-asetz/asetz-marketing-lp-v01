@@ -81,7 +81,7 @@ const DeliverablePreview: React.FC = () => {
 
       <div className="mt-16 text-center lg:text-left">
         <p className="text-sm text-slate-500 leading-relaxed font-medium">
-          <span className="text-rose-500">※</span> ヒアリング内容に基づき、<br/>
+          ヒアリング内容に基づき、<br/>
           御社専用の簡易分析レポートとロードマップ案を<br/>
           初回面談時にご提示いたします。
         </p>
@@ -114,7 +114,7 @@ export const BookingSection: React.FC = () => {
           />
           <p className="text-slate-600 mb-12 leading-relaxed">
             現状の課題感や体制について、可能な範囲でご記入ください。<br/>
-            より具体的な提案資料を準備させていただきます。<br/><br/>
+            具体的な提案資料を作成し、初回面談にてご提示させていただきます。<br/><br/>
             無理な営業は一切いたしませんので、<br/>
             まずはお気軽にお話ししましょう。
           </p>
