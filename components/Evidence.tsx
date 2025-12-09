@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Section, SectionTitle } from './ui/Section';
 import { FileSpreadsheet } from 'lucide-react';
 
@@ -46,36 +46,235 @@ const CaseStat: React.FC<{ value: string; label: string; sub?: string }> = ({ va
   </div>
 );
 
+// --- Gantt Chart Logic ---
+
+type Task = {
+  id: string;
+  label: string;
+  start: number; // Week number 1-26
+  end: number;
+  color: string; // Tailwind class
+};
+
+type TaskRowData = {
+  category: string;
+  tasks: Task[];
+};
+
+type ProcessPhase = {
+  name: string;
+  color: string;
+  textColor: string;
+  borderColor: string;
+  rows: TaskRowData[];
+};
+
+const phasesData: ProcessPhase[] = [
+  {
+    name: "Phase 1: 基盤構築期",
+    color: "bg-blue-900/20",
+    textColor: "text-blue-400",
+    borderColor: "border-blue-900/30",
+    rows: [
+      {
+        category: "戦略設計",
+        tasks: [
+          { id: "p1-1", label: "現状分析・課題ヒアリング", start: 1, end: 2, color: "bg-blue-600" },
+          { id: "p1-2", label: "カスタマージャーニー設計", start: 2, end: 4, color: "bg-blue-600" },
+          { id: "p1-3", label: "KPI設計・目標設定", start: 3, end: 4, color: "bg-blue-600" },
+          { id: "p1-4", label: "施策優先順位・ロードマップ", start: 4, end: 5, color: "bg-blue-500" },
+        ]
+      },
+      {
+        category: "データ基盤構築",
+        tasks: [
+          { id: "p1-5", label: "GTM設計・実装", start: 1, end: 3, color: "bg-indigo-600" },
+          { id: "p1-6", label: "GA4計測設計・イベント実装", start: 2, end: 4, color: "bg-indigo-600" },
+          { id: "p1-7", label: "MAツール初期設定", start: 3, end: 6, color: "bg-indigo-500" },
+          { id: "p1-8", label: "KPIモニタリングダッシュボード", start: 5, end: 8, color: "bg-indigo-500" },
+        ]
+      },
+      {
+        category: "検証",
+        tasks: [
+          { id: "p1-9", label: "月次レビュー①", start: 4, end: 4.9, color: "bg-slate-600" },
+        ]
+      }
+    ]
+  },
+  {
+    name: "Phase 2: 施策実行・検証期",
+    color: "bg-emerald-900/20",
+    textColor: "text-emerald-400",
+    borderColor: "border-emerald-900/30",
+    rows: [
+      {
+        category: "リード獲得(ブログ)",
+        tasks: [
+          { id: "p2-1", label: "ポップアップ施策設計", start: 9, end: 10, color: "bg-emerald-600" },
+          { id: "p2-2", label: "ポップアップ実装", start: 10, end: 11, color: "bg-emerald-600" },
+          { id: "p2-3", label: "登録フォーム最適化", start: 11, end: 12, color: "bg-emerald-600" },
+          { id: "p2-4", label: "効果測定・改善", start: 12, end: 16, color: "bg-emerald-500" },
+        ]
+      },
+      {
+        category: "メールマーケ構築",
+        tasks: [
+          { id: "p2-5", label: "メルマガテンプレート設計", start: 11, end: 13, color: "bg-emerald-600" },
+          { id: "p2-6", label: "ウェルカムシリーズ設計", start: 12, end: 14, color: "bg-emerald-600" },
+          { id: "p2-7", label: "コンテンツ作成", start: 13, end: 16, color: "bg-emerald-500" },
+          { id: "p2-8", label: "配信設定・テスト", start: 14, end: 15, color: "bg-emerald-500" },
+          { id: "p2-9", label: "効果測定", start: 15, end: 18, color: "bg-emerald-500" },
+          { id: "p2-10", label: "製品別コンテンツ企画", start: 16, end: 20, color: "bg-emerald-500" },
+        ]
+      },
+      {
+        category: "リード獲得(メルマガ)",
+        tasks: [
+          { id: "p2-11", label: "誘導ポップアップ設計", start: 14, end: 15, color: "bg-emerald-600" },
+          { id: "p2-12", label: "実装", start: 15, end: 16, color: "bg-emerald-600" },
+          { id: "p2-13", label: "効果測定・改善", start: 16, end: 20, color: "bg-emerald-500" },
+        ]
+      },
+      {
+        category: "検証",
+        tasks: [
+          { id: "p2-14", label: "月次レビュー②", start: 8, end: 8.9, color: "bg-slate-600" },
+          { id: "p2-15", label: "月次レビュー③", start: 12, end: 12.9, color: "bg-slate-600" },
+          { id: "p2-16", label: "月次レビュー④", start: 16, end: 16.9, color: "bg-slate-600" },
+        ]
+      }
+    ]
+  },
+  {
+    name: "Phase 3: 最適化・自走化期",
+    color: "bg-orange-900/20",
+    textColor: "text-orange-400",
+    borderColor: "border-orange-900/30",
+    rows: [
+      {
+        category: "高度な最適化",
+        tasks: [
+          { id: "p3-1", label: "ABテスト設計・実装", start: 17, end: 20, color: "bg-orange-600" },
+          { id: "p3-2", label: "パーソナライズ配信設定", start: 18, end: 21, color: "bg-orange-600" },
+          { id: "p3-3", label: "リードスコアリング設計", start: 20, end: 23, color: "bg-orange-500" },
+          { id: "p3-4", label: "顧客セグメント分析", start: 21, end: 24, color: "bg-orange-500" },
+        ]
+      },
+      {
+        category: "営業連携・CRM",
+        tasks: [
+          { id: "p3-5", label: "CRM連携設定", start: 21, end: 23, color: "bg-orange-600" },
+          { id: "p3-6", label: "リード管理フロー構築", start: 22, end: 24, color: "bg-orange-600" },
+          { id: "p3-7", label: "営業引き渡しルール", start: 23, end: 25, color: "bg-orange-500" },
+          { id: "p3-8", label: "ROI検証", start: 24, end: 26, color: "bg-orange-500" },
+        ]
+      },
+      {
+        category: "自走化支援",
+        tasks: [
+          { id: "p3-9", label: "基盤改修・最終調整", start: 23, end: 25, color: "bg-rose-600" },
+          { id: "p3-10", label: "運用マニュアル整備", start: 24, end: 26, color: "bg-rose-600" },
+          { id: "p3-11", label: "ナレッジ移管", start: 24, end: 26, color: "bg-rose-500" },
+          { id: "p3-12", label: "引き継ぎ", start: 25, end: 26, color: "bg-rose-500" },
+        ]
+      },
+      {
+        category: "検証",
+        tasks: [
+          { id: "p3-13", label: "月次レビュー⑤", start: 20, end: 20.9, color: "bg-slate-600" },
+          { id: "p3-14", label: "最終レビュー", start: 24, end: 26, color: "bg-slate-500" },
+        ]
+      }
+    ]
+  }
+];
+
 const GanttChart: React.FC = () => {
   const months = [1, 2, 3, 4, 5, 6];
   const weeks = Array.from({ length: 26 }, (_, i) => i + 1);
 
-  const TaskBar: React.FC<{ start: number; end: number; color: string; label: string }> = ({ start, end, color, label }) => (
-    <div 
-      className={`absolute h-6 rounded-md text-[10px] flex items-center px-2 text-white truncate shadow-sm ${color} bg-opacity-90 border border-white/10`}
-      style={{ 
-        left: `${(start - 1) * (100/26)}%`, 
-        width: `${(end - start + 1) * (100/26)}%`,
-        top: '4px'
-      }}
-    >
-      {label}
-    </div>
-  );
+  // Helper to calculate layout lanes for overlapping tasks
+  const calculateLanes = (tasks: Task[]) => {
+    // Sort by start time, then duration (longest first)
+    const sortedTasks = [...tasks].sort((a, b) => a.start - b.start || (b.end - b.start) - (a.end - a.start));
+    const lanes: Task[][] = [];
 
-  const TaskRow: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
-    <div className="relative h-14 border-b border-slate-800/50 flex items-center group hover:bg-slate-800/30 transition-colors">
-      <div className="absolute left-0 w-48 text-xs text-slate-400 font-medium pl-4 truncate z-10 bg-slate-900/95 h-full flex items-center border-r border-slate-800 shadow-[4px_0_10px_-2px_rgba(0,0,0,0.5)]">
-        {title}
+    sortedTasks.forEach(task => {
+      let placed = false;
+      for (let i = 0; i < lanes.length; i++) {
+        const lane = lanes[i];
+        const lastTask = lane[lane.length - 1];
+        // Check if this lane is free (end of last task < start of current task)
+        if (lastTask.end < task.start) {
+          lane.push(task);
+          placed = true;
+          break;
+        }
+      }
+      if (!placed) {
+        lanes.push([task]);
+      }
+    });
+
+    return lanes;
+  };
+
+  const RenderRow: React.FC<{ rowData: TaskRowData }> = ({ rowData }) => {
+    const lanes = calculateLanes(rowData.tasks);
+    const rowHeight = Math.max(lanes.length * 32 + 16, 56); // 32px per bar + gaps, min height 56
+
+    return (
+      <div 
+        className="relative border-b border-slate-800/50 flex group hover:bg-slate-800/30 transition-colors"
+        style={{ height: `${rowHeight}px` }}
+      >
+        {/* Row Header (Sticky) */}
+        <div className="sticky left-0 w-48 text-xs text-slate-400 font-medium pl-4 pr-2 truncate z-20 bg-slate-900/95 flex items-center border-r border-slate-800 shadow-[4px_0_10px_-2px_rgba(0,0,0,0.5)] flex-shrink-0">
+          {rowData.category}
+        </div>
+
+        {/* Timeline Area */}
+        <div className="flex-grow relative h-full">
+          {/* Grid Lines */}
+          {weeks.map(w => (
+            <div key={w} className="absolute h-full w-[1px] bg-slate-800/30 pointer-events-none" style={{ left: `${(w - 1) * (100/26)}%` }}></div>
+          ))}
+
+          {/* Tasks */}
+          {lanes.map((lane, laneIndex) => (
+            lane.map(task => {
+              const left = (task.start - 1) * (100 / 26);
+              const width = (task.end - task.start + 1) * (100 / 26);
+              const top = 8 + laneIndex * 32;
+
+              return (
+                <div
+                  key={task.id}
+                  className={`absolute h-6 rounded text-[10px] flex items-center px-2 text-white shadow-sm ${task.color} border border-white/10 group/task transition-all hover:z-30 cursor-help`}
+                  style={{
+                    left: `${left}%`,
+                    width: `${width}%`,
+                    top: `${top}px`
+                  }}
+                >
+                  <span className="truncate w-full">{task.label}</span>
+                  
+                  {/* Tooltip on Hover */}
+                  <div className="absolute left-0 bottom-full mb-2 hidden group-hover/task:block bg-slate-900 text-white text-xs px-3 py-2 rounded shadow-xl border border-slate-700 whitespace-nowrap z-50">
+                    <div className="font-bold mb-1">{task.label}</div>
+                    <div className="text-[10px] text-slate-400">Week {task.start} - {task.end}</div>
+                    {/* Little arrow */}
+                    <div className="absolute left-4 top-full w-2 h-2 bg-slate-900 border-r border-b border-slate-700 transform rotate-45 -mt-1"></div>
+                  </div>
+                </div>
+              );
+            })
+          ))}
+        </div>
       </div>
-      <div className="w-full ml-48 relative h-full">
-        {weeks.map(w => (
-          <div key={w} className="absolute h-full w-[1px] bg-slate-800/30" style={{ left: `${(w - 1) * (100/26)}%` }}></div>
-        ))}
-        {children}
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="mt-24 pt-16 border-t border-slate-800">
@@ -90,11 +289,13 @@ const GanttChart: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden overflow-x-auto">
+      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden overflow-x-auto relative">
         <div className="min-w-[1000px]">
           {/* Header Months */}
-          <div className="flex border-b border-slate-800 bg-slate-950">
-            <div className="w-48 flex-shrink-0 border-r border-slate-800 p-3 text-xs font-bold text-slate-500">Task Category</div>
+          <div className="flex border-b border-slate-800 bg-slate-950 sticky top-0 z-30">
+            <div className="w-48 flex-shrink-0 border-r border-slate-800 p-3 text-xs font-bold text-slate-500 sticky left-0 bg-slate-950 z-40 shadow-[4px_0_10px_-2px_rgba(0,0,0,0.5)]">
+              Task Category
+            </div>
             <div className="flex-grow flex">
               {months.map(m => (
                 <div key={m} className="flex-1 border-r border-slate-800/50 p-2 text-center text-xs font-bold text-slate-400 bg-slate-900/50">
@@ -104,80 +305,17 @@ const GanttChart: React.FC = () => {
             </div>
           </div>
           
-          {/* Phase 1 */}
-          <div className="bg-slate-900/30">
-            <div className="px-4 py-2 text-[10px] font-bold text-blue-400 bg-blue-900/20 border-b border-blue-900/30">Phase 1: 基盤構築期</div>
-            <TaskRow title="戦略設計">
-              <TaskBar start={1} end={2} color="bg-blue-600" label="現状分析・課題ヒアリング" />
-              <TaskBar start={2} end={4} color="bg-blue-600" label="カスタマージャーニー設計" />
-              <TaskBar start={3} end={4} color="bg-blue-600" label="KPI設計" />
-              <TaskBar start={4} end={5} color="bg-blue-500" label="施策優先順位・ロードマップ" />
-            </TaskRow>
-            <TaskRow title="データ基盤構築">
-              <TaskBar start={1} end={3} color="bg-indigo-600" label="GTM設計・実装" />
-              <TaskBar start={2} end={4} color="bg-indigo-600" label="GA4計測設計" />
-              <TaskBar start={3} end={6} color="bg-indigo-500" label="MAツール初期設定" />
-              <TaskBar start={5} end={8} color="bg-indigo-500" label="モニタリングダッシュボード" />
-            </TaskRow>
-            <TaskRow title="検証">
-              <TaskBar start={4} end={4} color="bg-slate-600" label="月次レビュー①" />
-            </TaskRow>
-          </div>
-
-          {/* Phase 2 */}
-          <div className="bg-slate-900/30">
-            <div className="px-4 py-2 text-[10px] font-bold text-emerald-400 bg-emerald-900/20 border-y border-emerald-900/30">Phase 2: 施策実行・検証期</div>
-            <TaskRow title="リード獲得施策(ブログ)">
-              <TaskBar start={9} end={10} color="bg-emerald-600" label="ポップアップ設計" />
-              <TaskBar start={10} end={11} color="bg-emerald-600" label="実装" />
-              <TaskBar start={11} end={12} color="bg-emerald-600" label="フォーム最適化" />
-              <TaskBar start={12} end={16} color="bg-emerald-500" label="効果測定・改善" />
-            </TaskRow>
-            <TaskRow title="メールマーケティング">
-              <TaskBar start={11} end={13} color="bg-emerald-600" label="テンプレート設計" />
-              <TaskBar start={12} end={14} color="bg-emerald-600" label="ウェルカムシリーズ" />
-              <TaskBar start={13} end={16} color="bg-emerald-500" label="コンテンツ作成" />
-              <TaskBar start={14} end={15} color="bg-emerald-500" label="テスト配信" />
-              <TaskBar start={16} end={20} color="bg-emerald-500" label="製品別企画" />
-            </TaskRow>
-             <TaskRow title="リード獲得施策(メルマガ)">
-              <TaskBar start={14} end={15} color="bg-emerald-600" label="誘導設計" />
-              <TaskBar start={15} end={16} color="bg-emerald-600" label="実装" />
-              <TaskBar start={16} end={20} color="bg-emerald-500" label="改善" />
-            </TaskRow>
-            <TaskRow title="検証">
-              <TaskBar start={8} end={8} color="bg-slate-600" label="レビュー②" />
-              <TaskBar start={12} end={12} color="bg-slate-600" label="レビュー③" />
-              <TaskBar start={16} end={16} color="bg-slate-600" label="レビュー④" />
-            </TaskRow>
-          </div>
-
-          {/* Phase 3 */}
-          <div className="bg-slate-900/30">
-            <div className="px-4 py-2 text-[10px] font-bold text-orange-400 bg-orange-900/20 border-y border-orange-900/30">Phase 3: 最適化・自走化期</div>
-            <TaskRow title="高度な最適化">
-              <TaskBar start={17} end={20} color="bg-orange-600" label="ABテスト" />
-              <TaskBar start={18} end={21} color="bg-orange-600" label="パーソナライズ設定" />
-              <TaskBar start={20} end={23} color="bg-orange-500" label="リードスコアリング" />
-              <TaskBar start={21} end={24} color="bg-orange-500" label="セグメント分析" />
-            </TaskRow>
-            <TaskRow title="営業連携・CRM">
-              <TaskBar start={21} end={23} color="bg-orange-600" label="CRM連携" />
-              <TaskBar start={22} end={24} color="bg-orange-600" label="リード管理フロー" />
-              <TaskBar start={23} end={25} color="bg-orange-500" label="営業引き渡しルール" />
-              <TaskBar start={24} end={26} color="bg-orange-500" label="ROI検証" />
-            </TaskRow>
-             <TaskRow title="自走化支援">
-              <TaskBar start={23} end={25} color="bg-rose-600" label="基盤最終調整" />
-              <TaskBar start={24} end={26} color="bg-rose-600" label="マニュアル整備" />
-              <TaskBar start={24} end={26} color="bg-rose-500" label="ナレッジ移管" />
-              <TaskBar start={25} end={26} color="bg-rose-500" label="引き継ぎ" />
-            </TaskRow>
-             <TaskRow title="検証">
-              <TaskBar start={20} end={20} color="bg-slate-600" label="レビュー⑤" />
-              <TaskBar start={24} end={26} color="bg-slate-500" label="最終レビュー・方針策定" />
-            </TaskRow>
-          </div>
+          {phasesData.map((phase, idx) => (
+            <div key={idx} className="bg-slate-900/30">
+              <div className={`px-4 py-2 text-[10px] font-bold ${phase.textColor} ${phase.color} ${phase.borderColor} border-y sticky left-0 z-10 w-full`}>
+                {phase.name}
+              </div>
+              
+              {phase.rows.map((row, rIdx) => (
+                <RenderRow key={rIdx} rowData={row} />
+              ))}
+            </div>
+          ))}
         </div>
       </div>
 
