@@ -1,9 +1,14 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, Search, BarChart, Layout, Code, RefreshCcw, 
-  CheckCircle2, XCircle, HelpCircle, Plus, Minus, Users, Target, Rocket
+  CheckCircle2, XCircle, HelpCircle, Plus, Minus, Users, Target, Rocket,
+  FileText, ChevronDown, Eye, Info, AlertCircle, TrendingUp, Map,
+  ChevronRight, Smile, Zap, CreditCard, MessageCircle, ShieldCheck,
+  MousePointer2, Smartphone, Type, Image as ImageIcon,
+  ThumbsUp, ThumbsDown, Layers, Bell, Calendar as CalendarIcon, Ticket, ArrowDown,
+  BarChart3
 } from 'lucide-react';
 import { Section, SectionTitle } from './ui/Section';
 
@@ -17,19 +22,101 @@ const ProblemCard: React.FC<{ title: string; desc: string }> = ({ title, desc })
   </div>
 );
 
+const SampleToggle: React.FC<{ 
+  label: string; 
+  title: string;
+  children: React.ReactNode;
+}> = ({ label, title, children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="mt-8">
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center gap-3 px-8 py-4 rounded-full border text-sm font-bold transition-all ${
+          isOpen 
+            ? 'bg-slate-900 text-white border-slate-900 shadow-xl' 
+            : 'bg-white text-rose-600 border-rose-200 hover:bg-rose-50 shadow-sm'
+        }`}
+      >
+        <FileText className={`w-4 h-4 ${isOpen ? 'text-rose-400' : 'text-rose-600'}`} />
+        {label}
+        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="mt-8 p-6 md:p-10 bg-slate-50 border border-slate-200 rounded-[2rem] shadow-inner relative">
+              <div className="flex items-center justify-between mb-8 border-b border-slate-200 pb-6">
+                <div>
+                  <div className="text-[10px] font-bold text-rose-500 tracking-[0.3em] uppercase mb-1">Deliverable Sample</div>
+                  <h4 className="text-xl md:text-2xl font-serif font-bold text-slate-900">{title}</h4>
+                </div>
+                <div className="text-right hidden sm:block">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase">Case Study: Whitening Salon</div>
+                  <div className="text-[10px] text-slate-400">浜松エリア市場分析・戦略レポート</div>
+                </div>
+              </div>
+              
+              <div className="overflow-x-auto pb-6">
+                <div className="min-w-[800px] lg:min-w-0">
+                  {children}
+                </div>
+              </div>
+
+              {/* Mobile Swipe Hint */}
+              <div className="md:hidden flex items-center justify-center gap-2 mt-4 text-slate-400 animate-pulse">
+                <ChevronRight className="w-4 h-4" />
+                <span className="text-[10px] font-bold uppercase tracking-widest">Swipe to view more</span>
+                <ChevronRight className="w-4 h-4" />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const WireframeSection: React.FC<{ 
+  label: string; 
+  children: React.ReactNode; 
+  className?: string;
+  note?: string;
+}> = ({ label, children, className = "", note }) => (
+  <div className={`relative border-2 border-dashed border-slate-200 rounded-xl p-6 mb-4 bg-white/50 group hover:border-rose-300 transition-colors ${className}`}>
+    <div className="absolute -top-3 left-4 bg-slate-900 text-white text-[9px] font-bold px-2 py-0.5 rounded tracking-widest uppercase z-10">
+      {label}
+    </div>
+    {children}
+    {note && (
+      <div className="mt-4 pt-4 border-t border-slate-100 flex gap-2">
+        <Info className="w-3 h-3 text-rose-500 shrink-0 mt-0.5" />
+        <p className="text-[10px] text-slate-500 leading-tight italic">{note}</p>
+      </div>
+    )}
+  </div>
+);
+
 const ProcessStep: React.FC<{ 
   num: string; 
   title: string; 
   items: string[]; 
   output: string[]; 
-  isLast?: boolean 
-}> = ({ num, title, items, output, isLast }) => (
+  isLast?: boolean;
+  sampleToggle?: React.ReactNode;
+}> = ({ num, title, items, output, isLast, sampleToggle }) => (
   <div className="relative pl-12 pb-16">
     {!isLast && <div className="absolute left-5 top-10 bottom-0 w-[1px] bg-slate-200"></div>}
     <div className="absolute left-0 top-0 w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm shadow-lg z-10">
       {num}
     </div>
-    <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm">
+    <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm transition-all hover:border-slate-200">
       <h3 className="text-xl md:text-2xl font-serif text-slate-900 mb-6">{title}</h3>
       <div className="grid md:grid-cols-2 gap-8">
         <div>
@@ -55,6 +142,8 @@ const ProcessStep: React.FC<{
           </ul>
         </div>
       </div>
+      
+      {sampleToggle}
     </div>
   </div>
 );
@@ -79,7 +168,10 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
 
 export const LPProduction: React.FC = () => {
   const scrollToContact = () => {
-    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById('booking');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -158,20 +250,20 @@ export const LPProduction: React.FC = () => {
             title="広告費を使い捨てている" 
             desc="LPがボトルネックになり、高い広告費が無駄に。CPA高騰の真因はLPの構成にあるケースがほとんどです。" 
           />
-          <div className="p-8 bg-slate-900 rounded-2xl flex flex-col justify-center items-center text-center">
+          <div className="p-8 bg-slate-900 rounded-2xl flex flex-col justify-center items-center text-center text-white">
              <HelpCircle className="w-12 h-12 text-rose-500 mb-6" />
-             <p className="text-white font-serif text-lg">その不安、<br/>解決できます。</p>
+             <p className="font-serif text-lg">その不安、<br/>解決できます。</p>
           </div>
         </div>
       </Section>
 
       {/* Approach Section */}
       <Section background="white">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-20 items-center text-slate-900">
           <div>
             <SectionTitle title="デザインは手段。ユーザー理解が目的。" subtitle="PHILOSOPHY" light />
             <div className="space-y-6 text-slate-600 leading-relaxed text-lg font-light">
-              <p>私たちのLP制作は、いきなりデザインを作りません。まず、徹底的な<strong className="text-slate-900">市場調査</strong>から始めます。</p>
+              <p>私たちのLP制作は、いきなりデザインを作りません. まず、徹底的な<strong className="text-slate-900 font-bold">市場調査</strong>から始めます。</p>
               <ul className="space-y-4 text-sm font-bold">
                 <li className="flex items-center gap-3 text-slate-800">
                   <div className="w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center text-[10px]"><Search className="w-3 h-3"/></div>
@@ -186,13 +278,12 @@ export const LPProduction: React.FC = () => {
                   競合はどんな訴求をしていて、何が足りていないか
                 </li>
               </ul>
-              <p>これらを分析し、競合が見落としている"穴"を特定。デザインは、その構成を最も効果的に伝えるための手段です。</p>
+              <p>これらを分析し、競合が見落としている"穴"を特定. デザインは、その構成を最も効果的に伝えるための手段です。</p>
             </div>
           </div>
           <div className="relative">
              <div className="aspect-square bg-slate-50 rounded-full border border-slate-100 flex items-center justify-center p-12">
                 <div className="w-full h-full relative">
-                   {/* Abstract Diagram */}
                    <div className="absolute inset-0 flex items-center justify-center">
                       <div className="w-40 h-40 bg-white rounded-full shadow-2xl flex items-center justify-center z-30 border border-slate-100">
                          <div className="text-center">
@@ -218,27 +309,237 @@ export const LPProduction: React.FC = () => {
 
       {/* Process Section */}
       <Section background="light" id="process">
-        <SectionTitle title="5つのステップで、成果の出るLPを作る" subtitle="PROCESS" center light />
-        <div className="max-w-4xl mx-auto mt-20">
+        <SectionTitle title="6つのステップで、成果を最大化する" subtitle="PROCESS" center light />
+        <div className="max-w-4xl mx-auto mt-20 text-slate-900">
           <ProcessStep 
             num="01" 
-            title="市場調査" 
+            title="市場調査・SERP分析" 
             items={[
-              "ターゲットユーザーの声を収集（SNS、レビューサイト等）",
-              "ユーザーの顕在ニーズと潜在ニーズを分析",
-              "購買/申込の意思決定に影響する要素を特定"
+              "「ホワイトニング 浜松」等の検索意図の深掘り",
+              "ネガティブ検索キーワードからユーザーの不安を特定",
+              "痛み・費用・効果に関する実態データの収集"
             ]} 
-            output={["市場調査レポート", "ユーザーインサイトマップ", "訴求軸の仮説リスト"]} 
+            output={["市場調査レポート", "ユーザー心理構造マップ", "訴求軸の仮説定義"]} 
+            sampleToggle={
+              <SampleToggle label="市場分析・心理深掘りレポート案を見る" title="浜松エリア市場分析・ユーザー心理構造レポート">
+                <div className="space-y-10 text-slate-900">
+                  {/* Executive Summary */}
+                  <div>
+                    <h5 className="flex items-center gap-2 text-rose-600 font-bold mb-4">
+                      <Zap className="w-4 h-4" />
+                      エグゼクティブサマリー
+                    </h5>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="bg-white p-6 rounded-2xl border border-slate-200">
+                        <div className="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">市場構造</div>
+                        <p className="text-sm font-bold text-slate-800 leading-relaxed">
+                          歯科医院（高価格・高効果）とセルフサロン（低価格・限定効果）の二極化。<br/>
+                          <span className="text-rose-600">「医療品質 × サロン体験」という中間ポジションが空白。</span>
+                        </p>
+                      </div>
+                      <div className="bg-white p-6 rounded-2xl border border-slate-200">
+                        <div className="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">推奨戦略</div>
+                        <p className="text-sm font-bold text-slate-800 leading-relaxed">
+                          「歯科医院提携」「痛みゼロ」「2種ジェル」を3大訴求軸とし、検討段階ユーザーの不安解消に集中。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Analysis Detail */}
+                  <div className="bg-white p-6 md:p-10 rounded-[2rem] border border-slate-200 shadow-sm">
+                    <h5 className="text-lg font-serif font-bold text-slate-900 mb-6 border-l-4 border-rose-500 pl-4">「セルフホワイトニング 効果ない」検索の分析結果</h5>
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div>
+                        <h6 className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">主要な懸念と対応策</h6>
+                        <div className="space-y-4">
+                          {[
+                            { label: "効果への疑問", desc: "「本来の白さ以上にならない」への懸念", action: "2種ジェルで差別化、歯科提携で信頼性担保" },
+                            { label: "痛み・安全性", voice: "「知覚過敏が怖い」という心理", action: "過酸化水素不使用による「痛みゼロ」の医学的説明" },
+                            { cat: "コスト", voice: "「何回も通うと結局高い」という疑念", action: "通い放題プランで上限提示、初回¥3,150で障壁緩和" },
+                          ].map((item, i) => (
+                            <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                               <div className="text-[10px] font-bold text-rose-500 mb-1">{item.label}</div>
+                               <div className="text-xs text-slate-800 font-bold mb-2">{item.desc || item.voice}</div>
+                               <div className="text-[10px] text-slate-500 leading-relaxed">→ {item.action}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="bg-slate-900 text-white p-8 rounded-2xl flex flex-col justify-between">
+                         <div>
+                            <div className="text-xs font-bold text-rose-400 mb-4 tracking-widest uppercase">Key Insights</div>
+                            <p className="text-lg font-serif italic mb-6">"歯科のホワイトニングは効果あるけど痛い. セルフは安いけど不安。"</p>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                               ユーザーはこのジレンマの中にいます. 当サロンの役割は「痛くないのに、歯科品質で安心」という解を示すことです。
+                            </p>
+                         </div>
+                         <div className="mt-8 flex items-center gap-4 border-t border-slate-800 pt-6">
+                            <div className="text-center">
+                               <div className="text-xl font-bold text-rose-500">20%</div>
+                               <div className="text-[9px] uppercase">知覚過敏経験率</div>
+                            </div>
+                            <div className="w-px h-8 bg-slate-800"></div>
+                            <div className="text-xs text-slate-500">歯科通院を躊躇する<br/>最大の心理障壁</div>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </SampleToggle>
+            }
           />
           <ProcessStep 
             num="02" 
-            title="競合LP分析" 
+            title="競合LP分析 & カスタマージャーニー" 
             items={[
-              "競合のLP構成を詳細分析（セクション、訴求順序）",
-              "競合が「言っていること」と「言っていないこと」の整理",
-              "差別化ポイントの特定"
+              "浜松エリア主要競合（歯科・セルフ）の訴求軸比較",
+              "競合が「言っていないこと」から独自の勝ち筋を特定",
+              "認知から継続までの5段階にわたる顧客体験設計"
             ]} 
-            output={["競合分析レポート", "差別化ポイント定義書"]} 
+            output={["競合分析レポート", "カスタマージャーニーマップ", "ポジショニング戦略"]} 
+            sampleToggle={
+              <SampleToggle label="カスタマージャーニーマップ・競合分析を見る" title="カスタマージャーニーマップ & ポジショニング戦略">
+                <div className="space-y-12 text-slate-900">
+                  {/* Competitor Table */}
+                  <div>
+                    <h5 className="flex items-center gap-2 text-rose-600 font-bold mb-4">
+                      <BarChart className="w-4 h-4" />
+                      浜松エリア競合サービス比較（主要5社）
+                    </h5>
+                    <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                      <table className="w-full text-left text-xs">
+                        <thead className="bg-slate-900 text-white">
+                          <tr>
+                            <th className="p-4">サービス名</th>
+                            <th className="p-4">価格帯</th>
+                            <th className="p-4">主な訴求軸</th>
+                            <th className="p-4 bg-rose-600">事例サロンの優位性</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {[
+                            { name: "ホワイトエッセンス", price: "¥19,900〜", appeal: "医療品質、実績173万件", diff: "価格の安さ、予約の簡便さ" },
+                            { name: "浜松デンタル", price: "¥33,000〜", appeal: "歯科医師施術、透明性", diff: "「痛みなし」の快適性、手軽さ" },
+                            { name: "HAKU (セルフ)", price: "¥2,000〜", appeal: "歯科監修、とにかく低価格", diff: "歯科提携による安心感、ジェルの品質" },
+                            { name: "BIANCA (セルフ)", price: "¥4,980", appeal: "歯科提携、通いやすさ", diff: "「2種ジェル」による効果の差別化" },
+                          ].map((item, i) => (
+                            <tr key={i} className="hover:bg-slate-50">
+                              <td className="p-4 font-bold text-slate-800">{item.name}</td>
+                              <td className="p-4 text-slate-500 font-serif">{item.price}</td>
+                              <td className="p-4 text-slate-500 leading-tight">{item.appeal}</td>
+                              <td className="p-4 text-rose-700 font-bold bg-rose-50/20">✓ {item.diff}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Real Customer Journey Map */}
+                  <div>
+                    <h5 className="flex items-center gap-2 text-rose-600 font-bold mb-4">
+                      <Map className="w-4 h-4" />
+                      カスタマージャーニーマップ
+                    </h5>
+                    <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
+                      <table className="w-full text-left text-[11px] min-w-[1000px]">
+                        <thead className="bg-slate-100 border-b border-slate-200">
+                          <tr className="text-slate-700">
+                            <th className="p-4 w-32 bg-slate-200 font-bold">項目</th>
+                            <th className="p-4">【1】認知</th>
+                            <th className="p-4">【2】検討</th>
+                            <th className="p-4 bg-rose-50 text-rose-700 font-bold">【3】決断</th>
+                            <th className="p-4">【4】利用</th>
+                            <th className="p-4">【5】継続</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          <tr>
+                            <td className="p-4 font-bold bg-slate-50 text-slate-700">ユーザー心理</td>
+                            <td className="p-4 text-slate-500 italic">"最近、歯の黄ばみが気になるな..."</td>
+                            <td className="p-4 text-slate-500 italic">"浜松で安くて痛くない店はある？"</td>
+                            <td className="p-4 text-rose-600 italic font-medium bg-rose-50/10">"ここなら安心そう. まず試そう"</td>
+                            <td className="p-4 text-slate-500 italic">"思ったより簡単で痛くない！"</td>
+                            <td className="p-4 text-slate-500 italic">"白さを定着させたい"</td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 font-bold bg-slate-50 text-slate-700">主な行動</td>
+                            <td className="p-4 text-slate-600">SNS投稿閲覧、悩み検索</td>
+                            <td className="p-4 text-slate-600 font-bold">比較サイト、HotPepper閲覧</td>
+                            <td className="p-4 text-slate-600 bg-rose-50/10">公式HP閲覧、LINE登録</td>
+                            <td className="p-4 text-slate-600">来店、施術、ビフォーアフター確認</td>
+                            <td className="p-4 text-slate-600">口コミ投稿、次回予約</td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 font-bold bg-slate-50 text-slate-700">タッチポイント</td>
+                            <td className="p-4 text-slate-500">Instagram, Google検索</td>
+                            <td className="p-4 text-slate-500">Googleマップ, 比較記事</td>
+                            <td className="p-4 text-slate-500 bg-rose-50/10">ランディングページ, LINE</td>
+                            <td className="p-4 text-slate-500">店舗空間, 接客</td>
+                            <td className="p-4 text-slate-500">LINE公式リマインド</td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 font-bold bg-slate-50 text-slate-700">LP戦略・施策</td>
+                            <td className="p-4 text-slate-800">ベネフィットの提示</td>
+                            <td className="p-4 text-slate-800 font-bold">「歯科提携×痛みなし」で差別化</td>
+                            <td className="p-4 text-rose-700 bg-rose-50/10 font-bold">初回¥3,150の低リスク訴求</td>
+                            <td className="p-4 text-slate-800">効果の可視化、体験の言語化</td>
+                            <td className="p-4 text-slate-800">定額プランの案内</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Positioning Strategy */}
+                  <div className="grid md:grid-cols-2 gap-8 items-center pt-8 border-t border-slate-200">
+                    <div>
+                      <h5 className="text-sm font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <Target className="w-4 h-4 text-rose-500" />
+                        事例サロンの最適ポジショニング
+                      </h5>
+                      <div className="relative aspect-video bg-white rounded-3xl border border-slate-200 p-8 flex items-center justify-center overflow-hidden">
+                         <div className="absolute inset-0 flex items-center justify-center opacity-5">
+                            <div className="w-[1px] h-full bg-slate-900"></div>
+                            <div className="h-[1px] w-full bg-slate-900"></div>
+                         </div>
+                         <div className="absolute top-4 text-[10px] font-bold text-slate-400">高価格(歯科)</div>
+                         <div className="absolute bottom-4 text-[10px] font-bold text-slate-400">低価格(セルフ)</div>
+                         <div className="absolute right-4 text-[10px] font-bold text-slate-400">高信頼</div>
+                         <div className="absolute left-4 text-[10px] font-bold text-slate-400">低信頼</div>
+                         
+                         <div className="w-28 h-28 bg-rose-600 rounded-full flex flex-col items-center justify-center text-white text-center shadow-xl shadow-rose-200 translate-x-12 -translate-y-8 z-10">
+                            <span className="text-xs font-bold mb-1">事例サロン</span>
+                            <span className="text-[8px] leading-tight">医療品質 × サロン体験<br/>(競合のいない領域)</span>
+                         </div>
+                         <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 text-[8px] -translate-x-12 -translate-y-12">他社サロン</div>
+                         <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 text-[8px] translate-x-12 translate-y-12">歯科医院</div>
+                      </div>
+                    </div>
+                    <div className="bg-slate-900 text-white p-8 rounded-3xl">
+                       <h5 className="text-xs font-bold text-rose-400 mb-4 tracking-widest uppercase">Strategy Conclusion</h5>
+                       <p className="text-sm font-bold leading-relaxed mb-6">
+                          「安かろう悪かろう」でも「高すぎて痛い」でもない、<br/>
+                          <span className="text-rose-400">第3の選択肢</span>として当サロンを定義。
+                       </p>
+                       <ul className="space-y-3">
+                          {[
+                            "歯科医院提携による信頼性でセルフの不安を解消",
+                            "「痛みゼロ」を歯科検討層への強力なフックに",
+                            "「2種ジェル」を技術的優位性の根拠として提示"
+                          ].map((text, i) => (
+                            <li key={i} className="flex gap-3 text-xs text-slate-300">
+                               <CheckCircle2 className="w-4 h-4 text-rose-500 shrink-0" />
+                               {text}
+                            </li>
+                          ))}
+                       </ul>
+                    </div>
+                  </div>
+                </div>
+              </SampleToggle>
+            }
           />
           <ProcessStep 
             num="03" 
@@ -249,6 +550,125 @@ export const LPProduction: React.FC = () => {
               "コンバージョンを最大化するコピーの方向性確定"
             ]} 
             output={["ワイヤーフレーム構成案", "セクション別コピー案"]} 
+            sampleToggle={
+              <SampleToggle label="ワイヤーフレーム設計イメージを見る" title="ホワイトニングサロン LP構成案：ユーザー心理に基づいたワイヤー設計">
+                <div className="space-y-10 text-slate-900">
+                  {/* Overview */}
+                  <div className="flex flex-col md:flex-row gap-8 items-start">
+                    <div className="w-full md:w-1/3 bg-white p-6 rounded-2xl border border-slate-200">
+                       <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">設計コンセプト</h5>
+                       <div className="space-y-4">
+                          <div className="flex gap-3">
+                             <div className="w-5 h-5 bg-rose-50 text-rose-500 rounded flex items-center justify-center shrink-0">1</div>
+                             <div className="text-xs font-bold">FVで「3大訴求」を瞬時に認知</div>
+                          </div>
+                          <div className="flex gap-3">
+                             <div className="w-5 h-5 bg-rose-50 text-rose-500 rounded flex items-center justify-center shrink-0">2</div>
+                             <div className="text-xs font-bold">不安（痛み・効果）を先回りして解消</div>
+                          </div>
+                          <div className="flex gap-3">
+                             <div className="w-5 h-5 bg-rose-50 text-rose-500 rounded flex items-center justify-center shrink-0">3</div>
+                             <div className="text-xs font-bold">低価格お試しによる「決断」の促進</div>
+                          </div>
+                       </div>
+                    </div>
+                    <div className="flex-grow bg-slate-900 text-white p-6 rounded-2xl shadow-xl">
+                       <h5 className="text-[10px] font-bold text-rose-400 uppercase tracking-widest mb-4">主要コピー案</h5>
+                       <div className="space-y-4">
+                          <div>
+                             <div className="text-[9px] text-slate-500 uppercase mb-1">Main Catch</div>
+                             <p className="text-lg font-serif">歯科医院提携だから安心。<br/>痛みゼロで、憧れの白い歯へ。</p>
+                          </div>
+                          <div>
+                             <div className="text-[9px] text-slate-500 uppercase mb-1">Sub Copy</div>
+                             <p className="text-xs text-slate-300">浜松駅徒歩5分 / 初回¥3,150 / 2種類のジェルで効果を実感</p>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+
+                  {/* Wireframe Visual */}
+                  <div className="bg-slate-200 p-2 md:p-8 rounded-[2.5rem] shadow-inner">
+                    <div className="max-w-[400px] mx-auto bg-slate-50 border-[6px] border-slate-900 rounded-[3rem] overflow-hidden shadow-2xl relative">
+                       {/* Phone Notch/Status Bar */}
+                       <div className="h-6 bg-slate-900 flex items-center justify-center">
+                          <div className="w-20 h-4 bg-slate-900 rounded-full"></div>
+                       </div>
+
+                       <div className="h-[600px] overflow-y-auto scrollbar-hide bg-white">
+                          {/* 1. First View */}
+                          <WireframeSection label="Section 01: FV" note="歯科提携の権威性と、痛みゼロの安心感を即座に訴求. LINE予約への導線を最優先。">
+                             <div className="text-center py-8">
+                                <div className="w-12 h-4 bg-slate-200 mx-auto mb-4 rounded-full"></div>
+                                <h6 className="text-sm font-bold mb-2">歯科医院提携だから安心。<br/>痛みゼロで白い歯へ。</h6>
+                                <p className="text-[8px] text-slate-400 mb-6">浜松駅徒歩5分 / 初回¥3,150 / 2種ジェル</p>
+                                <div className="w-full h-32 bg-slate-100 rounded-lg flex items-center justify-center mb-6">
+                                   <ImageIcon className="w-8 h-8 text-slate-300" />
+                                </div>
+                                <div className="w-3/4 h-8 bg-emerald-500 rounded-full mx-auto flex items-center justify-center text-white text-[10px] font-bold">LINEで今すぐ予約</div>
+                             </div>
+                          </WireframeSection>
+
+                          {/* 2. Problem Recognition */}
+                          <WireframeSection label="Section 02: Problem" note="市場調査で特定した『痛み』『費用』『効果』の3大不安を可視化。">
+                             <div className="py-6">
+                                <h6 className="text-[10px] font-bold text-center mb-6">こんなお悩み、ありませんか？</h6>
+                                <div className="grid grid-cols-3 gap-2">
+                                   {[
+                                      { icon: <Zap className="w-3 h-3"/>, t: "痛いのが怖い" },
+                                      { icon: <CreditCard className="w-3 h-3"/>, t: "高そう..." },
+                                      { icon: <HelpCircle className="w-3 h-3"/>, t: "効果あるの？" },
+                                   ].map((it, i) => (
+                                      <div key={i} className="bg-white p-2 rounded-lg shadow-sm border border-slate-100 flex flex-col items-center">
+                                         <div className="text-slate-300 mb-1">{it.icon}</div>
+                                         <div className="text-[7px] text-center font-bold">{it.t}</div>
+                                      </div>
+                                   ))}
+                                </div>
+                             </div>
+                          </WireframeSection>
+
+                          {/* 3. Three Pillars */}
+                          <WireframeSection label="Section 03: Solution" note="『なぜ当サロンが選ばれるのか』を3つの論理的根拠で説明。">
+                             <div className="py-6 space-y-4">
+                                <h6 className="text-[10px] font-bold text-center mb-4">当サロンが選ばれる3つの理由</h6>
+                                {[
+                                   "歯科医院提携の信頼性",
+                                   "過酸化水素不使用の痛みゼロ",
+                                   "独自配合2種ジェルの浸透力"
+                                ].map((t, i) => (
+                                   <div key={i} className="flex gap-3 items-center p-3 bg-rose-50 rounded-xl">
+                                      <div className="w-6 h-6 bg-rose-500 rounded-full flex items-center justify-center text-white text-[8px] font-bold">{i+1}</div>
+                                      <div className="text-[9px] font-bold">{t}</div>
+                                   </div>
+                                ))}
+                             </div>
+                          </WireframeSection>
+
+                          {/* 4. Pricing */}
+                          <WireframeSection label="Section 04: Pricing" note="『まずは試せる』という敷居の低さを演出し、決断の心理障壁を最小化。">
+                             <div className="py-8 bg-slate-900 text-white rounded-xl text-center">
+                                <div className="text-[8px] text-rose-400 font-bold mb-1">初回限定特別価格</div>
+                                <div className="text-2xl font-serif">¥3,150<span className="text-[10px] font-sans opacity-60 ml-1">(税込)</span></div>
+                                <div className="w-2/3 h-px bg-slate-800 mx-auto my-4"></div>
+                                <div className="text-[8px] text-slate-400">追加料金・強引な勧誘は一切ありません</div>
+                             </div>
+                          </WireframeSection>
+
+                          {/* Footer CTA */}
+                          <div className="p-8 text-center bg-slate-50">
+                             <div className="w-10 h-10 bg-slate-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                <Smartphone className="w-5 h-5 text-slate-400" />
+                             </div>
+                             <p className="text-[10px] font-bold mb-4">24時間LINE予約受付中</p>
+                             <div className="w-full h-10 bg-emerald-500 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-lg">予約・お問い合わせ</div>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </SampleToggle>
+            }
           />
           <ProcessStep 
             num="04" 
@@ -262,14 +682,129 @@ export const LPProduction: React.FC = () => {
           />
           <ProcessStep 
             num="05" 
-            title="実装・公開・改善" 
+            title="実装・公開・継続改善" 
             items={[
               "高速表示に最適化したコーディング",
               "計測タグ・フォームの完全設定",
-              "公開後のデータモニタリングと改善案作成"
+              "公開後のデータモニタリングとA/Bテスト実行"
             ]} 
-            output={["本番LP", "計測環境設定", "改善レポート（オプション）"]} 
+            output={["本番LP", "計測環境設定", "月次改善レポート"]} 
+          />
+          <ProcessStep 
+            num="06" 
+            title="リードナーチャリング設計・運用" 
+            items={[
+              "LINE公式アカウントを活用したステップ配信設計",
+              "カレンダー予約機能の追加・導線最適化",
+              "顧客の検討状況に合わせたクーポン・情報配信",
+              "中長期的な顧客接点の創出と再来店促進"
+            ]} 
+            output={["LINEシナリオ設計図", "自動配信メッセージ文案", "予約システム連携設定"]} 
             isLast
+            sampleToggle={
+              <SampleToggle label="ナーチャリング施策・実績値を見る" title="リードナーチャリング：Lステップ活用フローと成果実例">
+                <div className="space-y-12 text-slate-900">
+                  {/* Campaign Results Card */}
+                  <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm overflow-hidden relative">
+                    <div className="absolute top-0 right-0 p-4 opacity-5">
+                       <BarChart3 className="w-32 h-32 text-slate-900" />
+                    </div>
+                    <h5 className="flex items-center gap-2 text-rose-600 font-bold mb-6">
+                      <TrendingUp className="w-4 h-4" />
+                      Lステップ キャンペーン配信実績
+                    </h5>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                      <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <div className="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">総配信数</div>
+                        <div className="text-3xl font-serif font-bold text-slate-900">4,908<span className="text-sm font-sans font-normal ml-1">人</span></div>
+                        <p className="text-[10px] text-slate-500 mt-2">Lステップによる一斉配信対象</p>
+                      </div>
+                      <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <div className="text-[10px] font-bold text-rose-500 mb-2 uppercase tracking-widest">開封数（開封率）</div>
+                        <div className="text-3xl font-serif font-bold text-slate-900">1,208<span className="text-sm font-sans font-normal ml-1">(24.6%)</span></div>
+                        <p className="text-[10px] text-slate-500 mt-2">ターゲットを絞った訴求による高反応</p>
+                      </div>
+                      <div className="p-6 bg-slate-900 text-white rounded-2xl border border-slate-800 shadow-xl">
+                        <div className="text-[10px] font-bold text-rose-400 mb-2 uppercase tracking-widest">申込数（CV）</div>
+                        <div className="text-3xl font-serif font-bold text-white">27<span className="text-sm font-sans font-normal ml-1">件</span></div>
+                        <p className="text-[10px] text-slate-400 mt-2">開封者の約2.2%が即時アクション</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="max-w-3xl mx-auto">
+                    <h5 className="text-center text-sm font-bold text-slate-400 mb-10 uppercase tracking-widest">Customer Nurturing Flow</h5>
+                    
+                    <div className="relative flex flex-col items-center gap-6">
+                      {/* Step 1: Entry */}
+                      <div className="w-full max-w-sm bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative z-10 flex items-center gap-4">
+                        <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center shrink-0">
+                          <MessageCircle className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-bold text-slate-400 mb-1">STEP 01: 接点構築</div>
+                          <div className="text-sm font-bold">LINE友達登録 (LP内誘導)</div>
+                          <p className="text-[10px] text-slate-500 mt-1">「初回限定クーポン」をフックに即時登録</p>
+                        </div>
+                      </div>
+
+                      <ArrowDown className="w-5 h-5 text-slate-300 animate-bounce" />
+
+                      {/* Step 2: Automation */}
+                      <div className="w-full max-w-sm bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 shadow-xl relative z-10">
+                        <div className="text-[10px] font-bold text-rose-400 mb-4 uppercase tracking-widest">STEP 02: 自動ステップ配信</div>
+                        <div className="space-y-3">
+                          {[
+                            { day: "即時", text: "ウェルカム特典 & 予約手順の案内", icon: <Bell className="w-3 h-3"/> },
+                            { day: "2日後", text: "「なぜ痛くないのか」医学的根拠の解説", icon: <Info className="w-3 h-3"/> },
+                            { day: "5日後", text: "実際の利用者の声とビフォーアフター", icon: <Smile className="w-3 h-3"/> },
+                          ].map((step, i) => (
+                            <div key={i} className="flex items-center gap-3 bg-slate-800/50 p-2 rounded-lg border border-slate-700/50">
+                              <span className="text-[9px] font-bold text-rose-400 w-8">{step.day}</span>
+                              <span className="text-[11px] flex-grow">{step.text}</span>
+                              <div className="text-slate-500">{step.icon}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <ArrowDown className="w-5 h-5 text-slate-300" />
+
+                      {/* Step 3: Action */}
+                      <div className="w-full max-w-sm bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative z-10 flex items-center gap-4">
+                        <div className="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center shrink-0">
+                          <CalendarIcon className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-bold text-slate-400 mb-1">STEP 03: 行動喚起</div>
+                          <div className="text-sm font-bold">カレンダー予約 & クーポン利用</div>
+                          <p className="text-[10px] text-slate-500 mt-1">LINE上で空き状況を確認し、その場で予約完了</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-12 p-8 bg-slate-900 rounded-3xl border border-slate-800 text-white">
+                       <h6 className="text-xs font-bold text-rose-400 mb-4 flex items-center gap-2">
+                         <Rocket className="w-4 h-4" />
+                         ナーチャリングによる成果の違い
+                       </h6>
+                       <div className="grid grid-cols-2 gap-8 text-center">
+                          <div className="p-4 bg-slate-800/30 rounded-xl border border-slate-700">
+                             <div className="text-[9px] text-slate-500 mb-2">未実施 (通常のLP)</div>
+                             <div className="text-xl font-serif text-slate-400">離脱 = 終了</div>
+                             <p className="text-[8px] mt-2 text-slate-500">その場で予約しない80%を逃す</p>
+                          </div>
+                          <div className="p-4 bg-rose-900/20 rounded-xl border border-rose-900/30">
+                             <div className="text-[9px] text-rose-400 mb-2">本施策実施</div>
+                             <div className="text-xl font-serif text-white">持続的接点</div>
+                             <p className="text-[8px] mt-2 text-rose-200">離脱ユーザーも後日予約へ転換</p>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </SampleToggle>
+            }
           />
         </div>
       </Section>
@@ -277,7 +812,7 @@ export const LPProduction: React.FC = () => {
       {/* Why Us Section */}
       <Section background="white">
         <SectionTitle title="選ばれる3つの理由" subtitle="WHY US" center light />
-        <div className="grid md:grid-cols-3 gap-12 mt-16">
+        <div className="grid md:grid-cols-3 gap-12 mt-16 text-slate-900">
           <div className="text-center">
              <div className="w-20 h-20 bg-rose-50 rounded-3xl flex items-center justify-center text-rose-500 mx-auto mb-8 shadow-inner">
                 <BarChart className="w-10 h-10" />
@@ -297,7 +832,7 @@ export const LPProduction: React.FC = () => {
                 <RefreshCcw className="w-10 h-10" />
              </div>
              <h4 className="text-xl font-bold text-slate-900 mb-4">作って終わりではない継続改善</h4>
-             <p className="text-slate-500 text-sm leading-relaxed">公開は通過点。定期的なデータ分析とA/Bテストで、常に市場の期待に合わせた最適な状態を維持します。</p>
+             <p className="text-slate-500 text-sm leading-relaxed">公開は通過点. 定期的なデータ分析とA/Bテストで、常に市場の期待に合わせた最適な状態を維持します。</p>
           </div>
         </div>
       </Section>
@@ -305,7 +840,7 @@ export const LPProduction: React.FC = () => {
       {/* Pricing Section */}
       <Section background="light" id="pricing">
         <SectionTitle title="料金プラン" subtitle="PRICING" center light />
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16">
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16 text-slate-900">
            <div className="bg-white p-10 rounded-3xl border border-slate-200 shadow-sm flex flex-col h-full">
               <div className="mb-8">
                 <h4 className="text-slate-400 font-bold text-xs uppercase tracking-widest mb-2">Standard Plan</h4>
@@ -330,7 +865,7 @@ export const LPProduction: React.FC = () => {
               <button onClick={scrollToContact} className="w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-rose-600 transition-colors shadow-lg">相談・お見積り</button>
            </div>
 
-           <div className="bg-slate-900 p-10 rounded-3xl border border-slate-800 shadow-2xl flex flex-col h-full relative overflow-hidden">
+           <div className="bg-slate-900 p-10 rounded-3xl border border-slate-800 shadow-2xl flex flex-col h-full relative overflow-hidden text-white">
               <div className="absolute top-0 right-0 p-6 opacity-10">
                  <Rocket className="w-20 h-20 text-rose-500" />
               </div>
@@ -357,13 +892,116 @@ export const LPProduction: React.FC = () => {
            </div>
         </div>
         <div className="mt-12 text-center text-slate-400 text-sm">
-           <p>※ ページボリューム、機能要件により変動します。詳細はヒアリング後にお見積りいたします。</p>
+           <p>※ ページボリューム、機能要件により変動します. 詳細はヒアリング後にお見積りいたします.</p>
+        </div>
+      </Section>
+
+      {/* Target Positioning Analysis Section */}
+      <Section background="white">
+        <SectionTitle title="ポジショニングとターゲット適合性" subtitle="TARGET SUITABILITY" center light />
+        
+        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto mt-16">
+          {/* Positioning Map Visual */}
+          <div className="relative">
+            <h4 className="text-center text-sm font-bold text-slate-400 uppercase tracking-widest mb-10">LPサービス比較マップ</h4>
+            <div className="aspect-square bg-slate-50 rounded-[3rem] border border-slate-200 p-8 md:p-12 relative shadow-inner">
+               {/* Axes */}
+               <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                  <div className="w-[2px] h-full bg-slate-900 relative">
+                     <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 border-l-2 border-t-2 border-slate-900 rotate-45"></div>
+                  </div>
+                  <div className="h-[2px] w-full bg-slate-900 relative">
+                     <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-3 h-3 border-r-2 border-t-2 border-slate-900 rotate-45"></div>
+                  </div>
+               </div>
+
+               {/* Axis Labels */}
+               <div className="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-500 text-center leading-tight">事業基盤の構築<br/>(Foundational Growth)</div>
+               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-500 text-center leading-tight">短期的な獲得のみ<br/>(Direct Lead Gen)</div>
+               <div className="absolute right-4 top-1/2 -translate-y-1/2 rotate-90 text-[10px] font-bold text-slate-500 text-center leading-tight">深い市場分析<br/>(Deep Analysis)</div>
+               <div className="absolute left-4 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-bold text-slate-500 text-center leading-tight">簡易制作<br/>(Quick Build)</div>
+
+               {/* Our Position */}
+               <motion.div 
+                 initial={{ opacity: 0, scale: 0.8 }}
+                 whileInView={{ opacity: 1, scale: 1 }}
+                 className="absolute top-[15%] right-[15%] w-32 md:w-40 h-32 md:h-40 bg-rose-600 rounded-full flex flex-col items-center justify-center text-white text-center shadow-2xl shadow-rose-200 z-10"
+               >
+                  <Rocket className="w-5 h-5 mb-2" />
+                  <div className="text-xs md:text-sm font-serif font-bold leading-tight">AsetZ<br/>LP伴走支援</div>
+               </motion.div>
+
+               {/* Competitor Position */}
+               <div className="absolute bottom-[20%] left-[20%] w-24 md:w-28 h-24 md:h-28 bg-white border-2 border-slate-200 rounded-full flex flex-col items-center justify-center text-slate-400 text-center shadow-lg">
+                  <div className="text-[10px] font-bold leading-tight">低価格<br/>LP制作</div>
+               </div>
+            </div>
+          </div>
+
+          {/* Analysis Text Content */}
+          <div className="space-y-10">
+            <div className="p-8 bg-slate-50 rounded-3xl border border-slate-100">
+               <div className="flex items-center gap-3 text-emerald-600 font-bold mb-4">
+                  <ThumbsUp className="w-5 h-5" />
+                  <span>本サービスが向いている方</span>
+               </div>
+               <p className="text-sm text-slate-600 leading-relaxed mb-6">
+                  単なるページ制作ではなく、<strong>「なぜ売れるのか」の言語化</strong>から始めたい企業様に最適です。分析結果はLP以外（サービスサイト、営業資料、新規事業の種など）にも転用可能な、強固な事業基盤となります。
+               </p>
+               <ul className="space-y-3">
+                  {[
+                    "顧客理解を深め、マーケティング全体の基盤を作りたい",
+                    "LPの分析結果を他チャネルや新規事業に活かしたい",
+                    "「どこも同じ」に見える現状を打破し、独自性を確立したい",
+                    "中長期的にLTVを最大化する戦略を構築したい"
+                  ].map((item, i) => (
+                    <li key={i} className="flex gap-3 text-xs text-slate-700 font-medium">
+                       <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                       {item}
+                    </li>
+                  ))}
+               </ul>
+            </div>
+
+            <div className="p-8 bg-white rounded-3xl border border-slate-100 opacity-80">
+               <div className="flex items-center gap-3 text-slate-400 font-bold mb-4">
+                  <ThumbsDown className="w-5 h-5" />
+                  <span>他社サービスが向いている方</span>
+               </div>
+               <p className="text-sm text-slate-400 leading-relaxed mb-6">
+                  とにかく安く、早く、見た目だけ整えたいというニーズには低価格サービスが適しています。分析コストを省くことで「とりあえずのリスト収集」を最優先する場合に向いています。
+               </p>
+               <ul className="space-y-3">
+                  {[
+                    "分析よりもスピードと安さを最優先したい",
+                    "既に業界ナレッジが自社に完璧にあり、制作だけ外注したい",
+                    "データに基づいた改善よりも、流行りのデザインを重視したい",
+                    "一過性のキャンペーンで、長期的な資産性は求めていない"
+                  ].map((item, i) => (
+                    <li key={i} className="flex gap-3 text-xs text-slate-400 italic">
+                       <XCircle className="w-4 h-4 text-slate-200 shrink-0" />
+                       {item}
+                    </li>
+                  ))}
+               </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-20 max-w-4xl mx-auto bg-slate-900 text-white p-8 md:p-12 rounded-[2rem] text-center relative overflow-hidden">
+           <div className="absolute top-0 right-0 p-8 opacity-10">
+              <Layers className="w-20 h-20 text-rose-500" />
+           </div>
+           <h4 className="text-xl md:text-2xl font-serif font-bold mb-6">「作って終わり」のLPを、<br className="md:hidden"/>「事業の羅針盤」へ。</h4>
+           <p className="text-sm md:text-base text-slate-400 leading-relaxed mb-0">
+             私たちの提供価値は、LPの完成ではありません. 制作プロセスで得られる<strong>「徹底した顧客理解と市場の穴」</strong>こそが、御社の真のアセットになります. その知見は、アップセル・クロスセルのニーズ発掘や、次なる新規事業の成功確率を劇的に高めます。
+           </p>
         </div>
       </Section>
 
       {/* FAQ Section */}
       <Section background="white">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto text-slate-900">
           <SectionTitle title="よくある質問" subtitle="FAQ" center light />
           <div className="mt-16">
             <FAQItem 
@@ -391,7 +1029,7 @@ export const LPProduction: React.FC = () => {
       </Section>
 
       {/* Final CTA */}
-      <section className="bg-slate-900 py-32 relative overflow-hidden">
+      <section className="bg-slate-900 py-32 relative overflow-hidden text-white">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-rose-500/5 blur-[120px]"></div>
         </div>
@@ -417,9 +1055,8 @@ export const LPProduction: React.FC = () => {
         </div>
       </section>
 
-      {/* Inherit Booking Section from main page at the very bottom */}
       <div id="booking">
-        {/* The shared booking section will be used if integrated via common components */}
+        {/* Shared booking element identifier */}
       </div>
     </div>
   );

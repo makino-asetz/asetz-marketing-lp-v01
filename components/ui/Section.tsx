@@ -1,15 +1,17 @@
+
 import React from 'react';
 
 interface SectionProps {
   children: React.ReactNode;
   className?: string;
   id?: string;
-  background?: 'dark' | 'light' | 'navy' | 'black';
+  background?: 'dark' | 'light' | 'navy' | 'black' | 'white';
 }
 
 export const Section: React.FC<SectionProps> = ({ children, className = "", id, background = 'black' }) => {
   const getBgColor = () => {
     switch(background) {
+      case 'white': return 'bg-white text-slate-900';
       case 'light': return 'bg-slate-50 text-slate-900';
       case 'navy': return 'bg-brand-navy text-white';
       case 'dark': return 'bg-brand-dark text-white';
