@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from 'react';
 
-export const Header: React.FC = () => {
+import React, { useState, useEffect } from 'react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { PageType } from '../App';
+
+interface HeaderProps {
+  activePage: PageType;
+  onPageChange: (page: PageType) => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ activePage, onPageChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,35 +22,93 @@ export const Header: React.FC = () => {
   }, []);
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
+
+  const handlePageTransition = (page: PageType) => {
+    onPageChange(page);
+    setIsDropdownOpen(false);
+  };
+
+  const isMain = activePage === 'main';
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'py-4' : 'py-6 md:py-8'}`}>
       <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className={`flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500 ${isScrolled ? 'bg-slate-900/80 backdrop-blur-md border border-slate-800 shadow-lg' : 'bg-transparent border border-transparent'}`}>
-          <div className="font-serif font-bold text-xl tracking-tight text-white flex items-center gap-2">
-            AsetZ <span className="text-[10px] font-sans font-normal text-slate-400 border-l border-slate-700 pl-2 hidden sm:block tracking-wider">MARKETING PARTNER</span>
+        <div className={`flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500 border ${
+          isScrolled 
+            ? (isMain ? 'bg-slate-900/80 border-slate-800' : 'bg-white/80 border-slate-200 shadow-lg') 
+            : 'bg-transparent border-transparent'
+          } backdrop-blur-md`}>
+          
+          <div 
+            onClick={() => handlePageTransition('main')}
+            className={`font-serif font-bold text-xl tracking-tight cursor-pointer flex items-center gap-2 ${isMain ? 'text-white' : 'text-slate-900'}`}
+          >
+            AsetZ <span className={`text-[10px] font-sans font-normal border-l pl-2 hidden sm:block tracking-wider ${isMain ? 'text-slate-400 border-slate-700' : 'text-slate-500 border-slate-300'}`}>MARKETING PARTNER</span>
           </div>
+
           <nav className="hidden md:flex items-center gap-8">
-            {['process', 'case', 'pricing'].map((item) => (
+            {/* Service Dropdown */}
+            <div className="relative">
+              <button 
+                onMouseEnter={() => setIsDropdownOpen(true)}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className={`flex items-center gap-1 text-xs font-bold uppercase tracking-widest transition-colors ${isMain ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-rose-600'}`}
+              >
+                Service <ChevronDown className={`w-3 h-3 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {isDropdownOpen && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    onMouseLeave={() => setIsDropdownOpen(false)}
+                    className={`absolute top-full right-0 mt-4 w-64 rounded-2xl border shadow-2xl p-2 overflow-hidden ${isMain ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}
+                  >
+                    <button 
+                      onClick={() => handlePageTransition('main')}
+                      className={`w-full text-left p-4 rounded-xl transition-all flex flex-col gap-1 ${activePage === 'main' ? (isMain ? 'bg-slate-800' : 'bg-slate-50') : (isMain ? 'hover:bg-slate-800' : 'hover:bg-slate-50')}`}
+                    >
+                      <span className={`text-xs font-bold ${isMain ? 'text-white' : 'text-slate-900'}`}>マーケティング伴走支援</span>
+                      <span className="text-[10px] text-slate-500">戦略設計から実行・DXまで統合支援</span>
+                    </button>
+                    <button 
+                      onClick={() => handlePageTransition('lp-production')}
+                      className={`w-full text-left p-4 rounded-xl transition-all flex flex-col gap-1 ${activePage === 'lp-production' ? (isMain ? 'bg-slate-800 text-rose-400' : 'bg-rose-50 text-rose-600') : (isMain ? 'hover:bg-slate-800' : 'hover:bg-slate-50')}`}
+                    >
+                      <span className={`text-xs font-bold ${activePage === 'lp-production' ? '' : (isMain ? 'text-slate-300' : 'text-slate-700')}`}>LP制作 / 継続改善</span>
+                      <span className="text-[10px] text-slate-500">市場調査から始まる本質のLP制作</span>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {isMain && ['process', 'case', 'pricing'].map((item) => (
               <button 
                 key={item}
                 onClick={() => scrollTo(item)} 
-                className="text-xs font-bold uppercase tracking-widest text-slate-300 hover:text-white transition-colors"
+                className={`text-xs font-bold uppercase tracking-widest transition-colors ${isMain ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
               >
                 {item}
               </button>
             ))}
+
             <button 
               onClick={() => scrollTo('booking')}
-              className="text-xs font-bold uppercase tracking-widest bg-white text-black px-5 py-2 rounded-full hover:bg-rose-500 hover:text-white transition-all"
+              className={`text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full transition-all ${isMain ? 'bg-white text-black hover:bg-rose-500 hover:text-white' : 'bg-slate-900 text-white hover:bg-rose-600'}`}
             >
               Contact
             </button>
           </nav>
-          {/* Mobile Menu Button Placeholder */}
-          <button onClick={() => scrollTo('booking')} className="md:hidden text-xs font-bold bg-white text-black px-4 py-2 rounded-full">
+
+          <button onClick={() => scrollTo('booking')} className={`md:hidden text-xs font-bold px-4 py-2 rounded-full ${isMain ? 'bg-white text-black' : 'bg-slate-900 text-white'}`}>
             Contact
           </button>
         </div>
