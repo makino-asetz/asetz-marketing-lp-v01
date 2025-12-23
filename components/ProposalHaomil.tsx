@@ -32,7 +32,7 @@ const TableCell: React.FC<{ children: React.ReactNode; className?: string }> = (
 
 const ProposalSection: React.FC<{ id: string; title: string; children: React.ReactNode }> = ({ id, title, children }) => (
   <div id={id} className="py-24 border-b border-slate-100 scroll-mt-20">
-    <div className="max-w-6xl auto px-6">
+    <div className="max-w-6xl mx-auto px-6">
       <div className="flex items-center gap-4 mb-12">
         <div className="w-12 h-[2px] bg-rose-500"></div>
         <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 tracking-tight">{title}</h2>
@@ -1082,7 +1082,7 @@ export const ProposalHaomil: React.FC = () => {
                     <td className="p-6 bg-slate-800/50 border-r border-slate-800">Phase 2 (4-6ヶ月目)</td>
                     <td className="p-6 border-r border-slate-800">¥500,000</td>
                     <td className="p-6 border-r border-slate-800">¥200,000</td>
-                    <td className="p-6 border-r border-slate-800 text-slate-400 italic">¥600,000</td>
+                    <td className="p-6 border-r border-slate-400 italic">¥600,000</td>
                     <td className="p-6 bg-slate-950 font-serif italic text-lg text-white">¥1,300,000</td>
                   </tr>
                   <tr>
