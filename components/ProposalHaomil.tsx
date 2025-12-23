@@ -25,7 +25,7 @@ const TableHeader: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 const TableCell: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = "" }) => (
-  <td className={`p-4 text-sm text-slate-800 border-b border-slate-100 ${className}`}>
+  <td className={`p-4 text-sm text-slate-700 border-b border-slate-100 ${className}`}>
     {children}
   </td>
 );
@@ -62,7 +62,7 @@ const Card: React.FC<{ title: string; children: React.ReactNode; icon?: React.Re
     <div className={`p-8 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-md transition-all ${className}`}>
       {icon && <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 shadow-inner ${colorMap[color]}`}>{icon}</div>}
       <h4 className="text-lg font-bold text-slate-900 mb-4">{title}</h4>
-      <div className="text-sm text-slate-700 leading-relaxed font-medium">{children}</div>
+      <div className="text-sm text-slate-600 leading-relaxed font-medium">{children}</div>
     </div>
   );
 };
@@ -107,7 +107,7 @@ export const ProposalHaomil: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white min-h-screen text-slate-900 font-sans">
+    <div className="bg-white min-h-screen text-slate-800 font-sans">
       <div id="proposal-full-content" className="w-full">
         
         {/* --- 0. Main Visual (Cover) --- */}
@@ -138,7 +138,7 @@ export const ProposalHaomil: React.FC = () => {
               <span className="text-rose-600 text-6xl md:text-7xl">ご提案書</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-slate-500 font-serif italic mb-20 max-w-3xl">
+            <p className="text-xl md:text-2xl text-slate-400 font-serif italic mb-20 max-w-3xl">
               〜 エンビロンモデルに学ぶ「探してでも行きたい」ブランドの構築 〜
             </p>
 
@@ -204,21 +204,21 @@ export const ProposalHaomil: React.FC = () => {
                      <div className="shrink-0 w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-sm italic">1</div>
                      <div>
                         <div className="font-bold text-sm mb-1">「医療提携型」ポジションの可能性</div>
-                        <p className="text-xs text-slate-700 leading-relaxed">過酸化水素使用可能×代理店モデル。この独自の強みを活かした「空白地帯」の独占を狙います。</p>
+                        <p className="text-xs text-slate-600 leading-relaxed">過酸化水素使用可能×代理店モデル。この独自の強みを活かした「空白地帯」の独占を狙います。</p>
                      </div>
                   </li>
                   <li className="flex gap-4">
                      <div className="shrink-0 w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-sm italic">2</div>
                      <div>
                         <div className="font-bold text-sm mb-1">エンビロンモデルからの学び</div>
-                        <p className="text-xs text-slate-700 leading-relaxed">35年で2,000店舗を構築した成功要因（参入障壁・サポート・継続の仕組み）をMOCに適用します。</p>
+                        <p className="text-xs text-slate-600 leading-relaxed">35年で2,000店舗を構築した成功要因（参入障壁・サポート・継続の仕組み）をMOCに適用します。</p>
                      </div>
                   </li>
                   <li className="flex gap-4">
                      <div className="shrink-0 w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-sm italic">3</div>
                      <div>
                         <div className="font-bold text-sm mb-1">サロンオーナーの課題解決</div>
-                        <p className="text-xs text-slate-700 leading-relaxed">「費用対効果への不満」という市場のペインに対し、医療提携型の確かな効果を回答として提示します。</p>
+                        <p className="text-xs text-slate-600 leading-relaxed">「費用対効果への不満」という市場のペインに対し、医療提携型の確かな効果を回答として提示します。</p>
                      </div>
                   </li>
                </ul>
@@ -268,7 +268,7 @@ export const ProposalHaomil: React.FC = () => {
                  <div key={i} className="flex flex-col items-center text-center">
                     <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-rose-500 mb-6 font-bold font-serif italic text-lg shadow-xl">{i+1}</div>
                     <h5 className="font-bold mb-4">{it.t}</h5>
-                    <p className="text-xs text-slate-300 leading-relaxed">{it.d}</p>
+                    <p className="text-xs text-slate-400 leading-relaxed">{it.d}</p>
                  </div>
                ))}
             </div>
@@ -295,28 +295,28 @@ export const ProposalHaomil: React.FC = () => {
                     <TableCell><span className="px-3 py-1 bg-rose-50 text-rose-600 rounded-full text-[10px]">Phase 1</span></TableCell>
                   </tr>
                   <tr>
-                    <TableCell className="text-slate-500 font-serif italic">Priority 2</TableCell>
+                    <TableCell className="text-slate-400 font-serif italic">Priority 2</TableCell>
                     <TableCell>Web情報基盤の構築</TableCell>
-                    <TableCell><span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px]">Phase 1-2</span></TableCell>
+                    <TableCell><span className="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-[10px]">Phase 1-2</span></TableCell>
                   </tr>
                   <tr>
-                    <TableCell className="text-slate-500 font-serif italic">Priority 3</TableCell>
+                    <TableCell className="text-slate-400 font-serif italic">Priority 3</TableCell>
                     <TableCell>広告運用の開始</TableCell>
-                    <TableCell><span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px]">Phase 2</span></TableCell>
+                    <TableCell><span className="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-[10px]">Phase 2</span></TableCell>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div>
               <Card title="「世界観 vs 獲得」の両立について" icon={<Quote className="w-8 h-8" />} color="slate">
-                <p className="mb-4 italic text-sm text-slate-600">「営業色の強いLPは避けたいが、数字も伸ばしたい」</p>
-                <p className="text-sm font-medium text-slate-800 leading-relaxed">
+                <p className="mb-4 italic text-sm text-slate-500">「営業色の強いLPは避けたいが、数字も伸ばしたい」</p>
+                <p className="text-sm font-medium leading-relaxed">
                   私たちの見解としては、両立は十分に可能です。ブランドサイト（世界観）と専用LP（獲得）を役割分担させることで、「探してでも行きたい」と思わせる信頼構築と, 効率的なリード獲得を同時に実現します。
                 </p>
               </Card>
               <div className="mt-6 p-6 bg-slate-50 border border-slate-100 rounded-2xl flex gap-3 items-start shadow-inner">
                 <Info className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-                <p className="text-xs text-slate-700 font-bold leading-relaxed">
+                <p className="text-xs text-slate-600 font-bold leading-relaxed">
                   ※弊社にて、獲得に特化したLP制作、およびブランドの世界観をしっかり作り込んだサービスサイト制作のいずれも高いクオリティで対応可能です。戦略に応じて最適な形態をご提案します。
                 </p>
               </div>
@@ -353,7 +353,7 @@ export const ProposalHaomil: React.FC = () => {
                   <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 group-hover:bg-white group-hover:shadow-lg transition-all">
                      <div className="text-xs font-bold text-rose-500 mb-1 font-serif italic">{it.y}</div>
                      <h5 className="font-bold text-slate-900 mb-1">{it.t}</h5>
-                     <p className="text-xs text-slate-700 leading-relaxed font-medium">{it.d}</p>
+                     <p className="text-xs text-slate-600 leading-relaxed font-medium">{it.d}</p>
                      {it.sub && (
                        <div className="mt-2 flex flex-wrap gap-2">
                          {it.sub.map((s, si) => (
@@ -374,9 +374,9 @@ export const ProposalHaomil: React.FC = () => {
                 <div className="space-y-6">
                    <div className="bg-white/5 p-6 rounded-2xl">
                       <div className="text-xs font-bold text-slate-400 mb-2">上級試験 合格率</div>
-                      <div className="text-3xl font-serif italic text-rose-400">約 50% <span className="text-xs font-sans text-slate-400 not-italic">（質の担保を優先した審査）</span></div>
+                      <div className="text-3xl font-serif italic text-rose-400">約 50% <span className="text-xs font-sans text-slate-500 not-italic">（質の担保を優先した審査）</span></div>
                    </div>
-                   <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                   <p className="text-xs text-slate-400 leading-relaxed font-medium">
                       あえてハードルの高い制度を設けることで、取扱店の質を担保。
                       「苦労して取得した資格」という心理的投資が、代理店の誇りと強い帰属意識を生んでいます。
                    </p>
@@ -387,20 +387,172 @@ export const ProposalHaomil: React.FC = () => {
                    <ArrowDown className="w-4 h-4 text-rose-600" />
                    MOCでの具体的適用検討
                 </h5>
-                <ul className="space-y-4 text-sm font-bold text-slate-800">
+                <ul className="space-y-4 text-sm font-bold text-slate-700">
                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
                       HAOMIL創業者の事業への原体験を言語化し、研修で想いを共有する
                    </li>
                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
                       合格証の価値を高め、加盟店が「MOCブランドの一員」である誇りを持てる設計
                    </li>
                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
                       「誰でもできる」ではなく「選ばれたサロンのみ」という希少性の構築
                    </li>
                 </ul>
+             </div>
+          </div>
+
+          <SubTitle icon={<Settings className="w-6 h-6"/>}>3-7. 成功要因の1つ：代理店・取扱店向け制度の全体像</SubTitle>
+          
+          {/* Partner Onboarding Process */}
+          <div className="bg-slate-50 rounded-[3rem] p-10 md:p-16 border border-slate-100 mb-16">
+             <h5 className="text-slate-900 font-bold mb-10 flex items-center gap-2">
+                <GitFork className="w-5 h-5 text-rose-600" />
+                取扱店になるためのプロセス
+             </h5>
+             <div className="grid md:grid-cols-6 gap-4 relative">
+                {[
+                  { n: "01", t: "問い合わせ", d: "プロティアへ連絡" },
+                  { n: "02", t: "無料セミナー", d: "経営者向け説明" },
+                  { n: "03", t: "研修参加", d: "3日間の集中講座", h: true },
+                  { n: "04", t: "試験合格", d: "筆記＋実技審査" },
+                  { n: "05", t: "正規登録", d: "取扱店として認定" },
+                  { n: "06", t: "初回導入", d: "約50万円〜の発注" }
+                ].map((step, i) => (
+                  <div key={i} className={`relative p-6 rounded-2xl border text-center flex flex-col items-center group transition-all hover:shadow-lg ${step.h ? 'bg-slate-900 text-white border-rose-500 shadow-xl' : 'bg-white border-slate-100 text-slate-800'}`}>
+                     <div className={`text-[10px] font-bold mb-3 ${step.h ? 'text-rose-500' : 'text-slate-400'}`}>STEP {step.n}</div>
+                     <div className="text-sm font-bold mb-2">{step.t}</div>
+                     <div className={`text-[10px] leading-relaxed ${step.h ? 'text-slate-400' : 'text-slate-500'}`}>{step.d}</div>
+                     {step.h && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-rose-600 text-white text-[8px] font-bold px-2 py-0.5 rounded-full uppercase">篩にかける</div>}
+                     {i < 5 && <div className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 z-20 text-slate-300"><ChevronRight className="w-4 h-4" /></div>}
+                  </div>
+                ))}
+             </div>
+             <div className="mt-8 p-4 bg-white rounded-xl border border-slate-200 text-[11px] text-slate-500 italic flex gap-3 items-center">
+                <Info className="w-4 h-4 text-rose-500 shrink-0" />
+                ※初期導入セット（約50万円〜）には、イオン導入機、主要業務用製品、店頭販売用主力製品が含まれます。
+             </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 mb-20">
+            {/* Rank System */}
+            <div>
+              <h5 className="text-slate-900 font-bold mb-6 flex items-center gap-2">
+                <Award className="w-5 h-5 text-rose-600" />
+                認定ランク制度
+              </h5>
+              <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <table className="w-full text-left text-[11px]">
+                  <thead className="bg-slate-900 text-white">
+                    <tr>
+                      <th className="p-4 w-1/3">ランク</th>
+                      <th className="p-4">条件・特典</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 font-medium">
+                    <tr>
+                      <td className="p-4 bg-slate-50 font-bold text-rose-600 flex items-center gap-1"><Star className="w-3 h-3 fill-rose-600" /> 5つ星サロン</td>
+                      <td className="p-4 text-slate-700">8項目の基準を全クリア（全国約10店のみ）。公式サイト優先掲載、本部密接連携。</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-bold text-slate-800">ゴールド・パートナー</td>
+                      <td className="p-4 text-slate-600">特に優れた専門店（2016年開始）。本社イベント招待、先行情報提供。</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-bold text-slate-800">オフィシャル・パートナー</td>
+                      <td className="p-4 text-slate-600">本部と「運命共同体」として取り組むサロン。セミナー・アカデミー参加権。</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-bold text-slate-800">一般取扱店</td>
+                      <td className="p-4 text-slate-600">ディプロマ取得者在籍店。基本サポート対象。</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-4 text-[10px] text-slate-500 leading-relaxed font-medium bg-slate-50 p-4 rounded-xl">
+                 スタッフ個人にも「4つ星カウンセラー」等の認定があり、<strong className="text-slate-800">数年毎の更新講習</strong>で技術と知識を維持・向上させる仕組みです。
+              </p>
+            </div>
+
+            {/* Support System */}
+            <div>
+              <h5 className="text-slate-900 font-bold mb-6 flex items-center gap-2">
+                <HeartHandshake className="w-5 h-5 text-rose-600" />
+                本部からのサポート内容
+              </h5>
+              <div className="space-y-4">
+                {[
+                  { c: "継続研修", d: "レベルアップ研修、症例発表会、イブニングセミナー", i: <GradIcon className="w-5 h-5" /> },
+                  { c: "マーケティング支援", d: "販促物提供、経営ノウハウセミナーの定期開催", i: <TrendingUp className="w-5 h-5" /> },
+                  { c: "コミュニケーション", d: "担当営業による個別伴走、パートナーの集い開催", i: <MessageCircle className="w-5 h-5" /> },
+                  { c: "オンライン学習", d: "eラーニング「エンビロン オンライントレーニング」", i: <Smartphone className="w-5 h-5" /> }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4 p-4 bg-white border border-slate-100 rounded-2xl hover:border-rose-200 transition-all shadow-sm">
+                     <div className="shrink-0 w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-rose-600">{item.i}</div>
+                     <div>
+                        <div className="text-xs font-bold text-slate-900 mb-1">{item.c}</div>
+                        <div className="text-[10px] text-slate-500 leading-relaxed font-medium">{item.d}</div>
+                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <SubTitle icon={<Search className="w-6 h-6"/>}>3-8. 成功要因の分析：なぜ35年成長し続けられたのか</SubTitle>
+          <div className="grid md:grid-cols-3 gap-6 mb-20">
+             {[
+               { t: "科学的根拠という揺るがない土台", d: "形成外科医としての医学的知見と400人以上の臨床試験が製品の信頼性を担保。他社との決定的な差別化要因。", i: <Stethoscope className="w-6 h-6"/> },
+               { t: "「参入障壁」と「サポート」のバランス", d: "高い難易度の資格制度で質を担保し、一方で手厚い本部サポートで孤独に戦わせない離脱防止の仕組み。", i: <ShieldAlert className="w-6 h-6"/> },
+               { t: "ステップアップシステム", d: "ビタミンA濃度を段階的に上げる設計。顧客の継続購入動機が自然に生まれるリピート率向上の仕組み。", i: <TrendingUp className="w-6 h-6"/> },
+               { t: "一般流通の完全排除", d: "ドラッグストア等での販売を一切行わず「カウンセリング販売」を徹底。希少価値とサロンの存在意義を構築。", i: <Lock className="w-6 h-6"/> },
+               { t: "ダブルケアシステム", d: "ホームケア＋プロフェッショナルケアの2本柱。独自機器（イオン導入等）が真似できない差別化ポイント。", i: <Layers className="w-6 h-6"/> }
+             ].map((it, i) => (
+               <div key={i} className="p-8 bg-slate-50 border border-slate-100 rounded-3xl group hover:bg-white hover:shadow-xl transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-rose-500 mb-6 group-hover:scale-110 transition-transform shadow-sm">{it.i}</div>
+                  <h5 className="font-bold text-slate-900 mb-4 text-sm leading-snug">{it.t}</h5>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">{it.d}</p>
+               </div>
+             ))}
+          </div>
+
+          <SubTitle icon={<Lightbulb className="w-6 h-6"/>}>3-9. MOC（ホワイトニングサロン代理店ビジネス）への示唆</SubTitle>
+          <div className="bg-slate-50 rounded-[3rem] p-10 md:p-16 border border-slate-100 mb-20 relative overflow-hidden">
+             <div className="absolute -right-20 -top-20 w-64 h-64 bg-rose-500/5 rounded-full blur-3xl"></div>
+             <div className="grid md:grid-cols-2 gap-12 relative z-10">
+                {[
+                  { t: "創業者ストーリーの言語化と浸透", d: "エンビロンの「想い」に倣い、MOC創業の原体験を言語化。研修冒頭で伝え、代理店との理念共有を徹底すべき。", i: <Fingerprint className="w-5 h-5"/> },
+                  { t: "厳格なディプロマ制度の構築", d: "「誰でも」ではなく「合格者だけ」が参入できる制度。合格率50%程度の難易度は、代理店の誇りとロイヤリティを醸成する。", i: <GraduationCap className="w-5 h-5"/> },
+                  { t: "段階的なランク制度の設計", d: "5つ星〜一般店までの階層化。各ランクに明確な特典を設け、「上を目指したくなる」成長動機を仕組み化する。", i: <Award className="w-5 h-5"/> },
+                  { t: "直営店（フラッグシップ）の運営", d: "本部自らが現場で成功し、最高水準を示すショーケースを持つ。この事実は代理店からの絶対的な信頼に繋がる。", i: <Building2 className="w-5 h-5"/> },
+                  { t: "一般流通排除による価値維持", d: "安易なEC販売を避け、「カウンセリング販売」を徹底。代理店が「探してでも行きたい店」を運営できる環境を整備。", i: <ShieldCheck className="w-5 h-5"/> },
+                  { t: "継続的な教育機会の提供", d: "症例発表会や定期セミナーなど「学びの場」を継続提供。離脱を防ぎ、ネットワーク全体の技術レベルを向上させる。", i: <BookOpen className="w-5 h-5"/> }
+                ].map((it, i) => (
+                  <div key={i} className="flex gap-5">
+                     <div className="shrink-0 w-10 h-10 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-lg">{it.i}</div>
+                     <div>
+                        <h6 className="font-bold text-slate-900 mb-2">{it.t}</h6>
+                        <p className="text-xs text-slate-600 leading-relaxed font-medium">{it.d}</p>
+                     </div>
+                  </div>
+                ))}
+             </div>
+          </div>
+
+          <div className="p-12 bg-slate-900 text-white rounded-[4rem] shadow-2xl relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-12 opacity-5"><Target className="w-64 h-64" /></div>
+             <div className="max-w-3xl mx-auto text-center relative z-10">
+                <h4 className="text-rose-500 font-bold text-[11px] uppercase tracking-[0.5em] mb-8">Conclusion: The Essence of Environ Model</h4>
+                <h3 className="text-2xl md:text-3xl font-serif font-bold italic text-rose-100 mb-10 leading-relaxed">
+                  「高い参入障壁」×「手厚いサポート」×「継続を前提とした仕組み」
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed font-medium mb-12">
+                  エンビロンの成長は製品力だけではなく、この三位一体のビジネスモデルが代理店の質を担保している点にあります。<br/>
+                  MOCにおいても、短期的な店舗数拡大より「選ばれた者だけが参入できるプロフェッショナルネットワーク」の構築こそが、長期的な成長の鍵となります。
+                </p>
+                <div className="h-px w-24 bg-rose-500/50 mx-auto"></div>
              </div>
           </div>
         </ProposalSection>
@@ -418,14 +570,25 @@ export const ProposalHaomil: React.FC = () => {
             ].map((p, i) => (
               <div key={i} className={`p-8 rounded-3xl border transition-all ${p.pr === 1 ? 'bg-slate-900 text-white border-rose-500 shadow-2xl' : 'bg-white border-slate-200'}`}>
                 <div className="flex justify-between items-start mb-6">
-                  <div className={`p-2.5 rounded-2xl ${p.pr === 1 ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-500'}`}>{p.icon}</div>
-                  <div className={`text-[10px] font-bold px-3 py-1 rounded-full ${p.pr === 1 ? 'bg-rose-500 text-white' : 'bg-slate-100 text-slate-500'}`}>PRIORITY {p.pr}</div>
+                  <div className={`p-2.5 rounded-2xl ${p.pr === 1 ? 'bg-rose-600 text-white' : 'bg-slate-50 text-slate-400'}`}>{p.icon}</div>
+                  <div className={`text-[10px] font-bold px-3 py-1 rounded-full ${p.pr === 1 ? 'bg-rose-500 text-white' : 'bg-slate-50 text-slate-400'}`}>PRIORITY {p.pr}</div>
                 </div>
                 <h5 className="font-bold text-lg mb-1">{p.n}</h5>
-                <div className={`text-[10px] font-bold uppercase tracking-widest mb-6 ${p.pr === 1 ? 'text-rose-400' : 'text-slate-500'}`}>{p.j}</div>
-                <p className={`text-xs leading-relaxed font-medium ${p.pr === 1 ? 'text-slate-300' : 'text-slate-700'}`}>{p.d}</p>
+                <div className={`text-[10px] font-bold uppercase tracking-widest mb-6 ${p.pr === 1 ? 'text-rose-400' : 'text-slate-400'}`}>{p.j}</div>
+                <p className={`text-xs leading-relaxed font-medium ${p.pr === 1 ? 'text-slate-400' : 'text-slate-600'}`}>{p.d}</p>
               </div>
             ))}
+          </div>
+          
+          <div className="bg-slate-50 p-8 rounded-3xl flex flex-col md:flex-row items-center gap-8 border border-slate-100">
+             <div className="w-16 h-16 rounded-full bg-rose-600 flex items-center justify-center shrink-0 shadow-lg text-white font-serif italic text-2xl">A</div>
+             <div>
+                <h4 className="font-bold text-slate-900 mb-2">アプローチ優先順位の考え方</h4>
+                <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                   まずは獲得コストが低く母数が多い「③自宅サロン」と「①美容室」を優先チャネルとし、Instagram広告で急速な刈り取りを行います。
+                   その後、実績をコンテンツ化して「②拡大志向オーナー」への提案へと広げていく2段構えの戦略をとります。
+                </p>
+             </div>
           </div>
         </ProposalSection>
 
@@ -434,7 +597,7 @@ export const ProposalHaomil: React.FC = () => {
           
           {/* Phase 1: Strategy */}
           <SubTitle icon={<Compass className="w-6 h-6"/>}>Phase 1：戦略策定期（1〜3ヶ月目）</SubTitle>
-          <p className="text-sm text-slate-600 mb-8 font-bold">目的：エンビロン等のベンチマーク分析を通じて、MOCの最適なマーケティング戦略を策定</p>
+          <p className="text-sm text-slate-500 mb-8 font-medium">目的：エンビロン等のベンチマーク分析を通じて、MOCの最適なマーケティング戦略を策定</p>
           <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm mb-12">
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-900 text-white">
@@ -444,10 +607,10 @@ export const ProposalHaomil: React.FC = () => {
                   <th className="p-5">アウトプット</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-bold text-slate-800">
+              <tbody className="divide-y divide-slate-100 font-bold text-slate-700">
                 <tr className="bg-rose-50/5">
                   <td className="p-5 border-r border-slate-100">1ヶ月目</td>
-                  <td className="p-5 font-medium leading-relaxed text-slate-800">
+                  <td className="p-5 font-normal leading-relaxed">
                     ・エンビロンの徹底調査（Web、SNS、広告、代理店網）<br/>
                     ・類似代理店モデル（美容商材系）の調査<br/>
                     ・ホワイトニング業界の市場規模・トレンド調査
@@ -456,7 +619,7 @@ export const ProposalHaomil: React.FC = () => {
                 </tr>
                 <tr>
                   <td className="p-5 border-r border-slate-100">2ヶ月目</td>
-                  <td className="p-5 font-medium leading-relaxed text-slate-800">
+                  <td className="p-5 font-normal leading-relaxed">
                     ・MOCの強み・差別化ポイント整理<br/>
                     ・ターゲットペルソナ設計（サロンオーナー詳細定義）<br/>
                     ・カスタマージャーニーマップ作成
@@ -465,7 +628,7 @@ export const ProposalHaomil: React.FC = () => {
                 </tr>
                 <tr className="bg-rose-50/5">
                   <td className="p-5 border-r border-slate-100">3ヶ月目</td>
-                  <td className="p-5 font-medium leading-relaxed text-slate-800">
+                  <td className="p-5 font-normal leading-relaxed">
                     ・年間ロードマップ確定<br/>
                     ・KPI設計（CPA目標、獲得数目標）<br/>
                     ・4ヶ月目以降の施策決定（広告 / インフルエンサー等）
@@ -475,6 +638,163 @@ export const ProposalHaomil: React.FC = () => {
               </tbody>
             </table>
           </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-20">
+             <div className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-200">
+                <h5 className="text-slate-900 font-bold mb-6 flex items-center gap-2">
+                   <Microscope className="w-5 h-5 text-rose-600" />
+                   調査項目例：エンビロン分析
+                </h5>
+                <ul className="space-y-3">
+                   {[
+                     "どのようなチャネルで代理店を募集しているか",
+                     "Web広告の出稿状況とクリエイティブ分析",
+                     "インフルエンサー・口コミの活用状況",
+                     "代理店向けの情報発信（ブログ、セミナー等）",
+                     "代理店になるまでのステップ・条件",
+                     "代理店向けサポート体制の詳細"
+                   ].map((it, i) => (
+                     <li key={i} className="flex items-center gap-3 text-xs font-bold text-slate-600">
+                        <CheckCircle2 className="w-4 h-4 text-rose-500 shrink-0" />
+                        {it}
+                     </li>
+                   ))}
+                </ul>
+             </div>
+             <div className="bg-slate-900 text-white p-8 rounded-[2.5rem] shadow-xl flex flex-col justify-center">
+                <p className="text-sm font-serif italic text-rose-200 leading-relaxed">
+                   "このフェーズで最も重要なのは、『エンビロンがなぜ勝っているか』のロジックをMOCの商流に正しく接ぎ木することです。単なる真似ではなく、MOC独自の原体験に基づいたブランド構築を行います。"
+                </p>
+             </div>
+          </div>
+
+          {/* Phase 2: Test */}
+          <SubTitle icon={<Zap className="w-6 h-6"/>}>Phase 2：テスト期（4〜6ヶ月目）</SubTitle>
+          <p className="text-sm text-slate-500 mb-8 font-medium">目的：Phase 1で策定した戦略に基づき、小規模テストで効果検証</p>
+          <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm mb-12">
+            <table className="w-full text-left text-xs">
+              <thead className="bg-slate-900 text-white">
+                <tr>
+                  <th className="p-5 w-20">月</th>
+                  <th className="p-5 w-2/5">主要タスク</th>
+                  <th className="p-5">アウトプット</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 font-bold text-slate-700">
+                <tr className="bg-rose-50/5">
+                  <td className="p-5 border-r border-slate-100">4ヶ月目</td>
+                  <td className="p-5 font-normal leading-relaxed">
+                    ・加盟店募集LP制作（獲得特化型）<br/>
+                    ・広告アカウント開設・設計<br/>
+                    ・kintone等でのリード管理体制構築
+                  </td>
+                  <td className="p-5 font-serif italic text-slate-900 text-sm">✅ 募集専用LP公開<br/>✅ 広告配信開始</td>
+                </tr>
+                <tr>
+                  <td className="p-5 border-r border-slate-100">5ヶ月目</td>
+                  <td className="p-5 font-normal leading-relaxed">
+                    ・広告テスト配信（Meta/Google各30万円目安）<br/>
+                    ・A/Bテスト（クリエイティブ、ターゲティング）<br/>
+                    ・初期リードの対応フロー確立
+                  </td>
+                  <td className="p-5 font-serif italic text-slate-900 text-sm">✅ CPA基準値の確立<br/>✅ 初期リード獲得データ</td>
+                </tr>
+                <tr className="bg-rose-50/5">
+                  <td className="p-5 border-r border-slate-100">6ヶ月目</td>
+                  <td className="p-5 font-normal leading-relaxed">
+                    ・テスト結果の分析・評価<br/>
+                    ・効率の良い媒体/訴求の特定<br/>
+                    ・7ヶ月目以降の予算配分・エリア拡大決定
+                  </td>
+                  <td className="p-5 font-serif italic text-rose-600 text-sm underline underline-offset-4">✅ テスト結果レポート<br/>✅ 施策優先度マトリクス</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-20">
+             {[
+               { t: "エリア限定テスト", d: "まずは特定エリア（例：関東圏）でテストし、確実な勝ちパターンを構築。", i: <Map className="w-6 h-6"/> },
+               { t: "小規模予算スタート", d: "月30〜50万円程度で開始し、ROASの見込みを精査。無駄打ちを排除。", i: <DollarSign className="w-6 h-6"/> },
+               { t: "複数媒体比較", d: "Meta（SNS）とGoogle（検索）の両軸を検証し、ターゲットとの相性を確認。", i: <TrendingUp className="w-6 h-6"/> }
+             ].map((it, i) => (
+               <div key={i} className="p-6 bg-slate-50 border border-slate-100 rounded-2xl">
+                  <div className="text-rose-600 mb-4">{it.i}</div>
+                  <div className="text-xs font-bold text-slate-900 mb-2">{it.t}</div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed font-medium">{it.d}</p>
+               </div>
+             ))}
+          </div>
+
+          {/* Phase 3: Scaling */}
+          <SubTitle icon={<Rocket className="w-6 h-6"/>}>Phase 3：拡大期（7〜12ヶ月目）</SubTitle>
+          <p className="text-sm text-slate-500 mb-8 font-medium">目的：効果が検証された施策を横展開し、獲得数を拡大</p>
+          <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm mb-12">
+            <table className="w-full text-left text-xs">
+              <thead className="bg-slate-900 text-white">
+                <tr>
+                  <th className="p-5 w-32">期間</th>
+                  <th className="p-5 w-2/5">主要タスク</th>
+                  <th className="p-5">期待成果</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 font-bold text-slate-700">
+                <tr className="bg-rose-50/5">
+                  <td className="p-5 border-r border-slate-100 font-serif italic text-sm">7-9ヶ月目</td>
+                  <td className="p-5 font-normal leading-relaxed">
+                    ・効率の良い媒体に予算を集中投下<br/>
+                    ・クリエイティブ・LPの継続的なABテスト改善<br/>
+                    ・成功事例サロンの収集とコンテンツ化
+                  </td>
+                  <td className="p-5 font-serif italic text-slate-900 text-sm">✅ CPA 20%削減（目標）<br/>✅ 獲得数の安定拡大</td>
+                </tr>
+                <tr>
+                  <td className="p-5 border-r border-slate-100 font-serif italic text-sm">10-12ヶ月目</td>
+                  <td className="p-5 font-normal leading-relaxed">
+                    ・対応エリアの全国拡大（47都道府県）<br/>
+                    ・加盟店の成功事例を横展開するセミナー開催<br/>
+                    ・2年目のマーケティング計画策定
+                  </td>
+                  <td className="p-5 font-serif italic text-rose-600 text-sm underline underline-offset-4">✅ 安定的な獲得体制の確立<br/>✅ 内製化（自走）の準備開始</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Future Outlook */}
+          <div className="p-8 md:p-12 bg-slate-900 text-white rounded-[4rem] shadow-2xl relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-12 opacity-5"><Eye className="w-64 h-64" /></div>
+             <div className="max-w-3xl relative z-10">
+                <h5 className="text-rose-500 font-bold text-[10px] uppercase tracking-[0.5em] mb-8">Year 2 & Beyond Outlook</h5>
+                <h4 className="text-2xl md:text-3xl font-serif font-bold italic text-rose-100 mb-8 leading-relaxed">
+                  1年目は「獲得数」を重視。<br/>
+                  2年目以降は「質の最適化」へ。
+                </h4>
+                <div className="grid md:grid-cols-2 gap-10">
+                   <div>
+                      <div className="flex items-center gap-2 text-rose-400 font-bold mb-4">
+                         <TrendingUp className="w-5 h-5" />
+                         <span>Year 1: Quantity Focus</span>
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                         まずは市場シェアを確保するため、獲得数（店舗数）を最優先。MOCブランドの露出を最大化させ、「浜松から全国へ」の勢いを作ります。
+                      </p>
+                   </div>
+                   <div>
+                      <div className="flex items-center gap-2 text-rose-400 font-bold mb-4">
+                         <BarChart3 className="w-5 h-5" />
+                         <span>Year 2: Quality & Profit</span>
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                         蓄積されたデータを分析し、「どの属性・エリアの加盟店が最もLTVが高いか」を特定。高利益なセグメントに絞り、投資対効果（ROI）を極限まで高めます。
+                      </p>
+                   </div>
+                </div>
+                <div className="mt-12 pt-10 border-t border-white/10 text-center">
+                   <p className="text-sm font-bold text-rose-400 italic">「一時的な流行ではなく、35年成長し続けるエンビロンのような強固なブランドへ」</p>
+                </div>
+             </div>
+          </div>
         </ProposalSection>
 
         {/* --- 6. Evaluation Framework --- */}
@@ -482,15 +802,15 @@ export const ProposalHaomil: React.FC = () => {
           <SubTitle icon={<Gauge className="w-6 h-6"/>}>「なんとなく継続」を排除する意思決定体制</SubTitle>
           <div className="grid lg:grid-cols-2 gap-16 items-center">
              <div className="space-y-6">
-                <p className="text-sm font-bold text-slate-800 leading-relaxed border-l-4 border-rose-500 pl-6 mb-10">
+                <p className="text-sm font-bold text-slate-600 leading-relaxed border-l-4 border-rose-500 pl-6 mb-10">
                    各フェーズ終了時に必ず「判断会議」を実施します。KPIの目標達成率に基づき、あらかじめ合意したロジックに従って次の方針を決定します。
                 </p>
                 <div className="grid gap-4">
                    {[
-                     { v: "CPA ≦ 8万円", a: "【拡大】予算を1.5〜2倍に増額し勝機を掴む", c: "bg-emerald-50 text-emerald-800 border-emerald-200" },
-                     { v: "8万 < CPA ≦ 12万", a: "【継続】施策のABテスト継続・構成刷新", c: "bg-slate-50 text-slate-800 border-slate-300" },
-                     { v: "12万 < CPA ≦ 15万", a: "【変更】媒体配分または訴求軸を抜本的に見直す", c: "bg-amber-50 text-amber-800 border-amber-200" },
-                     { v: "CPA > 15万円", a: "【撤退検討】ビジネスモデル自体の再定義を協議", c: "bg-rose-50 text-rose-800 border-rose-200" }
+                     { v: "CPA ≦ 8万円", a: "【拡大】予算を1.5〜2倍に増額し勝機を掴む", c: "bg-emerald-50 text-emerald-700 border-emerald-100" },
+                     { v: "8万 < CPA ≦ 12万", a: "【継続】施策のABテスト継続・構成刷新", c: "bg-slate-50 text-slate-700 border-slate-200" },
+                     { v: "12万 < CPA ≦ 15万", a: "【変更】媒体配分または訴求軸を抜本的に見直す", c: "bg-amber-50 text-amber-700 border-amber-100" },
+                     { v: "CPA > 15万円", a: "【撤退検討】ビジネスモデル自体の再定義を協議", c: "bg-rose-50 text-rose-700 border-rose-100" }
                    ].map((it, i) => (
                      <div key={i} className={`p-6 rounded-2xl border flex items-center justify-between gap-6 shadow-sm transition-transform hover:scale-[1.02] ${it.c}`}>
                         <div className="shrink-0 font-serif font-bold italic text-xl">{it.v}</div>
@@ -507,14 +827,14 @@ export const ProposalHaomil: React.FC = () => {
                       <div className="shrink-0 w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center font-bold text-white shadow-lg">1</div>
                       <div>
                          <h6 className="font-bold text-base mb-2">会議1週間前のレポート共有</h6>
-                         <p className="text-xs text-slate-300 font-medium leading-relaxed">事前に詳細な判断レポート（KPI達成率、改善提案）を共有し、検討の時間を確保します。</p>
+                         <p className="text-xs text-slate-400 font-medium leading-relaxed">事前に詳細な判断レポート（KPI達成率、改善提案）を共有し、検討の時間を確保します。</p>
                       </div>
                    </li>
                    <li className="flex gap-6 items-start">
                       <div className="shrink-0 w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center font-bold text-white shadow-lg">2</div>
                       <div>
                          <h6 className="font-bold text-base mb-2">LTV・ROIの逆算管理</h6>
-                         <p className="text-xs text-slate-300 font-medium leading-relaxed">リード単価だけでなく、成約率と継続期間（LTV）を考慮した本質的な投資対効果を検証します。</p>
+                         <p className="text-xs text-slate-400 font-medium leading-relaxed">リード単価だけでなく、成約率と継続期間（LTV）を考慮した本質的な投資対効果を検証します。</p>
                       </div>
                    </li>
                 </ul>
@@ -561,11 +881,11 @@ export const ProposalHaomil: React.FC = () => {
                   <ArrowUpRight className="text-rose-500 w-5 h-5" />
                 </div>
                 <table className="w-full text-left">
-                  <tbody className="divide-y divide-slate-100 font-bold">
+                  <tbody className="divide-y divide-slate-100 font-medium">
                     {caseStudy.rows.map((row, ri) => (
-                      <tr key={ri} className={ri === 0 ? 'bg-slate-100' : 'bg-white'}>
-                        <td className={`p-5 w-1/4 border-r border-slate-200 text-xs uppercase tracking-widest ${ri === 0 ? 'font-bold text-slate-600' : 'font-bold text-rose-600 italic'}`}>{row.k}</td>
-                        <td className={`p-5 text-sm ${ri === 0 ? 'font-bold text-slate-700' : 'text-slate-800'}`}>{row.v}</td>
+                      <tr key={ri} className={ri === 0 ? 'bg-slate-50' : ''}>
+                        <td className={`p-5 w-1/4 border-r border-slate-100 text-xs uppercase tracking-widest ${ri === 0 ? 'font-bold text-slate-500' : 'font-bold text-rose-600 italic'}`}>{row.k}</td>
+                        <td className={`p-5 text-sm ${ri === 0 ? 'font-bold text-slate-500 uppercase tracking-widest' : 'text-slate-700'}`}>{row.v}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -575,8 +895,8 @@ export const ProposalHaomil: React.FC = () => {
           </div>
 
           <SubTitle icon={<Users2 className="w-6 h-6"/>}>7-2. 弊社の強み（一般的な代理店との違い）</SubTitle>
-          <div className="bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl mb-20 overflow-x-auto">
-            <table className="w-full text-left min-w-[700px]">
+          <div className="bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl mb-20">
+            <table className="w-full text-left">
               <thead className="bg-slate-900 text-white font-bold uppercase tracking-widest text-[10px]">
                 <tr>
                   <th className="p-6 w-1/4 border-r border-slate-800">比較観点</th>
@@ -586,29 +906,29 @@ export const ProposalHaomil: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-slate-100 font-bold text-sm">
                 <tr>
-                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">人材配置</td>
-                  <td className="p-6 text-slate-500 font-medium bg-white">経験の浅いジュニアスタッフが複数案件を掛け持ち</td>
-                  <td className="p-6 text-slate-900 italic font-serif bg-rose-50/10">経験豊富な専門家が直接担当（金融・IT・マーケ経験の融合）</td>
+                  <td className="p-6 bg-slate-50 border-r border-slate-100 text-slate-500 uppercase text-[10px] tracking-widest">人材配置</td>
+                  <td className="p-6 text-slate-400 font-normal">経験の浅いジュニアスタッフが複数案件を掛け持ち</td>
+                  <td className="p-6 text-slate-900 italic font-serif">経験豊富な専門家が直接担当（金融・IT・マーケ経験の融合）</td>
                 </tr>
                 <tr>
-                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">アプローチ</td>
-                  <td className="p-6 text-slate-500 font-medium bg-white">オープンソースの一般知識による教科書的対応</td>
-                  <td className="p-6 text-slate-900 italic font-serif bg-rose-50/10">クライアント固有の事業課題に合わせたカスタマイズ提案</td>
+                  <td className="p-6 bg-slate-50 border-r border-slate-100 text-slate-500 uppercase text-[10px] tracking-widest">アプローチ</td>
+                  <td className="p-6 text-slate-400 font-normal">オープンソースの一般知識による教科書的対応</td>
+                  <td className="p-6 text-slate-900 italic font-serif">クライアント固有の事業課題に合わせたカスタマイズ提案</td>
                 </tr>
                 <tr>
-                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">関与度</td>
-                  <td className="p-6 text-slate-500 font-medium bg-white">月次レポートと定例会議のみ</td>
-                  <td className="p-6 text-slate-900 italic font-serif bg-rose-50/10">週次〜隔週での定例参加、社内関係者とのダイレクトコミュニケーション</td>
+                  <td className="p-6 bg-slate-50 border-r border-slate-100 text-slate-500 uppercase text-[10px] tracking-widest">関与度</td>
+                  <td className="p-6 text-slate-400 font-normal">月次レポートと定例会議のみ</td>
+                  <td className="p-6 text-slate-900 italic font-serif">週次〜隔週での定例参加、社内関係者とのダイレクトコミュニケーション</td>
                 </tr>
                 <tr>
-                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">成果指標</td>
-                  <td className="p-6 text-slate-500 font-medium bg-white">CPA、ROAS等の媒体指標中心</td>
-                  <td className="p-6 text-rose-700 italic font-serif bg-rose-50/20">事業KPIに直結した売上・利益への貢献度で評価</td>
+                  <td className="p-6 bg-slate-50 border-r border-slate-100 text-slate-500 uppercase text-[10px] tracking-widest">成果指標</td>
+                  <td className="p-6 text-slate-400 font-normal">CPA、ROAS等の媒体指標中心</td>
+                  <td className="p-6 text-rose-600 italic font-serif">事業KPIに直結した売上・利益への貢献度で評価</td>
                 </tr>
                 <tr>
-                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">将来展望</td>
-                  <td className="p-6 text-slate-500 font-medium bg-white">継続的な外部委託前提</td>
-                  <td className="p-6 text-slate-900 italic font-serif bg-rose-50/10">段階的内製化支援により持続可能な成長体制構築</td>
+                  <td className="p-6 bg-slate-50 border-r border-slate-100 text-slate-500 uppercase text-[10px] tracking-widest">将来展望</td>
+                  <td className="p-6 text-slate-400 font-normal">継続的な外部委託前提</td>
+                  <td className="p-6 text-slate-900 italic font-serif">段階的内製化支援により持続可能な成長体制構築</td>
                 </tr>
               </tbody>
             </table>
@@ -618,70 +938,70 @@ export const ProposalHaomil: React.FC = () => {
         {/* --- 8. Pricing --- */}
         <ProposalSection id="section-8" title="8. 料金プラン">
           <SubTitle icon={<Layers className="w-6 h-6"/>}>8-1. プラン比較</SubTitle>
-          <div className="bg-white border border-slate-300 rounded-[2.5rem] overflow-hidden shadow-xl mb-16 overflow-x-auto">
-            <table className="w-full text-left min-w-[900px]">
+          <div className="bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl mb-16 overflow-x-auto">
+            <table className="w-full text-left min-w-[800px]">
               <thead className="bg-slate-900 text-white font-bold uppercase tracking-widest text-[10px]">
                 <tr>
                   <th className="p-5 border-r border-slate-800">項目</th>
-                  <th className="p-5 border-r border-slate-800 text-center">月額30万円プラン</th>
-                  <th className="p-5 border-r border-slate-800 bg-rose-600 text-center">月額50万円プラン【推奨】</th>
-                  <th className="p-5 text-center">月額70万円プラン</th>
+                  <th className="p-5 border-r border-slate-800">月額30万円プラン</th>
+                  <th className="p-5 border-r border-slate-800 bg-rose-600">月額50万円プラン【推奨】</th>
+                  <th className="p-5">月額70万円プラン</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 text-[13px] font-bold text-slate-800">
+              <tbody className="divide-y divide-slate-100 text-[13px] font-medium">
                 <tr>
-                  <td className="p-5 bg-slate-100 border-r border-slate-300">定例MTG</td>
-                  <td className="p-5 border-r border-slate-200 text-center">月2回</td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-rose-700 font-black">月2回 + スポット対応</td>
-                  <td className="p-5 text-center">週1回</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">定例MTG</td>
+                  <td className="p-5 border-r border-slate-100">月2回</td>
+                  <td className="p-5 border-r border-rose-100 font-bold">月2回 + スポット対応</td>
+                  <td className="p-5">週1回</td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-100 border-r border-slate-300">市場調査・分析</td>
-                  <td className="p-5 border-r border-slate-200 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
-                  <td className="p-5 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">市場調査・分析</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 border-r border-rose-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-100 border-r border-slate-300">戦略立案・ロードマップ</td>
-                  <td className="p-5 border-r border-slate-200 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
-                  <td className="p-5 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">戦略立案・ロードマップ</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 border-r border-rose-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-100 border-r border-slate-300">ペルソナ・ジャーニー設計</td>
-                  <td className="p-5 border-r border-slate-200 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
-                  <td className="p-5 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">ペルソナ・ジャーニー設計</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 border-r border-rose-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-100 border-r border-slate-300 font-bold">LP構成・クリエイティブ方向性</td>
-                  <td className="p-5 border-r border-slate-200 text-center text-slate-500">△（案のみ）</td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-rose-700 font-black">○（詳細設計）</td>
-                  <td className="p-5 text-center text-slate-900">◎（制作ディレクション含む）</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">LP構成・クリエイティブ方向性</td>
+                  <td className="p-5 border-r border-slate-100 text-center">△（案のみ）</td>
+                  <td className="p-5 border-r border-rose-100 text-center font-bold">○（詳細設計）</td>
+                  <td className="p-5 text-center">◎（制作ディレクション含む）</td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-100 border-r border-slate-300 font-bold">情報管理基盤構築</td>
-                  <td className="p-5 border-r border-slate-200 text-center text-slate-500">△（設計のみ）</td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-rose-700 font-black">○（設計〜構築）</td>
-                  <td className="p-5 text-center text-slate-900">◎（構築〜運用）</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">情報管理基盤構築</td>
+                  <td className="p-5 border-r border-slate-100 text-center">△（設計のみ）</td>
+                  <td className="p-5 border-r border-rose-100 text-center font-bold">○（設計〜構築）</td>
+                  <td className="p-5 text-center">◎（構築〜運用）</td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-100 border-r border-slate-300 font-bold">リード管理自動化</td>
-                  <td className="p-5 border-r border-slate-200 text-center"><X className="w-5 h-5 text-slate-300 mx-auto" /></td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-slate-500 font-medium">△（基本設定）</td>
-                  <td className="p-5 text-center text-slate-900">○（カスタマイズ）</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">リード管理自動化</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><X className="w-4 h-4 text-slate-300 mx-auto" /></td>
+                  <td className="p-5 border-r border-rose-100 text-center">△（基本設定）</td>
+                  <td className="p-5 text-center">○（カスタマイズ）</td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-100 border-r border-slate-300">レポーティング</td>
-                  <td className="p-5 border-r border-slate-200 text-center">月次</td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-rose-700 font-black">月次 + 週次速報</td>
-                  <td className="p-5 text-center">週次</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">レポーティング</td>
+                  <td className="p-5 border-r border-slate-100">月次</td>
+                  <td className="p-5 border-r border-rose-100 font-bold">月次 + 週次速報</td>
+                  <td className="p-5">週次</td>
                 </tr>
                 <tr className="bg-slate-50">
-                  <td className="p-5 bg-slate-200 border-r border-slate-300 font-black">推奨シーン</td>
-                  <td className="p-5 border-r border-slate-200 text-center text-slate-500 font-medium italic">戦略立案のみ</td>
-                  <td className="p-5 border-r border-rose-200 bg-rose-100/40 text-center text-rose-800 font-black italic">戦略＋基盤構築を並行</td>
-                  <td className="p-5 text-center text-slate-900 font-black italic">フルサポート</td>
+                  <td className="p-5 border-r border-slate-200 font-bold">推奨シーン</td>
+                  <td className="p-5 border-r border-slate-100 text-slate-500">戦略立案のみ</td>
+                  <td className="p-5 border-r border-rose-100 text-rose-600 font-bold italic">戦略＋基盤構築を並行</td>
+                  <td className="p-5 text-slate-500">フルサポート</td>
                 </tr>
               </tbody>
             </table>
@@ -689,32 +1009,32 @@ export const ProposalHaomil: React.FC = () => {
 
           <SubTitle icon={<Megaphone className="w-6 h-6"/>}>8-2. 広告運用料金</SubTitle>
           <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-white border border-slate-300 rounded-3xl overflow-hidden shadow-sm">
+            <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
               <div className="bg-slate-900 p-5 text-white font-bold text-center text-xs uppercase tracking-widest">伴走支援とセット契約</div>
               <div className="p-8 space-y-6">
                 <div className="flex justify-between items-baseline border-b border-slate-100 pb-4">
-                  <span className="text-sm text-slate-600 font-bold">運用手数料</span>
+                  <span className="text-sm text-slate-500 font-bold">運用手数料</span>
                   <span className="text-2xl font-serif font-bold text-rose-600 italic">広告費の 15%</span>
                 </div>
                 <div className="flex justify-between items-baseline border-b border-slate-100 pb-4">
-                  <span className="text-sm text-slate-600 font-bold">最低月額料金</span>
-                  <span className="text-xl font-bold text-slate-900">20万円</span>
+                  <span className="text-sm text-slate-500 font-bold">最低月額料金</span>
+                  <span className="text-xl font-bold text-slate-800">20万円</span>
                 </div>
                 <div className="pt-2">
                   <div className="text-[10px] font-bold text-slate-400 uppercase mb-3">含まれる内容</div>
                   <ul className="space-y-2">
                     {["運用代行", "レポーティング", "戦略・CRM連携"].map((it, i) => (
-                      <li key={i} className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600" /> {it}
+                      <li key={i} className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500" /> {it}
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
             </div>
-            <div className="bg-slate-50 border border-slate-200 rounded-3xl overflow-hidden opacity-90">
+            <div className="bg-slate-50 border border-slate-200 rounded-3xl overflow-hidden">
               <div className="bg-slate-800 p-5 text-white font-bold text-center text-xs uppercase tracking-widest">広告運用単体</div>
-              <div className="p-8 space-y-6">
+              <div className="p-8 space-y-6 opacity-80">
                 <div className="flex justify-between items-baseline border-b border-slate-200 pb-4">
                   <span className="text-sm text-slate-500 font-bold">運用手数料</span>
                   <span className="text-2xl font-serif font-bold text-slate-800 italic">広告費の 20%</span>
@@ -727,8 +1047,8 @@ export const ProposalHaomil: React.FC = () => {
                   <div className="text-[10px] font-bold text-slate-400 uppercase mb-3">含まれる内容</div>
                   <ul className="space-y-2">
                     {["運用代行", "レポーティング"].map((it, i) => (
-                      <li key={i} className="flex items-center gap-2 text-xs font-bold text-slate-600">
-                        <CheckCircle2 className="w-4 h-4 text-slate-400" /> {it}
+                      <li key={i} className="flex items-center gap-2 text-xs font-bold text-slate-400">
+                        <CheckCircle2 className="w-4 h-4 text-slate-300" /> {it}
                       </li>
                     ))}
                   </ul>
@@ -738,45 +1058,45 @@ export const ProposalHaomil: React.FC = () => {
           </div>
 
           <SubTitle icon={<TrendingUp className="w-6 h-6"/>}>8-3. 年間費用シミュレーション【推奨プラン】</SubTitle>
-          <div className="bg-slate-900 rounded-[3rem] p-1 shadow-2xl overflow-x-auto">
-            <div className="bg-slate-900 rounded-[2.8rem] overflow-hidden min-w-[800px]">
+          <div className="bg-slate-900 rounded-[3rem] p-1 shadow-2xl">
+            <div className="bg-slate-900 rounded-[2.8rem] overflow-hidden">
               <table className="w-full text-left">
                 <thead className="bg-slate-800 text-rose-500 font-bold uppercase tracking-widest text-[10px]">
                   <tr>
                     <th className="p-6 border-r border-slate-700">期間</th>
-                    <th className="p-6 border-r border-slate-700 text-center">伴走支援</th>
-                    <th className="p-6 border-r border-slate-700 text-center">広告運用</th>
-                    <th className="p-6 border-r border-slate-700 text-center">広告費</th>
-                    <th className="p-6 bg-slate-950 text-center">月額合計</th>
+                    <th className="p-6 border-r border-slate-700">伴走支援</th>
+                    <th className="p-6 border-r border-slate-700">広告運用</th>
+                    <th className="p-6 border-r border-slate-700">広告費</th>
+                    <th className="p-6 bg-slate-950">月額合計</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 text-slate-100 font-bold">
-                  <tr className="hover:bg-slate-800/50 transition-colors">
-                    <td className="p-6 bg-slate-800/30 border-r border-slate-800">Phase 1 (1-3ヶ月目)</td>
-                    <td className="p-6 border-r border-slate-800 text-center">¥500,000</td>
-                    <td className="p-6 border-r border-slate-800 text-slate-600 text-center">—</td>
-                    <td className="p-6 border-r border-slate-800 text-slate-600 text-center">—</td>
-                    <td className="p-6 bg-slate-950 font-serif italic text-xl text-white text-center">¥500,000</td>
+                <tbody className="divide-y divide-slate-800 text-slate-300 font-bold">
+                  <tr>
+                    <td className="p-6 bg-slate-800/50 border-r border-slate-800">Phase 1 (1-3ヶ月目)</td>
+                    <td className="p-6 border-r border-slate-800">¥500,000</td>
+                    <td className="p-6 border-r border-slate-800 text-slate-600">—</td>
+                    <td className="p-6 border-r border-slate-800 text-slate-600">—</td>
+                    <td className="p-6 bg-slate-950 font-serif italic text-lg text-white">¥500,000</td>
                   </tr>
-                  <tr className="hover:bg-slate-800/50 transition-colors">
-                    <td className="p-6 bg-slate-800/30 border-r border-slate-800">Phase 2 (4-6ヶ月目)</td>
-                    <td className="p-6 border-r border-slate-800 text-center">¥500,000</td>
-                    <td className="p-6 border-r border-slate-800 text-center">¥200,000</td>
-                    <td className="p-6 border-r border-slate-800 text-slate-300 italic text-center">¥600,000</td>
-                    <td className="p-6 bg-slate-950 font-serif italic text-xl text-white text-center">¥1,300,000</td>
+                  <tr>
+                    <td className="p-6 bg-slate-800/50 border-r border-slate-800">Phase 2 (4-6ヶ月目)</td>
+                    <td className="p-6 border-r border-slate-800">¥500,000</td>
+                    <td className="p-6 border-r border-slate-800">¥200,000</td>
+                    <td className="p-6 border-r border-slate-800 text-slate-400 italic">¥600,000</td>
+                    <td className="p-6 bg-slate-950 font-serif italic text-lg text-white">¥1,300,000</td>
                   </tr>
-                  <tr className="hover:bg-slate-800/50 transition-colors">
-                    <td className="p-6 bg-slate-800/30 border-r border-slate-800">Phase 3 (7-12ヶ月目)</td>
-                    <td className="p-6 border-r border-slate-800 text-center">¥500,000</td>
-                    <td className="p-6 border-r border-slate-800 text-center">¥200,000</td>
-                    <td className="p-6 border-r border-slate-800 text-rose-400 italic text-center">¥1,000,000</td>
-                    <td className="p-6 bg-slate-950 font-serif italic text-xl text-rose-500 text-center">¥1,700,000</td>
+                  <tr>
+                    <td className="p-6 bg-slate-800/50 border-r border-slate-800">Phase 3 (7-12ヶ月目)</td>
+                    <td className="p-6 border-r border-slate-800">¥500,000</td>
+                    <td className="p-6 border-r border-slate-800">¥200,000</td>
+                    <td className="p-6 border-r border-slate-800 text-rose-400 italic">¥1,000,000</td>
+                    <td className="p-6 bg-slate-950 font-serif italic text-lg text-rose-500">¥1,700,000</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-          <p className="mt-6 text-[11px] text-slate-500 leading-relaxed font-bold bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner">
+          <p className="mt-6 text-[11px] text-slate-400 leading-relaxed font-medium bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner">
              ※ 上記はシミュレーションであり、実際の広告費や運用形態はPhase 1の戦略策定結果およびHAOMIL様の意思決定に基づき柔軟に調整可能です。Phase 1のみでの契約終了も可能です。
           </p>
         </ProposalSection>
@@ -785,7 +1105,7 @@ export const ProposalHaomil: React.FC = () => {
         <ProposalSection id="section-9" title="9. 次のステップ">
           <div className="bg-rose-600 p-12 md:p-20 rounded-[4rem] text-white shadow-2xl relative overflow-hidden mb-20">
              <div className="absolute top-0 right-0 p-12 opacity-10"><Calendar className="w-56 h-56" /></div>
-             <h4 className="text-3xl font-serif font-bold mb-16 italic text-white">Action Timeline</h4>
+             <h4 className="text-3xl font-serif font-bold mb-16 italic">Action Timeline</h4>
              <div className="space-y-10 relative z-10">
                 {[
                   { d: "1月第2週", t: "本提案書の確認・ご質問への回答" },
@@ -794,58 +1114,58 @@ export const ProposalHaomil: React.FC = () => {
                   { d: "2月〜", t: "キックオフ、Phase 1（戦略確定期）開始" }
                 ].map((it, i) => (
                   <div key={i} className="flex gap-12 items-center">
-                     <div className="w-24 text-[10px] font-bold uppercase tracking-widest text-rose-100 shrink-0">{it.d}</div>
-                     <div className="h-[1px] flex-grow bg-white/30"></div>
-                     <div className="text-lg md:text-xl font-bold tracking-tight text-white">{it.t}</div>
+                     <div className="w-24 text-[10px] font-bold uppercase tracking-widest text-rose-200 shrink-0">{it.d}</div>
+                     <div className="h-[1px] flex-grow bg-white/20"></div>
+                     <div className="text-lg md:text-xl font-bold tracking-tight">{it.t}</div>
                   </div>
                 ))}
              </div>
           </div>
           <div className="text-center max-w-2xl mx-auto py-12">
-             <p className="text-slate-600 text-sm leading-relaxed mb-12 font-bold">
+             <p className="text-slate-500 text-sm leading-relaxed mb-12 font-medium">
                ハオミル株式会社様の更なる事業成長に向け、<br/>
                単なる「代行業者」ではなく「共に事業を育てるパートナー」として全力で支援させていただきます。
              </p>
              <div className="inline-flex flex-col items-center">
                 <div className="font-serif font-bold text-3xl text-slate-900 mb-1 tracking-tighter">マーケティング伴走支援チーム</div>
-                <div className="h-[1px] w-full bg-slate-900 mb-1 opacity-30"></div>
-                <div className="text-[10px] text-slate-500 uppercase tracking-[0.5em] font-bold">Strategic Partnership for HAOMIL</div>
+                <div className="h-[1px] w-full bg-slate-900 mb-1 opacity-20"></div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-[0.5em] font-bold">Strategic Partnership for HAOMIL</div>
              </div>
           </div>
         </ProposalSection>
 
         {/* --- 10. Appendix --- */}
         <ProposalSection id="section-10" title="10. 【別紙】確認事項・質問リスト">
-          <div className="bg-slate-50 rounded-[3.5rem] border border-slate-200 p-12 md:p-16">
+          <div className="bg-slate-50 rounded-[3.5rem] border border-slate-100 p-12 md:p-16">
             <div className="grid md:grid-cols-2 gap-16">
               <div>
-                <h5 className="font-bold text-slate-900 mb-10 flex items-center gap-3 border-b border-slate-300 pb-4">
+                <h5 className="font-bold text-slate-900 mb-10 flex items-center gap-3 border-b border-slate-200 pb-4">
                    <Activity className="w-5 h-5 text-rose-500" />
                    事業・数値関連の確認
                 </h5>
-                <ul className="space-y-6 text-sm font-bold text-slate-800">
-                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> MOCの正確な現在店舗数と内訳</li>
-                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 過去の獲得チャネル別実績（紹介等）</li>
-                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 代理店の平均継続期間・離脱理由</li>
-                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> GA4閲覧権限付与の可否</li>
+                <ul className="space-y-6 text-sm font-bold text-slate-700">
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-500 shrink-0"/> MOCの正確な現在店舗数と内訳</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-500 shrink-0"/> 過去の獲得チャネル別実績（紹介等）</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-500 shrink-0"/> 代理店の平均継続期間・離脱理由</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-500 shrink-0"/> GA4閲覧権限付与の可否</li>
                 </ul>
               </div>
               <div>
-                <h5 className="font-bold text-slate-900 mb-10 flex items-center gap-3 border-b border-slate-300 pb-4">
+                <h5 className="font-bold text-slate-900 mb-10 flex items-center gap-3 border-b border-slate-200 pb-4">
                   <Target className="w-5 h-5 text-rose-500" />
                   ブランド・戦略関連の確認
                 </h5>
-                <ul className="space-y-6 text-sm font-bold text-slate-800">
-                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> HAOMIL創業者の事業への原体験</li>
-                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 「医療提携」の具体的な座組みの詳細</li>
-                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 加盟店向けガイドラインの有無</li>
-                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 避けたいブランドイメージの具体例</li>
+                <ul className="space-y-6 text-sm font-bold text-slate-700">
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-500 shrink-0"/> HAOMIL創業者の事業への原体験</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-500 shrink-0"/> 「医療提携」の具体的な座組みの詳細</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-500 shrink-0"/> 加盟店向けガイドラインの有無</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-500 shrink-0"/> 避けたいブランドイメージの具体例</li>
                 </ul>
               </div>
             </div>
             <div className="mt-16 text-center border-t border-slate-200 pt-8">
-              <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest italic flex items-center justify-center gap-2">
-                 <AlertCircle className="w-4 h-4 text-rose-600" /> ご回答いただくことで、Phase 1 の戦略精度が飛躍的に向上します。
+              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest italic flex items-center justify-center gap-2">
+                 <AlertCircle className="w-4 h-4" /> ご回答いただくことで、Phase 1 の戦略精度が飛躍的に向上します。
               </p>
             </div>
           </div>
