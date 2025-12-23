@@ -1,508 +1,867 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
-// Added missing icon imports GitFork and ArrowDown
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, CheckCircle2, TrendingUp, Target, Layers, 
   Search, Users, BarChart3, Database, MessageCircle, 
   Rocket, Calendar, ShieldCheck, Briefcase, Info, ChevronRight,
   UserCheck, Map, Smartphone, Building2, Package, Globe,
-  GitFork, ArrowDown
+  GitFork, ArrowDown, Download, Loader2, Zap, FileText, AlertCircle,
+  HelpCircle, ThumbsUp, ThumbsDown, Clock, Activity, Settings,
+  Layout, Plus, XCircle, BarChart, ExternalLink, List, Microscope,
+  UserPlus, Gauge, HeartHandshake, History, Megaphone, Minus,
+  Quote, GraduationCap, Award, Stethoscope, BriefcaseBusiness,
+  DollarSign, FileSearch, PieChart, ShieldAlert, Filter, Share2,
+  Table as TableIcon, FileCheck, ClipboardList, Star, GraduationCap as GradIcon,
+  Lock, BookOpen, Fingerprint, Lightbulb, Compass, Eye, TrendingDown,
+  ArrowRightCircle, FileEdit, Monitor, Users2, Trophy, ArrowUpRight,
+  Circle, X
 } from 'lucide-react';
-import { Section, SectionTitle } from './ui/Section';
 
 const TableHeader: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <th className="p-4 bg-slate-900 text-white text-xs font-bold uppercase tracking-widest text-left border-b border-slate-800">
+  <th className="p-4 bg-slate-900 text-white text-[11px] font-bold uppercase tracking-widest text-left border-b border-slate-800">
     {children}
   </th>
 );
 
 const TableCell: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = "" }) => (
-  <td className={`p-4 text-sm text-slate-600 border-b border-slate-100 ${className}`}>
+  <td className={`p-4 text-sm text-slate-800 border-b border-slate-100 ${className}`}>
     {children}
   </td>
 );
 
 const ProposalSection: React.FC<{ id: string; title: string; children: React.ReactNode }> = ({ id, title, children }) => (
-  <div id={id} className="mb-24 scroll-mt-32">
-    <div className="flex items-center gap-4 mb-8">
-      <div className="w-10 h-1px bg-rose-500"></div>
-      <h2 className="text-2xl md:text-3xl font-serif font-bold text-slate-900">{title}</h2>
+  <div id={id} className="py-24 border-b border-slate-100 scroll-mt-20">
+    <div className="max-w-6xl mx-auto px-6">
+      <div className="flex items-center gap-4 mb-12">
+        <div className="w-12 h-[2px] bg-rose-500"></div>
+        <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 tracking-tight">{title}</h2>
+      </div>
+      {children}
     </div>
-    {children}
   </div>
 );
 
-export const ProposalHaomil: React.FC = () => {
+const SubTitle: React.FC<{ children: React.ReactNode; icon?: React.ReactNode }> = ({ children, icon }) => (
+  <h3 className="text-xl font-bold text-slate-900 mb-8 flex items-center gap-3 border-l-4 border-rose-600 pl-5">
+    {icon && <span className="text-rose-600">{icon}</span>}
+    {children}
+  </h3>
+);
+
+const Card: React.FC<{ title: string; children: React.ReactNode; icon?: React.ReactNode; className?: string; color?: 'rose' | 'slate' | 'emerald' | 'blue' | 'amber' }> = ({ title, children, icon, className = "", color = 'rose' }) => {
+  const colorMap = {
+    rose: 'bg-rose-50 text-rose-600 border-rose-100',
+    slate: 'bg-slate-50 text-slate-600 border-slate-200',
+    emerald: 'bg-emerald-50 text-emerald-600 border-emerald-100',
+    blue: 'bg-blue-50 text-blue-600 border-blue-100',
+    amber: 'bg-amber-50 text-amber-600 border-amber-100'
+  };
+
   return (
-    <div className="bg-white min-h-screen pt-32 pb-20">
-      {/* Title Header */}
-      <section className="px-4 sm:px-6 lg:px-8 mb-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-500 rounded text-[10px] font-bold uppercase tracking-widest mb-6">
-            Confidential Strategic Proposal
-          </div>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-slate-900 mb-8 leading-tight">
-            ハオミル株式会社 御中<br/>
-            <span className="text-rose-600">マーケティング伴走支援 ご提案書</span>
-          </h1>
-          <p className="text-xl text-slate-500 font-light mb-12">
-            〜 MOC事業拡大に向けた戦略立案から実行までの一気通貫支援 〜
-          </p>
-          <div className="flex flex-wrap gap-8 py-8 border-y border-slate-100">
-            <div>
-              <div className="text-[10px] text-slate-400 font-bold uppercase mb-1">Date</div>
-              <div className="text-sm font-bold text-slate-800">2025年1月</div>
-            </div>
-            <div>
-              <div className="text-[10px] text-slate-400 font-bold uppercase mb-1">Presented by</div>
-              <div className="text-sm font-bold text-slate-800 italic font-serif">AsetZ Inc.</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className={`p-8 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-md transition-all ${className}`}>
+      {icon && <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 shadow-inner ${colorMap[color]}`}>{icon}</div>}
+      <h4 className="text-lg font-bold text-slate-900 mb-4">{title}</h4>
+      <div className="text-sm text-slate-700 leading-relaxed font-medium">{children}</div>
+    </div>
+  );
+};
 
-      {/* Table of Contents */}
-      <section className="px-4 sm:px-6 lg:px-8 mb-32">
-        <div className="max-w-4xl mx-auto bg-slate-50 rounded-3xl p-8 md:p-12 border border-slate-100">
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-8">Contents</h3>
-          <nav className="grid md:grid-cols-2 gap-x-12 gap-y-4">
-            {[
-              "1. エグゼクティブサマリー",
-              "2. 貴社の現状認識と課題",
-              "3. ご提案の全体像",
-              "4. MOCマーケティング伴走支援",
-              "5. 広告運用サービス",
-              "6. Shiny LP制作（サブ提案）",
-              "7. 弊社の強みと実績",
-              "8. お見積り",
-              "9. 次のステップ"
-            ].map((item, i) => (
-              <a key={i} href={`#section-${i+1}`} className="group flex items-center gap-3 text-sm text-slate-600 hover:text-rose-600 transition-colors">
-                <span className="text-[10px] font-serif text-slate-300 group-hover:text-rose-400">0{i+1}</span>
-                {item}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </section>
+export const ProposalHaomil: React.FC = () => {
+  const [isGenerating, setIsGenerating] = useState(false);
 
-      {/* Main Content Sections */}
-      <section className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+  const handleDownloadPDF = async () => {
+    const element = document.getElementById('proposal-full-content');
+    if (!element || isGenerating) return;
+    setIsGenerating(true);
+    const opt = {
+      margin: [10, 10, 10, 10],
+      filename: 'HAOMIL様_MOCマーケティング戦略ご提案書.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+    try {
+      // @ts-ignore
+      await html2pdf().set(opt).from(element).save();
+    } catch (error) {
+      console.error('PDF Generation failed:', error);
+      alert('PDFの生成に失敗しました。');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const menuItems = [
+    { id: 1, label: "Summary", title: "1. エグゼクティブサマリー" },
+    { id: 2, label: "Issues", title: "2. 現状認識と課題" },
+    { id: 3, label: "Environ", title: "3. エンビロン分析" },
+    { id: 4, label: "Target", title: "4. ターゲット戦略" },
+    { id: 5, label: "Roadmap", title: "5. 12ヶ月ロードマップ" },
+    { id: 6, label: "Evaluation", title: "6. 判断基準" },
+    { id: 7, label: "Strength", title: "7. 弊社の強みと実績" },
+    { id: 8, label: "Pricing", title: "8. 料金プラン" },
+    { id: 9, label: "Next", title: "9. 次のステップ" },
+    { id: 10, label: "Appendix", title: "10. 確認事項" },
+  ];
+
+  return (
+    <div className="bg-white min-h-screen text-slate-900 font-sans">
+      <div id="proposal-full-content" className="w-full">
+        
+        {/* --- 0. Main Visual (Cover) --- */}
+        <section className="relative min-h-[90vh] py-24 flex flex-col justify-center overflow-hidden bg-white border-b border-slate-100">
+          <div className="absolute top-0 right-0 w-2/5 h-full bg-slate-50 -skew-x-6 transform translate-x-1/4 pointer-events-none border-l border-slate-100"></div>
+          <div className="max-w-6xl mx-auto px-6 w-full relative z-10">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-24">
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-slate-900 text-white rounded-full text-[10px] font-bold uppercase tracking-[0.3em]">
+                Strategic Partnership Proposal
+              </div>
+              <button 
+                onClick={handleDownloadPDF}
+                disabled={isGenerating}
+                className="no-print self-start inline-flex items-center gap-2 px-6 py-2.5 bg-rose-600 text-white rounded-full text-xs font-bold hover:bg-rose-700 transition-all shadow-lg active:scale-95 disabled:opacity-50"
+              >
+                {isGenerating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+                提案書を保存
+              </button>
+            </div>
+
+            <div className="mb-10">
+              <h2 className="text-3xl md:text-4xl font-serif text-slate-500 font-bold mb-4">HAOMIL株式会社 御中</h2>
+              <div className="w-24 h-1.5 bg-rose-600"></div>
+            </div>
+
+            <h1 className="text-5xl md:text-8xl font-serif font-bold text-slate-900 leading-[1.05] mb-12 tracking-tight">
+              MOCマーケティング戦略<br/>
+              <span className="text-rose-600 text-6xl md:text-7xl">ご提案書</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-slate-500 font-serif italic mb-20 max-w-3xl">
+              〜 エンビロンモデルに学ぶ「探してでも行きたい」ブランドの構築 〜
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 pt-16 border-t border-slate-200">
+              <div>
+                <div className="text-[10px] text-slate-400 font-bold uppercase mb-2 tracking-widest">Submission Date</div>
+                <div className="text-lg font-bold text-slate-800">2025年1月</div>
+              </div>
+              <div>
+                <div className="text-[10px] text-slate-400 font-bold uppercase mb-2 tracking-widest">Submitted by</div>
+                <div className="text-lg font-bold text-slate-800 font-serif">マーケティング伴走支援チーム</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 1. Executive Summary --- */}
+        <ProposalSection id="section-1" title="1. エグゼクティブサマリー">
+          <SubTitle icon={<CheckCircle2 className="w-6 h-6"/>}>結論：MOC事業の基盤を固め、再現性のある獲得モデルの構築を目指す</SubTitle>
           
-          <ProposalSection id="section-1" title="1. エグゼクティブサマリー">
-             <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden mb-12 shadow-sm">
-                <table className="w-full text-left">
-                   <tbody>
-                      <tr>
-                         <TableCell className="bg-slate-50 font-bold w-1/3">ご支援対象</TableCell>
-                         <TableCell>MOC（サロンオーナー向け代理店サービス）の事業拡大</TableCell>
-                      </tr>
-                      <tr>
-                         <TableCell className="bg-slate-50 font-bold">目標</TableCell>
-                         <TableCell>1,000店舗 → 2,000店舗への拡大を見据えたマーケティング基盤構築</TableCell>
-                      </tr>
-                      <tr>
-                         <TableCell className="bg-slate-50 font-bold">ご提案内容</TableCell>
-                         <TableCell>マーケティング伴走支援（戦略立案〜実行）+ 広告運用 + LP制作</TableCell>
-                      </tr>
-                      <tr>
-                         <TableCell className="bg-slate-50 font-bold">推奨プラン</TableCell>
-                         <TableCell className="font-bold text-rose-600">月額50万円プラン + 広告運用（4ヶ月目〜）</TableCell>
-                      </tr>
-                   </tbody>
-                </table>
-             </div>
-
-             <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  { title: "伴走型支援", icon: <Users className="w-5 h-5 text-rose-500" />, desc: "単発制作ではなく、将来的な内製化を見据えたノウハウ蓄積型の支援を行います。" },
-                  { title: "他社分析", icon: <Search className="w-5 h-5 text-rose-500" />, desc: "エンビロン等の成功事例を徹底分析し、MOC独自の勝ち筋を抽出します。" },
-                  { title: "データドリブン", icon: <TrendingUp className="w-5 h-5 text-rose-500" />, desc: "CPA・LTVを可視化し、投資対効果を最大化するための意思決定を支えます。" }
-                ].map((item, i) => (
-                  <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                     <div className="mb-4">{item.icon}</div>
-                     <h4 className="font-bold text-slate-900 mb-2">{item.title}</h4>
-                     <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
-             </div>
-          </ProposalSection>
-
-          <ProposalSection id="section-2" title="2. 貴社の現状認識と課題">
-             <div className="mb-12">
-                <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Business Structure</h4>
-                <div className="relative p-10 bg-slate-900 text-white rounded-[2.5rem] overflow-hidden">
-                   <div className="absolute top-0 right-0 p-8 opacity-5">
-                      <Building2 className="w-40 h-40" />
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-slate-900 text-white p-10 rounded-[2.5rem] shadow-xl relative overflow-hidden">
+               <div className="absolute top-0 right-0 p-8 opacity-5"><BarChart3 className="w-40 h-40" /></div>
+               <h4 className="text-rose-500 text-[10px] font-bold mb-6 uppercase tracking-widest border-b border-white/10 pb-2">支援計画の骨子</h4>
+               <div className="space-y-4">
+                 {[
+                   { l: "ご支援対象", v: "MOC（代理店サービス）" },
+                   { l: "期間", v: "12ヶ月（3ヶ月毎に成果を検証）" },
+                   { l: "推奨プラン", v: "月額50万円（戦略・基盤構築）" },
+                   { l: "期待成果", v: "年間新規100〜200店舗（暫定シミュレーション）" },
+                 ].map((it, i) => (
+                   <div key={i} className="flex justify-between items-baseline py-1">
+                      <span className="text-xs text-slate-400 font-bold">{it.l}</span>
+                      <span className="text-base font-bold text-right">{it.v}</span>
                    </div>
-                   <div className="grid md:grid-cols-2 gap-12 relative z-10 items-center">
-                      <div className="space-y-6">
-                         <div className="p-5 bg-white/5 rounded-xl border border-white/10">
-                            <div className="text-[10px] text-rose-400 font-bold mb-1 uppercase tracking-widest">HQ: MOC</div>
-                            <p className="text-sm">ホワイトニング製品・ノウハウの提供</p>
-                         </div>
-                         <div className="flex justify-center py-2">
-                            <ArrowRight className="w-6 h-6 text-slate-600 rotate-90 md:rotate-0" />
-                         </div>
-                         <div className="p-5 bg-white/5 rounded-xl border border-white/10">
-                            <div className="text-[10px] text-rose-400 font-bold mb-1 uppercase tracking-widest">Clients: Franchise Salons</div>
-                            <p className="text-sm">加盟サロンでの施術提供</p>
-                         </div>
-                      </div>
-                      <div className="bg-rose-600 p-6 rounded-2xl shadow-xl shadow-rose-900/40">
-                         <h5 className="font-serif font-bold mb-3 italic">Vision</h5>
-                         <p className="text-sm leading-relaxed">「どのサロンに行っても『MOC』を使えば歯が綺麗になる」というブランド認知の確立</p>
-                      </div>
-                   </div>
-                </div>
-             </div>
-
-             <div className="space-y-4 mb-16">
-                <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Key Challenges</h4>
-                {[
-                  { label: "ブランド統一性", desc: "各サロンで価格・見せ方がバラバラ. 統一されたブランド情報がWeb上に不足。" },
-                  { label: "世界観 vs 獲得", desc: "洗練された世界観を維持しつつ、加盟店数を2倍にする攻めのマーケティングが必要。" },
-                  { label: "Web戦略の不在", desc: "SEO・MEO・広告戦略が体系化されておらず、社内にノウハウが蓄積されていない。" }
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4 p-5 bg-white border border-slate-100 rounded-xl shadow-sm">
-                     <div className="w-6 h-6 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0">!</div>
-                     <div>
-                        <div className="text-sm font-bold text-slate-900">{item.label}</div>
-                        <p className="text-xs text-slate-500 mt-1">{item.desc}</p>
-                     </div>
-                  </div>
-                ))}
-             </div>
-
-             <div>
-                <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Benchmark: Environ Model</h4>
-                <div className="p-8 bg-indigo-50 rounded-3xl border border-indigo-100">
-                   <p className="text-sm text-indigo-900 font-medium mb-6">エンビロンの成功要因をMOCに転用するための3軸：</p>
-                   <div className="grid md:grid-cols-3 gap-6">
-                      <div className="bg-white p-5 rounded-xl">
-                         <div className="text-xs font-bold text-indigo-600 mb-2">1. ブランド力</div>
-                         <p className="text-[11px] text-slate-500">「取り扱いサロンを探す」状態を作るための認知構築</p>
-                      </div>
-                      <div className="bg-white p-5 rounded-xl">
-                         <div className="text-xs font-bold text-indigo-600 mb-2">2. 専門性の訴求</div>
-                         <p className="text-[11px] text-slate-500">広告感のない口コミ・教育型マーケティングの徹底</p>
-                      </div>
-                      <div className="bg-white p-5 rounded-xl">
-                         <div className="text-xs font-bold text-indigo-600 mb-2">3. 情報統制</div>
-                         <p className="text-[11px] text-slate-500">加盟店への指針・メッセージの統一ガイドライン整備</p>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </ProposalSection>
-
-          <ProposalSection id="section-3" title="3. ご提案の全体像">
-             <div className="bg-slate-900 text-white p-10 rounded-[3rem] shadow-2xl relative overflow-hidden mb-12">
-                <div className="absolute top-0 right-0 p-8 opacity-10">
-                   <Layers className="w-32 h-32" />
-                </div>
-                <div className="space-y-8 relative z-10">
-                   <div>
-                      <h4 className="text-rose-400 text-xs font-bold mb-4 tracking-[0.2em] uppercase">Service Areas</h4>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                         <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
-                            <div className="font-bold text-sm mb-2 text-white">メイン：伴走支援</div>
-                            <ul className="text-[11px] text-slate-400 space-y-1">
-                               <li>・市場調査 / 競合分析</li>
-                               <li>・戦略ロードマップ策定</li>
-                               <li>・情報管理インフラ構築</li>
-                            </ul>
-                         </div>
-                         <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
-                            <div className="font-bold text-sm mb-2 text-white">オプション：広告・LP</div>
-                            <ul className="text-[11px] text-slate-400 space-y-1">
-                               <li>・Meta / Google広告運用</li>
-                               <li>・MOC加盟店募集LP</li>
-                               <li>・Shiny 既存LP刷新</li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-
-             <div className="space-y-6">
-                <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Recommended Roadmap</h4>
-                <div className="relative pl-8 space-y-12">
-                   <div className="absolute left-[3px] top-4 bottom-4 w-px bg-slate-200"></div>
-                   
-                   <div className="relative">
-                      <div className="absolute -left-[32px] top-0 w-8 h-8 bg-rose-600 text-white rounded-full flex items-center justify-center text-xs font-bold ring-4 ring-white">1</div>
-                      <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                         <div className="text-[10px] font-bold text-rose-500 mb-1 uppercase">Phase 1 (Month 1-3)</div>
-                         <h5 className="text-base font-bold mb-2">戦略策定期</h5>
-                         <p className="text-xs text-slate-500">ベンチマーク調査、ポジショニング確立、年間計画の策定</p>
-                      </div>
-                   </div>
-
-                   <div className="relative">
-                      <div className="absolute -left-[32px] top-0 w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center text-xs font-bold ring-4 ring-white">2</div>
-                      <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                         <div className="text-[10px] font-bold text-slate-400 mb-1 uppercase">Phase 2 (Month 4-6)</div>
-                         <h5 className="text-base font-bold mb-2">テスト期</h5>
-                         <p className="text-xs text-slate-500">LP公開、広告配信開始、CPA基準値の特定</p>
-                      </div>
-                   </div>
-
-                   <div className="relative">
-                      <div className="absolute -left-[32px] top-0 w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center text-xs font-bold ring-4 ring-white">3</div>
-                      <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                         <div className="text-[10px] font-bold text-slate-400 mb-1 uppercase">Phase 3 (Month 7-12)</div>
-                         <h5 className="text-base font-bold mb-2">拡大期</h5>
-                         <p className="text-xs text-slate-500">成功パターンの横展開、エリア拡大、内製化支援</p>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </ProposalSection>
-
-          <ProposalSection id="section-4" title="4. MOCマーケティング伴走支援">
-             <div className="mb-12 overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                   <thead>
-                      <tr>
-                         <TableHeader>支援プラン比較</TableHeader>
-                         <TableHeader>30万円プラン</TableHeader>
-                         <TableHeader>50万円プラン (推奨)</TableHeader>
-                         <TableHeader>70万円プラン</TableHeader>
-                      </tr>
-                   </thead>
-                   <tbody>
-                      <tr>
-                         <TableCell className="font-bold">定例MTG</TableCell>
-                         <TableCell>月2回</TableCell>
-                         <TableCell className="bg-rose-50/30">月2回 + スポット可</TableCell>
-                         <TableCell>月4回</TableCell>
-                      </tr>
-                      <tr>
-                         <TableCell className="font-bold">戦略・分析</TableCell>
-                         <TableCell>○</TableCell>
-                         <TableCell className="bg-rose-50/30">○</TableCell>
-                         <TableCell>◎</TableCell>
-                      </tr>
-                      <tr>
-                         <TableCell className="font-bold">基盤構築 (CRM等)</TableCell>
-                         <TableCell>△</TableCell>
-                         <TableCell className="bg-rose-50/30 text-rose-600 font-bold">○ (設計〜構築)</TableCell>
-                         <TableCell>◎ (カスタマイズ)</TableCell>
-                      </tr>
-                      <tr>
-                         <TableCell className="font-bold">自動化・通知</TableCell>
-                         <TableCell>×</TableCell>
-                         <TableCell className="bg-rose-50/30">×</TableCell>
-                         <TableCell>○</TableCell>
-                      </tr>
-                   </tbody>
-                </table>
-             </div>
-
-             <div className="p-8 bg-slate-900 text-white rounded-3xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-6 opacity-10">
-                   <GitFork className="w-20 h-20" />
-                </div>
-                <h5 className="text-rose-400 text-xs font-bold mb-6 tracking-widest uppercase">Infrastructure Example</h5>
-                <div className="flex flex-col items-center gap-4">
-                   <div className="flex items-center gap-3 w-full max-w-md p-4 bg-white/5 rounded-xl border border-white/10">
-                      <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-[10px] font-bold">ADS</div>
-                      <span className="text-xs">広告経由の問い合わせ獲得</span>
-                   </div>
-                   <ArrowDown className="w-4 h-4 text-slate-600" />
-                   <div className="flex items-center gap-3 w-full max-w-md p-4 bg-white/5 rounded-xl border border-white/10">
-                      <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] font-bold">CRM</div>
-                      <span className="text-xs">kintone等に自動登録・管理</span>
-                   </div>
-                   <ArrowDown className="w-4 h-4 text-slate-600" />
-                   <div className="flex items-center gap-3 w-full max-w-md p-4 bg-rose-600 rounded-xl shadow-lg">
-                      <MessageCircle className="w-5 h-5 ml-2" />
-                      <span className="text-xs font-bold">Slackに即時通知 → 営業即レス</span>
-                   </div>
-                </div>
-             </div>
-          </ProposalSection>
-
-          <ProposalSection id="section-5" title="5. 広告運用サービス">
-             <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200">
-                   <h5 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
-                      <Smartphone className="w-5 h-5 text-rose-500" /> Meta広告 (SNS)
-                   </h5>
-                   <p className="text-xs text-slate-500 leading-relaxed">
-                      Instagram等での視覚的訴求. サロンオーナー層の関心に基づいた高精度ターゲティング。
-                   </p>
-                </div>
-                <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200">
-                   <h5 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
-                      <Search className="w-5 h-5 text-rose-500" /> Google検索広告
-                   </h5>
-                   <p className="text-xs text-slate-500 leading-relaxed">
-                      「ホワイトニング 導入」等の明確な検索意図を持つユーザーへアプローチ。
-                   </p>
-                </div>
-             </div>
-
-             <div className="bg-slate-900 text-white p-8 rounded-3xl">
-                <h5 className="text-rose-400 text-xs font-bold mb-6 tracking-widest uppercase">Simulation (¥1M budget)</h5>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                   <div className="text-center">
-                      <div className="text-[10px] text-slate-500 uppercase mb-1">CPA ¥30k (Optimistic)</div>
-                      <div className="text-3xl font-serif font-bold text-rose-500">33<span className="text-sm font-sans ml-1 text-slate-400">leads</span></div>
-                   </div>
-                   <div className="text-center border-x border-white/10 px-4">
-                      <div className="text-[10px] text-slate-500 uppercase mb-1">CPA ¥50k (Base)</div>
-                      <div className="text-3xl font-serif font-bold text-white">20<span className="text-sm font-sans ml-1 text-slate-400">leads</span></div>
-                   </div>
-                   <div className="text-center">
-                      <div className="text-[10px] text-slate-500 uppercase mb-1">CPA ¥80k (Safe)</div>
-                      <div className="text-3xl font-serif font-bold text-slate-400">12<span className="text-sm font-sans ml-1 text-slate-400">leads</span></div>
-                   </div>
-                </div>
-             </div>
-          </ProposalSection>
-
-          <ProposalSection id="section-6" title="6. Shiny LP制作（サブ提案）">
-             <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-                <div className="flex flex-col md:flex-row justify-between gap-8">
-                   <div className="md:w-1/2">
-                      <h5 className="font-bold text-slate-900 mb-4">現状のShiny LPリニューアル</h5>
-                      <p className="text-sm text-slate-500 leading-relaxed mb-6">
-                         既存LPの「情報の古さ」を解消し、洗練されたデザインと成約力の高い構成に刷新します。
+                 ))}
+                 <div className="pt-4 space-y-4">
+                    <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
+                      <p className="text-[10px] text-rose-400 leading-relaxed font-bold">
+                        期待成果は現時点での暫定シミュレーションです。
+                        実際に広告を運用し、その実測値から「獲得期待件数」を精緻に見積もった上で、広告費用を本格的に投入するかをHAOMIL様と共に判断してまいります。
                       </p>
-                      <ul className="space-y-3">
-                         {["デザイン刷新", "構成改善", "レスポンシブ対応", "成約導線最適化"].map((item, i) => (
-                           <li key={i} className="flex items-center gap-2 text-xs text-slate-700">
-                              <CheckCircle2 className="w-4 h-4 text-emerald-500" /> {item}
-                           </li>
-                         ))}
-                      </ul>
-                   </div>
-                   <div className="md:w-1/2 bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col justify-center">
-                      <div className="text-center">
-                         <div className="text-[10px] text-slate-400 font-bold uppercase mb-1">Estimated Cost</div>
-                         <div className="text-2xl font-serif font-bold text-slate-900">¥100,000 〜 ¥500,000</div>
-                         <p className="text-[10px] text-slate-400 mt-2">※ボリュームにより変動いたします</p>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </ProposalSection>
+                    </div>
+                    <p className="text-[9px] text-slate-500 italic">
+                      ※ 本提案内の店舗数等はシミュレーション用の仮設定値（既存100店舗想定）です。
+                    </p>
+                 </div>
+               </div>
+            </div>
+            
+            <div className="flex flex-col justify-center bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100">
+               <h4 className="text-slate-900 font-bold mb-4 flex items-center gap-2">
+                 <Search className="w-5 h-5 text-rose-600" />
+                 ご提案の背景：3つの視点
+               </h4>
+               <div className="mb-6 p-3 bg-amber-50 border border-amber-100 rounded-lg">
+                 <p className="text-[10px] text-amber-800 leading-relaxed font-medium">
+                   ※ 本提案はベンチマークとして「エンビロン」を詳細に調査した結果に基づいた、戦略構築の一例です。
+                 </p>
+               </div>
+               <ul className="space-y-6">
+                  <li className="flex gap-4">
+                     <div className="shrink-0 w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-sm italic">1</div>
+                     <div>
+                        <div className="font-bold text-sm mb-1">「医療提携型」ポジションの可能性</div>
+                        <p className="text-xs text-slate-700 leading-relaxed">過酸化水素使用可能×代理店モデル。この独自の強みを活かした「空白地帯」の独占を狙います。</p>
+                     </div>
+                  </li>
+                  <li className="flex gap-4">
+                     <div className="shrink-0 w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-sm italic">2</div>
+                     <div>
+                        <div className="font-bold text-sm mb-1">エンビロンモデルからの学び</div>
+                        <p className="text-xs text-slate-700 leading-relaxed">35年で2,000店舗を構築した成功要因（参入障壁・サポート・継続の仕組み）をMOCに適用します。</p>
+                     </div>
+                  </li>
+                  <li className="flex gap-4">
+                     <div className="shrink-0 w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-sm italic">3</div>
+                     <div>
+                        <div className="font-bold text-sm mb-1">サロンオーナーの課題解決</div>
+                        <p className="text-xs text-slate-700 leading-relaxed">「費用対効果への不満」という市場のペインに対し、医療提携型の確かな効果を回答として提示します。</p>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+          </div>
 
-          <ProposalSection id="section-7" title="7. 弊社の強みと実績">
-             <div className="grid gap-6 mb-12">
-                {[
-                  { title: "事例1: パフォーマンス3倍向上", desc: "インバウンドレンタカー事業にて、ROAS最適化への転換とデータ基盤構築により、売上規模を3倍に拡大。" },
-                  { title: "事例2: 前年比売上200%達成", desc: "月間250万UUの旅行メディアにて、広告戦略刷新後3ヶ月で達成。ROAS500%を2年間維持。" },
-                  { title: "事例3: 安定リード獲得", desc: "IT起業支援サービスにて、CPA¥3,000(業界平均の半額)を維持し、月間200件以上のリード獲得体制を3年継続。" }
-                ].map((item, i) => (
-                  <div key={i} className="p-6 bg-slate-50 border border-slate-100 rounded-xl">
-                     <h5 className="font-bold text-slate-900 mb-2">{item.title}</h5>
-                     <p className="text-xs text-slate-500">{item.desc}</p>
+          <SubTitle icon={<List className="w-6 h-6"/>}>3つのご提案ポイント</SubTitle>
+          <div className="mb-8 p-6 bg-rose-50 border-l-4 border-rose-500 rounded-r-xl">
+            <p className="text-sm text-rose-900 leading-relaxed font-bold">
+              3ヶ月ごとの意思決定を行うため、年間投資を一気に決める必要はありません。
+              フェーズごと（3ヶ月ごと）に、その予算を投じるに値する戦略が十分に練られているかを、実数値と市場の反応に基づき判断して進行します。
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+             <Card title="事前調査に基づく戦略設計" icon={<Microscope className="w-8 h-8" />} color="slate">
+                エンビロンの成長軌跡を詳細に分析。1サービスの調査深度を本提案を通してご確認ください。
+             </Card>
+             <Card title="3ヶ月毎の意思決定フロー" icon={<Gauge className="w-8 h-8" />} color="blue">
+                「方向転換判断」のタイミングを明確に設定。投資対効果を常に検証しながら進行します。
+             </Card>
+             <Card title="進捗と成果物の完全透明化" icon={<FileCheck className="w-8 h-8" />} color="emerald">
+                月次タスクと納品物をすべて明記。いつまでに何が完了するかを一目で把握いただけます。
+             </Card>
+          </div>
+        </ProposalSection>
+
+        {/* --- 2. Current Recognition & Issues --- */}
+        <ProposalSection id="section-2" title="2. 貴社の現状認識と課題">
+          <SubTitle icon={<GitFork className="w-6 h-6"/>}>2-1. ミーティングで把握した課題の構造化</SubTitle>
+          <div className="bg-slate-900 p-12 rounded-[3rem] text-white relative overflow-hidden mb-20 shadow-2xl">
+            <div className="absolute top-0 right-0 p-12 opacity-5"><Layers className="w-64 h-64" /></div>
+            
+            <div className="max-w-2xl mx-auto text-center mb-16 relative z-10">
+               <div className="text-rose-500 font-bold text-[11px] tracking-[0.5em] uppercase mb-6">Core Fundamental Issue</div>
+               <h4 className="text-2xl md:text-3xl font-serif font-bold italic text-rose-100 leading-relaxed">
+                 「MOC」ブランドとしての統一情報がWeb上に存在せず、<br/>
+                 指名検索で「正解」に辿り着けない
+               </h4>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-10 relative z-10">
+               {[
+                 { t: "ブランド統一性の欠如", d: "価格・施術・見せ方がバラバラで、「MOCなら安心」という共通認識が構築されていない。" },
+                 { t: "Web戦略の不在", d: "SEO・MEO未対策. 広告戦略もなく、せっかくの指名ニーズが他社や個店に流出している。" },
+                 { t: "社内体制の不足", d: "施策が属人化しており、将来的に自社でマーケティングを回すための基盤が未構築。" }
+               ].map((it, i) => (
+                 <div key={i} className="flex flex-col items-center text-center">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-rose-500 mb-6 font-bold font-serif italic text-lg shadow-xl">{i+1}</div>
+                    <h5 className="font-bold mb-4">{it.t}</h5>
+                    <p className="text-xs text-slate-300 leading-relaxed">{it.d}</p>
+                 </div>
+               ))}
+            </div>
+
+            <div className="mt-16 pt-10 border-t border-white/10 text-center relative z-10">
+               <p className="text-sm font-bold text-rose-400 italic">Result: どのサロンに行っても「MOCなら歯が綺麗になる」認知が構築できていない</p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+              <table className="w-full text-left">
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <TableHeader>優先度</TableHeader>
+                    <TableHeader>課題項目</TableHeader>
+                    <TableHeader>対応時期</TableHeader>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 font-bold">
+                  <tr>
+                    <TableCell className="text-rose-600 font-serif italic">Priority 1</TableCell>
+                    <TableCell>ブランドポジショニングの確立</TableCell>
+                    <TableCell><span className="px-3 py-1 bg-rose-50 text-rose-600 rounded-full text-[10px]">Phase 1</span></TableCell>
+                  </tr>
+                  <tr>
+                    <TableCell className="text-slate-500 font-serif italic">Priority 2</TableCell>
+                    <TableCell>Web情報基盤の構築</TableCell>
+                    <TableCell><span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px]">Phase 1-2</span></TableCell>
+                  </tr>
+                  <tr>
+                    <TableCell className="text-slate-500 font-serif italic">Priority 3</TableCell>
+                    <TableCell>広告運用の開始</TableCell>
+                    <TableCell><span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px]">Phase 2</span></TableCell>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <Card title="「世界観 vs 獲得」の両立について" icon={<Quote className="w-8 h-8" />} color="slate">
+                <p className="mb-4 italic text-sm text-slate-600">「営業色の強いLPは避けたいが、数字も伸ばしたい」</p>
+                <p className="text-sm font-medium text-slate-800 leading-relaxed">
+                  私たちの見解としては、両立は十分に可能です。ブランドサイト（世界観）と専用LP（獲得）を役割分担させることで、「探してでも行きたい」と思わせる信頼構築と, 効率的なリード獲得を同時に実現します。
+                </p>
+              </Card>
+              <div className="mt-6 p-6 bg-slate-50 border border-slate-100 rounded-2xl flex gap-3 items-start shadow-inner">
+                <Info className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                <p className="text-xs text-slate-700 font-bold leading-relaxed">
+                  ※弊社にて、獲得に特化したLP制作、およびブランドの世界観をしっかり作り込んだサービスサイト制作のいずれも高いクオリティで対応可能です。戦略に応じて最適な形態をご提案します。
+                </p>
+              </div>
+            </div>
+          </div>
+        </ProposalSection>
+
+        {/* --- 3. Benchmark Analysis: Environ --- */}
+        <ProposalSection id="section-3" title="3. ベンチマーク分析：エンビロンの成功モデル">
+          <SubTitle icon={<History className="w-6 h-6"/>}>3-1. 日本市場における成長軌跡</SubTitle>
+          <div className="relative pl-12 border-l-2 border-slate-100 ml-4 space-y-10 mb-20">
+             {[
+               { y: "1987年", t: "研究開発開始", d: "Dr.デス・フェルナンデスによるビタミンA理論の確立。", sub: ["科学的根拠の確立"] },
+               { y: "1988年", t: "最初の製品開発", d: "自宅キッチンで2つのクリームを開発。", sub: ["原点：少量生産・高品質"] },
+               { y: "1990年", t: "Environ Skin Care社 設立", d: "南アフリカでの事業化スタート。", sub: ["グローバル展開の礎"] },
+               { y: "1991年10月", t: "日本市場参入", d: "株式会社プロティア・ジャパン設立。", sub: ["日本展開の開始"] },
+               { y: "1995年", t: "エンビロン・スキンセンター開設", d: "東京に研修・教育拠点を確立。", sub: ["教育体制の土台構築"] },
+               { y: "1997年", t: "トリートメント開始", d: "日本初のフェイシャルトリートメント提供。", sub: ["サロンビジネスの本格化"] },
+               { y: "1998年", t: "医学的エビデンスの蓄積", d: "戸澤医師による400人以上の臨床試験実施。", sub: ["信頼性の証明"] },
+               { y: "2007年", t: "事業多角化", d: "パワープレート事業の開始。", sub: ["トータルライフケアへの拡張"] },
+               { y: "2010年頃", t: "成長期の到達点", d: "取扱店が約600ヵ所に拡大。", sub: ["市場での存在感確立"] },
+               { y: "2011年", t: "戦略転換点", d: "マーケティング部を新設。", sub: ["ブランディング戦略の刷新"] },
+               { y: "2015年", t: "国際的品質保証", d: "スイスビタミンインスティテュート認証取得。", sub: ["日本初の快挙"] },
+               { y: "2016年", t: "代理店ランク制度導入", d: "ゴールド・オフィシャルパートナー制度開始。", sub: ["代理店ロイヤリティの設計"] },
+               { y: "2018-2024年", t: "国際的ブランド地位の確立", d: "米国Aesthetic Everything® Awards 7年連続受賞。", sub: ["世界的評価の継続"] },
+               { y: "2019年", t: "オムニチャネル化", d: "会員制EC「LiveActive STORE」開設。", sub: ["デジタルトランスフォーメーション"] },
+               { y: "2022年", t: "成長の継続", d: "取扱店1,500ヵ所を突破。", sub: ["加速する店舗網"] },
+               { y: "2024年", t: "35年目の到達点", d: "取扱店2,000店舗以上を達成。", sub: ["圧倒的なブランド基盤"] }
+             ].map((it, i) => (
+               <div key={i} className="relative group">
+                  <div className="absolute -left-[53px] top-1 w-6 h-6 rounded-full bg-white border-2 border-rose-500 flex items-center justify-center">
+                     <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
                   </div>
-                ))}
-             </div>
-          </ProposalSection>
+                  <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 group-hover:bg-white group-hover:shadow-lg transition-all">
+                     <div className="text-xs font-bold text-rose-500 mb-1 font-serif italic">{it.y}</div>
+                     <h5 className="font-bold text-slate-900 mb-1">{it.t}</h5>
+                     <p className="text-xs text-slate-700 leading-relaxed font-medium">{it.d}</p>
+                     {it.sub && (
+                       <div className="mt-2 flex flex-wrap gap-2">
+                         {it.sub.map((s, si) => (
+                           <span key={si} className="text-[9px] px-2 py-0.5 bg-rose-50 text-rose-600 rounded font-bold uppercase tracking-wider">{s}</span>
+                         ))}
+                       </div>
+                     )}
+                  </div>
+               </div>
+             ))}
+          </div>
 
-          <ProposalSection id="section-8" title="8. お見積り">
-             <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm mb-12">
-                <div className="p-6 bg-slate-900 text-white flex justify-between items-center">
-                   <h5 className="font-bold">年間費用シミュレーション (推奨案)</h5>
-                   <div className="text-xs text-slate-400">Unit: JPY</div>
-                </div>
-                <div className="overflow-x-auto">
-                   <table className="w-full text-left">
-                      <thead>
-                         <tr className="bg-slate-50">
-                            <TableCell className="font-bold">期間</TableCell>
-                            <TableCell className="font-bold">伴走支援</TableCell>
-                            <TableCell className="font-bold">広告運用</TableCell>
-                            <TableCell className="font-bold">広告費</TableCell>
-                            <TableCell className="font-bold">月額合計</TableCell>
-                         </tr>
-                      </thead>
-                      <tbody>
-                         <tr>
-                            <TableCell>1-3ヶ月目</TableCell>
-                            <TableCell>¥500,000</TableCell>
-                            <TableCell>-</TableCell>
-                            <TableCell>-</TableCell>
-                            <TableCell className="font-bold">¥500,000</TableCell>
-                         </tr>
-                         <tr>
-                            <TableCell>4-6ヶ月目</TableCell>
-                            <TableCell>¥500,000</TableCell>
-                            <TableCell>¥200,000</TableCell>
-                            <TableCell>¥600,000</TableCell>
-                            <TableCell className="font-bold text-rose-600">¥1,300,000</TableCell>
-                         </tr>
-                         <tr>
-                            <TableCell>7-12ヶ月目</TableCell>
-                            <TableCell>¥500,000</TableCell>
-                            <TableCell>¥200,000</TableCell>
-                            <TableCell>¥1,000,000</TableCell>
-                            <TableCell className="font-bold text-rose-600">¥1,700,000</TableCell>
-                         </tr>
-                      </tbody>
-                      <tfoot>
-                         <tr className="bg-slate-900 text-white">
-                            <TableCell colSpan={4} className="text-right font-bold">年間概算合計</TableCell>
-                            <TableCell className="font-serif font-bold text-lg text-rose-400">約¥19,200,000</TableCell>
-                         </tr>
-                      </tfoot>
-                   </table>
+          <SubTitle icon={<Award className="w-6 h-6"/>}>3-2. 成功要因の1つ：厳格な「ディプロマ制度」</SubTitle>
+          <div className="grid md:grid-cols-2 gap-8 mb-20">
+             <div className="p-8 bg-slate-900 text-white rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-5"><GraduationCap className="w-40 h-40" /></div>
+                <h5 className="text-rose-500 font-bold text-xs uppercase tracking-widest mb-8">Case: Environ's Strategy</h5>
+                <div className="space-y-6">
+                   <div className="bg-white/5 p-6 rounded-2xl">
+                      <div className="text-xs font-bold text-slate-400 mb-2">上級試験 合格率</div>
+                      <div className="text-3xl font-serif italic text-rose-400">約 50% <span className="text-xs font-sans text-slate-400 not-italic">（質の担保を優先した審査）</span></div>
+                   </div>
+                   <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                      あえてハードルの高い制度を設けることで、取扱店の質を担保。
+                      「苦労して取得した資格」という心理的投資が、代理店の誇りと強い帰属意識を生んでいます。
+                   </p>
                 </div>
              </div>
-             <p className="text-[10px] text-slate-400 italic">※表示価格は全て税抜きです。契約期間は3ヶ月単位となります。</p>
-          </ProposalSection>
+             <div className="p-8 border border-slate-200 rounded-[2.5rem] flex flex-col justify-center">
+                <h5 className="text-slate-900 font-bold mb-6 flex items-center gap-2">
+                   <ArrowDown className="w-4 h-4 text-rose-600" />
+                   MOCでの具体的適用検討
+                </h5>
+                <ul className="space-y-4 text-sm font-bold text-slate-800">
+                   <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      HAOMIL創業者の事業への原体験を言語化し、研修で想いを共有する
+                   </li>
+                   <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      合格証の価値を高め、加盟店が「MOCブランドの一員」である誇りを持てる設計
+                   </li>
+                   <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                      「誰でもできる」ではなく「選ばれたサロンのみ」という希少性の構築
+                   </li>
+                </ul>
+             </div>
+          </div>
+        </ProposalSection>
 
-          <ProposalSection id="section-9" title="9. 次のステップ">
-             <div className="bg-rose-600 text-white p-10 rounded-[3rem] shadow-xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-8 opacity-10">
-                   <Rocket className="w-24 h-24" />
+        {/* --- 4. Target Strategy --- */}
+        <ProposalSection id="section-4" title="4. ターゲット戦略：サロンオーナーペルソナ">
+          <SubTitle icon={<Users className="w-6 h-6"/>}>市場データに基づいた5つの獲得優先セグメント（仮設計）</SubTitle>
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {[
+              { n: "佐藤美咲 (38)", j: "安定志向の美容室オーナー", d: "地方都市 / 客単価UP目標", pr: 1, icon: <Building2 className="w-6 h-6"/> },
+              { n: "田中健太 (45)", j: "拡大志向のエステオーナー", d: "都市部 / 複数店舗への展開検討", pr: 2, icon: <TrendingUp className="w-6 h-6"/> },
+              { n: "山田由美 (32)", j: "副業志向の自宅サロン", d: "住宅街 / 省スペース活用", pr: 1, icon: <Smartphone className="w-6 h-6"/> },
+              { n: "鈴木大輔 (28)", j: "イノベーター型若手オーナー", d: "繁華街 / SNS映え・トレンド重視", pr: 3, icon: <Zap className="w-6 h-6"/> },
+              { n: "高橋正子 (52)", j: "セカンドキャリア型オーナー", d: "郊外 / 安全性・サポート重視", pr: 2, icon: <Award className="w-6 h-6"/> }
+            ].map((p, i) => (
+              <div key={i} className={`p-8 rounded-3xl border transition-all ${p.pr === 1 ? 'bg-slate-900 text-white border-rose-500 shadow-2xl' : 'bg-white border-slate-200'}`}>
+                <div className="flex justify-between items-start mb-6">
+                  <div className={`p-2.5 rounded-2xl ${p.pr === 1 ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-500'}`}>{p.icon}</div>
+                  <div className={`text-[10px] font-bold px-3 py-1 rounded-full ${p.pr === 1 ? 'bg-rose-500 text-white' : 'bg-slate-100 text-slate-500'}`}>PRIORITY {p.pr}</div>
                 </div>
-                <h4 className="text-white text-lg font-serif font-bold mb-8">今後のスケジュール (案)</h4>
-                <div className="space-y-6 relative z-10">
+                <h5 className="font-bold text-lg mb-1">{p.n}</h5>
+                <div className={`text-[10px] font-bold uppercase tracking-widest mb-6 ${p.pr === 1 ? 'text-rose-400' : 'text-slate-500'}`}>{p.j}</div>
+                <p className={`text-xs leading-relaxed font-medium ${p.pr === 1 ? 'text-slate-300' : 'text-slate-700'}`}>{p.d}</p>
+              </div>
+            ))}
+          </div>
+        </ProposalSection>
+
+        {/* --- 5. Roadmap --- */}
+        <ProposalSection id="section-5" title="5. 12ヶ月ロードマップ【詳細計画案】">
+          
+          {/* Phase 1: Strategy */}
+          <SubTitle icon={<Compass className="w-6 h-6"/>}>Phase 1：戦略策定期（1〜3ヶ月目）</SubTitle>
+          <p className="text-sm text-slate-600 mb-8 font-bold">目的：エンビロン等のベンチマーク分析を通じて、MOCの最適なマーケティング戦略を策定</p>
+          <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm mb-12">
+            <table className="w-full text-left text-xs">
+              <thead className="bg-slate-900 text-white">
+                <tr>
+                  <th className="p-5 w-20">月</th>
+                  <th className="p-5 w-2/5">主要タスク</th>
+                  <th className="p-5">アウトプット</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 font-bold text-slate-800">
+                <tr className="bg-rose-50/5">
+                  <td className="p-5 border-r border-slate-100">1ヶ月目</td>
+                  <td className="p-5 font-medium leading-relaxed text-slate-800">
+                    ・エンビロンの徹底調査（Web、SNS、広告、代理店網）<br/>
+                    ・類似代理店モデル（美容商材系）の調査<br/>
+                    ・ホワイトニング業界の市場規模・トレンド調査
+                  </td>
+                  <td className="p-5 font-serif italic text-slate-900 text-sm">✅ ベンチマーク調査レポート</td>
+                </tr>
+                <tr>
+                  <td className="p-5 border-r border-slate-100">2ヶ月目</td>
+                  <td className="p-5 font-medium leading-relaxed text-slate-800">
+                    ・MOCの強み・差別化ポイント整理<br/>
+                    ・ターゲットペルソナ設計（サロンオーナー詳細定義）<br/>
+                    ・カスタマージャーニーマップ作成
+                  </td>
+                  <td className="p-5 font-serif italic text-slate-900 text-sm">✅ ポジショニング戦略書<br/>✅ ペルソナ設計書</td>
+                </tr>
+                <tr className="bg-rose-50/5">
+                  <td className="p-5 border-r border-slate-100">3ヶ月目</td>
+                  <td className="p-5 font-medium leading-relaxed text-slate-800">
+                    ・年間ロードマップ確定<br/>
+                    ・KPI設計（CPA目標、獲得数目標）<br/>
+                    ・4ヶ月目以降の施策決定（広告 / インフルエンサー等）
+                  </td>
+                  <td className="p-5 font-serif italic text-rose-600 text-sm underline underline-offset-4">✅ 年間マーケティング計画<br/>✅ KPI設計書</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ProposalSection>
+
+        {/* --- 6. Evaluation Framework --- */}
+        <ProposalSection id="section-6" title="6. 3ヶ月単位の評価基準・判断フレームワーク">
+          <SubTitle icon={<Gauge className="w-6 h-6"/>}>「なんとなく継続」を排除する意思決定体制</SubTitle>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+             <div className="space-y-6">
+                <p className="text-sm font-bold text-slate-800 leading-relaxed border-l-4 border-rose-500 pl-6 mb-10">
+                   各フェーズ終了時に必ず「判断会議」を実施します。KPIの目標達成率に基づき、あらかじめ合意したロジックに従って次の方針を決定します。
+                </p>
+                <div className="grid gap-4">
                    {[
-                     { date: "1月第2週", text: "本提案書の確認・ご質問対応" },
-                     { date: "1月第2-3週", text: "社内ご検討・MTG実施" },
-                     { date: "1月末", text: "契約締結" },
-                     { date: "2月〜", text: "プロジェクト開始 (Phase 1)" }
-                   ].map((item, i) => (
-                     <div key={i} className="flex gap-6 items-center">
-                        <div className="w-24 text-[10px] font-bold uppercase tracking-widest text-rose-200 shrink-0">{item.date}</div>
-                        <div className="h-px flex-grow bg-white/20"></div>
-                        <div className="text-sm font-bold">{item.text}</div>
+                     { v: "CPA ≦ 8万円", a: "【拡大】予算を1.5〜2倍に増額し勝機を掴む", c: "bg-emerald-50 text-emerald-800 border-emerald-200" },
+                     { v: "8万 < CPA ≦ 12万", a: "【継続】施策のABテスト継続・構成刷新", c: "bg-slate-50 text-slate-800 border-slate-300" },
+                     { v: "12万 < CPA ≦ 15万", a: "【変更】媒体配分または訴求軸を抜本的に見直す", c: "bg-amber-50 text-amber-800 border-amber-200" },
+                     { v: "CPA > 15万円", a: "【撤退検討】ビジネスモデル自体の再定義を協議", c: "bg-rose-50 text-rose-800 border-rose-200" }
+                   ].map((it, i) => (
+                     <div key={i} className={`p-6 rounded-2xl border flex items-center justify-between gap-6 shadow-sm transition-transform hover:scale-[1.02] ${it.c}`}>
+                        <div className="shrink-0 font-serif font-bold italic text-xl">{it.v}</div>
+                        <div className="flex-grow font-bold text-[11px] text-right uppercase tracking-wider">→ {it.a}</div>
                      </div>
                    ))}
                 </div>
              </div>
-
-             <div className="mt-20 text-center">
-                <p className="text-slate-500 text-sm mb-8 leading-relaxed">
-                  本提案に関するお問い合わせは、下記までお気軽にご連絡ください。<br/>
-                  御社の事業成長に全力を尽くすことをお約束いたします。
-                </p>
-                <div className="inline-flex flex-col items-center">
-                   <div className="font-serif font-bold text-2xl text-slate-900 mb-2">AsetZ Inc.</div>
-                   <div className="text-xs text-slate-400 uppercase tracking-widest">Growth Partnership Team</div>
-                </div>
+             <div className="bg-slate-900 text-white p-12 rounded-[4rem] shadow-2xl relative">
+                <div className="absolute top-0 right-0 p-10 opacity-10"><ShieldCheck className="w-40 h-40" /></div>
+                <h5 className="font-bold text-rose-500 mb-10 border-b border-white/10 pb-4 text-[11px] uppercase tracking-widest">Decision Meeting Rule</h5>
+                <ul className="space-y-10">
+                   <li className="flex gap-6 items-start">
+                      <div className="shrink-0 w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center font-bold text-white shadow-lg">1</div>
+                      <div>
+                         <h6 className="font-bold text-base mb-2">会議1週間前のレポート共有</h6>
+                         <p className="text-xs text-slate-300 font-medium leading-relaxed">事前に詳細な判断レポート（KPI達成率、改善提案）を共有し、検討の時間を確保します。</p>
+                      </div>
+                   </li>
+                   <li className="flex gap-6 items-start">
+                      <div className="shrink-0 w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center font-bold text-white shadow-lg">2</div>
+                      <div>
+                         <h6 className="font-bold text-base mb-2">LTV・ROIの逆算管理</h6>
+                         <p className="text-xs text-slate-300 font-medium leading-relaxed">リード単価だけでなく、成約率と継続期間（LTV）を考慮した本質的な投資対効果を検証します。</p>
+                      </div>
+                   </li>
+                </ul>
              </div>
-          </ProposalSection>
+          </div>
+        </ProposalSection>
 
-        </div>
-      </section>
+        {/* --- 7. Strength & Achievements --- */}
+        <ProposalSection id="section-7" title="7. 弊社の強みと実績">
+          <SubTitle icon={<Trophy className="w-6 h-6"/>}>7-1. 代表実績</SubTitle>
+          <div className="space-y-12 mb-20">
+            {[
+              {
+                title: "事例①：インバウンドレンタカー事業",
+                rows: [
+                  { k: "項目", v: "内容" },
+                  { k: "課題", v: "集客チャネル別の売上が見えない、CPA最適に偏り売上最大化できていない" },
+                  { k: "対策", v: "GA4×BigQuery環境構築、ROAS最適化への転換、季節・エリア別の予算配分最適化" },
+                  { k: "成果", v: "パフォーマンス3倍向上（CPA維持で予算消化2-3倍＝売上2-3倍）" },
+                ]
+              },
+              {
+                title: "事例②：旅行関連メディア（月間250万UU）",
+                rows: [
+                  { k: "項目", v: "内容" },
+                  { k: "課題", v: "短期売上向上と中長期成長基盤構築の両立" },
+                  { k: "対策", v: "広告戦略刷新、データ分析基盤構築、SEO戦略再構築" },
+                  { k: "成果", v: "参入後3ヶ月で前年同月比売上200%達成、ROAS 500%を2年間維持" },
+                ]
+              },
+              {
+                title: "事例③：IT起業支援",
+                rows: [
+                  { k: "項目", v: "内容" },
+                  { k: "課題", v: "Web広告運用経験なし、インサイドセールス体制が未確立" },
+                  { k: "対策", v: "kintone環境構築、MAツール導入、広告運用改善" },
+                  { k: "成果", v: "CPA ¥3,000（業界平均の半額）、月間200〜300件の安定リード獲得、3年以上継続" },
+                ]
+              }
+            ].map((caseStudy, i) => (
+              <div key={i} className="bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="bg-slate-900 px-8 py-4 flex justify-between items-center">
+                  <h5 className="text-white font-bold text-lg">{caseStudy.title}</h5>
+                  <ArrowUpRight className="text-rose-500 w-5 h-5" />
+                </div>
+                <table className="w-full text-left">
+                  <tbody className="divide-y divide-slate-100 font-bold">
+                    {caseStudy.rows.map((row, ri) => (
+                      <tr key={ri} className={ri === 0 ? 'bg-slate-100' : 'bg-white'}>
+                        <td className={`p-5 w-1/4 border-r border-slate-200 text-xs uppercase tracking-widest ${ri === 0 ? 'font-bold text-slate-600' : 'font-bold text-rose-600 italic'}`}>{row.k}</td>
+                        <td className={`p-5 text-sm ${ri === 0 ? 'font-bold text-slate-700' : 'text-slate-800'}`}>{row.v}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </div>
 
-      {/* Floating TOC for desktop */}
-      <div className="hidden xl:block fixed top-1/2 right-8 -translate-y-1/2 w-48 space-y-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-         <div className="mb-4 border-b border-slate-100 pb-2 text-slate-300">Navigation</div>
-         {[1,2,3,4,5,6,7,8,9].map(i => (
-           <a key={i} href={`#section-${i}`} className="block hover:text-rose-500 transition-colors py-1">Section 0{i}</a>
-         ))}
+          <SubTitle icon={<Users2 className="w-6 h-6"/>}>7-2. 弊社の強み（一般的な代理店との違い）</SubTitle>
+          <div className="bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl mb-20 overflow-x-auto">
+            <table className="w-full text-left min-w-[700px]">
+              <thead className="bg-slate-900 text-white font-bold uppercase tracking-widest text-[10px]">
+                <tr>
+                  <th className="p-6 w-1/4 border-r border-slate-800">比較観点</th>
+                  <th className="p-6 border-r border-slate-800">一般的な代理店</th>
+                  <th className="p-6 bg-rose-600">弊社</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 font-bold text-sm">
+                <tr>
+                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">人材配置</td>
+                  <td className="p-6 text-slate-500 font-medium bg-white">経験の浅いジュニアスタッフが複数案件を掛け持ち</td>
+                  <td className="p-6 text-slate-900 italic font-serif bg-rose-50/10">経験豊富な専門家が直接担当（金融・IT・マーケ経験の融合）</td>
+                </tr>
+                <tr>
+                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">アプローチ</td>
+                  <td className="p-6 text-slate-500 font-medium bg-white">オープンソースの一般知識による教科書的対応</td>
+                  <td className="p-6 text-slate-900 italic font-serif bg-rose-50/10">クライアント固有の事業課題に合わせたカスタマイズ提案</td>
+                </tr>
+                <tr>
+                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">関与度</td>
+                  <td className="p-6 text-slate-500 font-medium bg-white">月次レポートと定例会議のみ</td>
+                  <td className="p-6 text-slate-900 italic font-serif bg-rose-50/10">週次〜隔週での定例参加、社内関係者とのダイレクトコミュニケーション</td>
+                </tr>
+                <tr>
+                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">成果指標</td>
+                  <td className="p-6 text-slate-500 font-medium bg-white">CPA、ROAS等の媒体指標中心</td>
+                  <td className="p-6 text-rose-700 italic font-serif bg-rose-50/20">事業KPIに直結した売上・利益への貢献度で評価</td>
+                </tr>
+                <tr>
+                  <td className="p-6 bg-slate-50 border-r border-slate-200 text-slate-600 uppercase text-[10px] tracking-widest">将来展望</td>
+                  <td className="p-6 text-slate-500 font-medium bg-white">継続的な外部委託前提</td>
+                  <td className="p-6 text-slate-900 italic font-serif bg-rose-50/10">段階的内製化支援により持続可能な成長体制構築</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ProposalSection>
+
+        {/* --- 8. Pricing --- */}
+        <ProposalSection id="section-8" title="8. 料金プラン">
+          <SubTitle icon={<Layers className="w-6 h-6"/>}>8-1. プラン比較</SubTitle>
+          <div className="bg-white border border-slate-300 rounded-[2.5rem] overflow-hidden shadow-xl mb-16 overflow-x-auto">
+            <table className="w-full text-left min-w-[900px]">
+              <thead className="bg-slate-900 text-white font-bold uppercase tracking-widest text-[10px]">
+                <tr>
+                  <th className="p-5 border-r border-slate-800">項目</th>
+                  <th className="p-5 border-r border-slate-800 text-center">月額30万円プラン</th>
+                  <th className="p-5 border-r border-slate-800 bg-rose-600 text-center">月額50万円プラン【推奨】</th>
+                  <th className="p-5 text-center">月額70万円プラン</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 text-[13px] font-bold text-slate-800">
+                <tr>
+                  <td className="p-5 bg-slate-100 border-r border-slate-300">定例MTG</td>
+                  <td className="p-5 border-r border-slate-200 text-center">月2回</td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-rose-700 font-black">月2回 + スポット対応</td>
+                  <td className="p-5 text-center">週1回</td>
+                </tr>
+                <tr>
+                  <td className="p-5 bg-slate-100 border-r border-slate-300">市場調査・分析</td>
+                  <td className="p-5 border-r border-slate-200 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                </tr>
+                <tr>
+                  <td className="p-5 bg-slate-100 border-r border-slate-300">戦略立案・ロードマップ</td>
+                  <td className="p-5 border-r border-slate-200 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                </tr>
+                <tr>
+                  <td className="p-5 bg-slate-100 border-r border-slate-300">ペルソナ・ジャーニー設計</td>
+                  <td className="p-5 border-r border-slate-200 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                  <td className="p-5 text-center"><Circle className="w-5 h-5 text-emerald-600 mx-auto fill-emerald-100" /></td>
+                </tr>
+                <tr>
+                  <td className="p-5 bg-slate-100 border-r border-slate-300 font-bold">LP構成・クリエイティブ方向性</td>
+                  <td className="p-5 border-r border-slate-200 text-center text-slate-500">△（案のみ）</td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-rose-700 font-black">○（詳細設計）</td>
+                  <td className="p-5 text-center text-slate-900">◎（制作ディレクション含む）</td>
+                </tr>
+                <tr>
+                  <td className="p-5 bg-slate-100 border-r border-slate-300 font-bold">情報管理基盤構築</td>
+                  <td className="p-5 border-r border-slate-200 text-center text-slate-500">△（設計のみ）</td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-rose-700 font-black">○（設計〜構築）</td>
+                  <td className="p-5 text-center text-slate-900">◎（構築〜運用）</td>
+                </tr>
+                <tr>
+                  <td className="p-5 bg-slate-100 border-r border-slate-300 font-bold">リード管理自動化</td>
+                  <td className="p-5 border-r border-slate-200 text-center"><X className="w-5 h-5 text-slate-300 mx-auto" /></td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-slate-500 font-medium">△（基本設定）</td>
+                  <td className="p-5 text-center text-slate-900">○（カスタマイズ）</td>
+                </tr>
+                <tr>
+                  <td className="p-5 bg-slate-100 border-r border-slate-300">レポーティング</td>
+                  <td className="p-5 border-r border-slate-200 text-center">月次</td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-50/30 text-center text-rose-700 font-black">月次 + 週次速報</td>
+                  <td className="p-5 text-center">週次</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="p-5 bg-slate-200 border-r border-slate-300 font-black">推奨シーン</td>
+                  <td className="p-5 border-r border-slate-200 text-center text-slate-500 font-medium italic">戦略立案のみ</td>
+                  <td className="p-5 border-r border-rose-200 bg-rose-100/40 text-center text-rose-800 font-black italic">戦略＋基盤構築を並行</td>
+                  <td className="p-5 text-center text-slate-900 font-black italic">フルサポート</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <SubTitle icon={<Megaphone className="w-6 h-6"/>}>8-2. 広告運用料金</SubTitle>
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-white border border-slate-300 rounded-3xl overflow-hidden shadow-sm">
+              <div className="bg-slate-900 p-5 text-white font-bold text-center text-xs uppercase tracking-widest">伴走支援とセット契約</div>
+              <div className="p-8 space-y-6">
+                <div className="flex justify-between items-baseline border-b border-slate-100 pb-4">
+                  <span className="text-sm text-slate-600 font-bold">運用手数料</span>
+                  <span className="text-2xl font-serif font-bold text-rose-600 italic">広告費の 15%</span>
+                </div>
+                <div className="flex justify-between items-baseline border-b border-slate-100 pb-4">
+                  <span className="text-sm text-slate-600 font-bold">最低月額料金</span>
+                  <span className="text-xl font-bold text-slate-900">20万円</span>
+                </div>
+                <div className="pt-2">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase mb-3">含まれる内容</div>
+                  <ul className="space-y-2">
+                    {["運用代行", "レポーティング", "戦略・CRM連携"].map((it, i) => (
+                      <li key={i} className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" /> {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="bg-slate-50 border border-slate-200 rounded-3xl overflow-hidden opacity-90">
+              <div className="bg-slate-800 p-5 text-white font-bold text-center text-xs uppercase tracking-widest">広告運用単体</div>
+              <div className="p-8 space-y-6">
+                <div className="flex justify-between items-baseline border-b border-slate-200 pb-4">
+                  <span className="text-sm text-slate-500 font-bold">運用手数料</span>
+                  <span className="text-2xl font-serif font-bold text-slate-800 italic">広告費の 20%</span>
+                </div>
+                <div className="flex justify-between items-baseline border-b border-slate-200 pb-4">
+                  <span className="text-sm text-slate-500 font-bold">最低月額料金</span>
+                  <span className="text-xl font-bold text-slate-800">20万円</span>
+                </div>
+                <div className="pt-2">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase mb-3">含まれる内容</div>
+                  <ul className="space-y-2">
+                    {["運用代行", "レポーティング"].map((it, i) => (
+                      <li key={i} className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                        <CheckCircle2 className="w-4 h-4 text-slate-400" /> {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <SubTitle icon={<TrendingUp className="w-6 h-6"/>}>8-3. 年間費用シミュレーション【推奨プラン】</SubTitle>
+          <div className="bg-slate-900 rounded-[3rem] p-1 shadow-2xl overflow-x-auto">
+            <div className="bg-slate-900 rounded-[2.8rem] overflow-hidden min-w-[800px]">
+              <table className="w-full text-left">
+                <thead className="bg-slate-800 text-rose-500 font-bold uppercase tracking-widest text-[10px]">
+                  <tr>
+                    <th className="p-6 border-r border-slate-700">期間</th>
+                    <th className="p-6 border-r border-slate-700 text-center">伴走支援</th>
+                    <th className="p-6 border-r border-slate-700 text-center">広告運用</th>
+                    <th className="p-6 border-r border-slate-700 text-center">広告費</th>
+                    <th className="p-6 bg-slate-950 text-center">月額合計</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800 text-slate-100 font-bold">
+                  <tr className="hover:bg-slate-800/50 transition-colors">
+                    <td className="p-6 bg-slate-800/30 border-r border-slate-800">Phase 1 (1-3ヶ月目)</td>
+                    <td className="p-6 border-r border-slate-800 text-center">¥500,000</td>
+                    <td className="p-6 border-r border-slate-800 text-slate-600 text-center">—</td>
+                    <td className="p-6 border-r border-slate-800 text-slate-600 text-center">—</td>
+                    <td className="p-6 bg-slate-950 font-serif italic text-xl text-white text-center">¥500,000</td>
+                  </tr>
+                  <tr className="hover:bg-slate-800/50 transition-colors">
+                    <td className="p-6 bg-slate-800/30 border-r border-slate-800">Phase 2 (4-6ヶ月目)</td>
+                    <td className="p-6 border-r border-slate-800 text-center">¥500,000</td>
+                    <td className="p-6 border-r border-slate-800 text-center">¥200,000</td>
+                    <td className="p-6 border-r border-slate-800 text-slate-300 italic text-center">¥600,000</td>
+                    <td className="p-6 bg-slate-950 font-serif italic text-xl text-white text-center">¥1,300,000</td>
+                  </tr>
+                  <tr className="hover:bg-slate-800/50 transition-colors">
+                    <td className="p-6 bg-slate-800/30 border-r border-slate-800">Phase 3 (7-12ヶ月目)</td>
+                    <td className="p-6 border-r border-slate-800 text-center">¥500,000</td>
+                    <td className="p-6 border-r border-slate-800 text-center">¥200,000</td>
+                    <td className="p-6 border-r border-slate-800 text-rose-400 italic text-center">¥1,000,000</td>
+                    <td className="p-6 bg-slate-950 font-serif italic text-xl text-rose-500 text-center">¥1,700,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p className="mt-6 text-[11px] text-slate-500 leading-relaxed font-bold bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner">
+             ※ 上記はシミュレーションであり、実際の広告費や運用形態はPhase 1の戦略策定結果およびHAOMIL様の意思決定に基づき柔軟に調整可能です。Phase 1のみでの契約終了も可能です。
+          </p>
+        </ProposalSection>
+
+        {/* --- 9. Next Steps --- */}
+        <ProposalSection id="section-9" title="9. 次のステップ">
+          <div className="bg-rose-600 p-12 md:p-20 rounded-[4rem] text-white shadow-2xl relative overflow-hidden mb-20">
+             <div className="absolute top-0 right-0 p-12 opacity-10"><Calendar className="w-56 h-56" /></div>
+             <h4 className="text-3xl font-serif font-bold mb-16 italic text-white">Action Timeline</h4>
+             <div className="space-y-10 relative z-10">
+                {[
+                  { d: "1月第2週", t: "本提案書の確認・ご質問への回答" },
+                  { d: "1月第2-3週", t: "社内ご検討・追加ヒアリング（必要に応じて）" },
+                  { d: "1月末", t: "契約締結" },
+                  { d: "2月〜", t: "キックオフ、Phase 1（戦略確定期）開始" }
+                ].map((it, i) => (
+                  <div key={i} className="flex gap-12 items-center">
+                     <div className="w-24 text-[10px] font-bold uppercase tracking-widest text-rose-100 shrink-0">{it.d}</div>
+                     <div className="h-[1px] flex-grow bg-white/30"></div>
+                     <div className="text-lg md:text-xl font-bold tracking-tight text-white">{it.t}</div>
+                  </div>
+                ))}
+             </div>
+          </div>
+          <div className="text-center max-w-2xl mx-auto py-12">
+             <p className="text-slate-600 text-sm leading-relaxed mb-12 font-bold">
+               ハオミル株式会社様の更なる事業成長に向け、<br/>
+               単なる「代行業者」ではなく「共に事業を育てるパートナー」として全力で支援させていただきます。
+             </p>
+             <div className="inline-flex flex-col items-center">
+                <div className="font-serif font-bold text-3xl text-slate-900 mb-1 tracking-tighter">マーケティング伴走支援チーム</div>
+                <div className="h-[1px] w-full bg-slate-900 mb-1 opacity-30"></div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-[0.5em] font-bold">Strategic Partnership for HAOMIL</div>
+             </div>
+          </div>
+        </ProposalSection>
+
+        {/* --- 10. Appendix --- */}
+        <ProposalSection id="section-10" title="10. 【別紙】確認事項・質問リスト">
+          <div className="bg-slate-50 rounded-[3.5rem] border border-slate-200 p-12 md:p-16">
+            <div className="grid md:grid-cols-2 gap-16">
+              <div>
+                <h5 className="font-bold text-slate-900 mb-10 flex items-center gap-3 border-b border-slate-300 pb-4">
+                   <Activity className="w-5 h-5 text-rose-500" />
+                   事業・数値関連の確認
+                </h5>
+                <ul className="space-y-6 text-sm font-bold text-slate-800">
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> MOCの正確な現在店舗数と内訳</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 過去の獲得チャネル別実績（紹介等）</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 代理店の平均継続期間・離脱理由</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> GA4閲覧権限付与の可否</li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-bold text-slate-900 mb-10 flex items-center gap-3 border-b border-slate-300 pb-4">
+                  <Target className="w-5 h-5 text-rose-500" />
+                  ブランド・戦略関連の確認
+                </h5>
+                <ul className="space-y-6 text-sm font-bold text-slate-800">
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> HAOMIL創業者の事業への原体験</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 「医療提携」の具体的な座組みの詳細</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 加盟店向けガイドラインの有無</li>
+                  <li className="flex gap-4"><HelpCircle className="w-5 h-5 text-rose-600 shrink-0"/> 避けたいブランドイメージの具体例</li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-16 text-center border-t border-slate-200 pt-8">
+              <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest italic flex items-center justify-center gap-2">
+                 <AlertCircle className="w-4 h-4 text-rose-600" /> ご回答いただくことで、Phase 1 の戦略精度が飛躍的に向上します。
+              </p>
+            </div>
+          </div>
+        </ProposalSection>
+
+      </div>
+
+      {/* --- Floating Navigation --- */}
+      <div className="hidden xl:block fixed top-1/2 left-8 -translate-y-1/2 w-48 space-y-1 text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] no-print z-50">
+        <div className="mb-4 border-b border-slate-100 pb-2 text-slate-300">Section Outline</div>
+        {menuItems.map(it => (
+          <a key={it.id} href={`#section-${it.id}`} className="block hover:text-rose-500 transition-colors py-1 flex items-center gap-3 group">
+            <span className="w-4 h-px bg-slate-200 group-hover:bg-rose-400 group-hover:w-8 transition-all"></span>
+            {it.label}
+          </a>
+        ))}
       </div>
     </div>
   );

@@ -23,9 +23,11 @@ const App: React.FC = () => {
     window.scrollTo(0, 0);
   }, [activePage]);
 
+  const showGlobalNav = activePage !== 'proposal-haomil';
+
   return (
     <div className={`font-sans antialiased selection:bg-rose-500 selection:text-white ${activePage === 'main' ? 'text-slate-200 bg-brand-black' : 'text-slate-900 bg-white'}`}>
-      <Header activePage={activePage} onPageChange={setActivePage} />
+      {showGlobalNav && <Header activePage={activePage} onPageChange={setActivePage} />}
       <main>
         {activePage === 'main' ? (
           <>
@@ -45,7 +47,7 @@ const App: React.FC = () => {
           <ProposalHaomil />
         )}
       </main>
-      <Footer onPageChange={setActivePage} />
+      {showGlobalNav && <Footer onPageChange={setActivePage} />}
     </div>
   );
 };
