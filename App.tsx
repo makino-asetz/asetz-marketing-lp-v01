@@ -11,8 +11,9 @@ import { Evidence } from './components/Evidence';
 import { Closing } from './components/Closing';
 import { BookingSection } from './components/BookingSection';
 import { LPProduction } from './components/LPProduction';
+import { ProposalHaomil } from './components/ProposalHaomil';
 
-export type PageType = 'main' | 'lp-production';
+export type PageType = 'main' | 'lp-production' | 'proposal-haomil';
 
 const App: React.FC = () => {
   const [activePage, setActivePage] = useState<PageType>('main');
@@ -38,11 +39,13 @@ const App: React.FC = () => {
             <Closing />
             <BookingSection />
           </>
-        ) : (
+        ) : activePage === 'lp-production' ? (
           <LPProduction />
+        ) : (
+          <ProposalHaomil />
         )}
       </main>
-      <Footer />
+      <Footer onPageChange={setActivePage} />
     </div>
   );
 };

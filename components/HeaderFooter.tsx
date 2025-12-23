@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, ExternalLink } from 'lucide-react';
+import { ChevronDown, ExternalLink, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PageType } from '../App';
 
@@ -117,12 +117,12 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onPageChange }) => {
   );
 };
 
-export const Footer: React.FC = () => {
+export const Footer: React.FC<{ onPageChange?: (page: PageType) => void }> = ({ onPageChange }) => {
   return (
     <footer className="bg-black text-slate-500 py-20 border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start md:items-end">
+          <div className="md:col-span-4">
             <h2 className="text-white text-3xl font-serif font-bold mb-6">AsetZ</h2>
             <p className="text-sm max-w-xs leading-relaxed mb-8">
               AsetZ株式会社<br/>
@@ -133,7 +133,24 @@ export const Footer: React.FC = () => {
               &copy; {new Date().getFullYear()} AsetZ Inc. All rights reserved.
             </div>
           </div>
-          <div className="flex gap-12 text-sm">
+          
+          <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-12 text-sm">
+            <div className="flex flex-col gap-3">
+              <span className="text-white font-bold mb-2">Service Cases</span>
+              <button 
+                onClick={() => onPageChange?.('proposal-haomil')}
+                className="text-left hover:text-rose-400 transition-colors flex items-center gap-2 group"
+              >
+                <FileText className="w-3 h-3 text-slate-600 group-hover:text-rose-500" />
+                ハオミル様 支援提案書
+              </button>
+              <button 
+                onClick={() => onPageChange?.('lp-production')}
+                className="text-left hover:text-white transition-colors"
+              >
+                LP制作事例
+              </button>
+            </div>
             <div className="flex flex-col gap-3">
               <span className="text-white font-bold mb-2">Social</span>
               <a href="#" className="hover:text-white transition-colors">X (Twitter)</a>
