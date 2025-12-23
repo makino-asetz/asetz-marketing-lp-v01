@@ -32,7 +32,7 @@ const TableCell: React.FC<{ children: React.ReactNode; className?: string }> = (
 
 const ProposalSection: React.FC<{ id: string; title: string; children: React.ReactNode }> = ({ id, title, children }) => (
   <div id={id} className="py-24 border-b border-slate-100 scroll-mt-20">
-    <div className="max-w-6xl mx-auto px-6">
+    <div className="max-w-6xl auto px-6">
       <div className="flex items-center gap-4 mb-12">
         <div className="w-12 h-[2px] bg-rose-500"></div>
         <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 tracking-tight">{title}</h2>
@@ -948,59 +948,59 @@ export const ProposalHaomil: React.FC = () => {
                   <th className="p-5">月額70万円プラン</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-[13px] font-medium">
+              <tbody className="divide-y divide-slate-100 text-[13px] font-medium text-slate-500">
                 <tr>
-                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">定例MTG</td>
-                  <td className="p-5 border-r border-slate-100">月2回</td>
-                  <td className="p-5 border-r border-rose-100 font-bold">月2回 + スポット対応</td>
-                  <td className="p-5">週1回</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold text-slate-500">定例MTG</td>
+                  <td className="p-5 border-r border-slate-100 text-slate-500">月2回</td>
+                  <td className="p-5 border-r border-slate-100 text-slate-500">月2回 + スポット対応</td>
+                  <td className="p-5 text-slate-500">週1回</td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">市場調査・分析</td>
-                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
-                  <td className="p-5 border-r border-rose-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
-                  <td className="p-5 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold text-slate-500">市場調査・分析</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
+                  <td className="p-5 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">戦略立案・ロードマップ</td>
-                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
-                  <td className="p-5 border-r border-rose-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
-                  <td className="p-5 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold text-slate-500">戦略立案・ロードマップ</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
+                  <td className="p-5 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">ペルソナ・ジャーニー設計</td>
-                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
-                  <td className="p-5 border-r border-rose-100 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
-                  <td className="p-5 text-center"><Circle className="w-4 h-4 text-emerald-500 mx-auto" /></td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold text-slate-500">ペルソナ・ジャーニー設計</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
+                  <td className="p-5 border-r border-slate-100 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
+                  <td className="p-5 text-center"><Circle className="w-4 h-4 mx-auto text-emerald-500" /></td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">LP構成・クリエイティブ方向性</td>
-                  <td className="p-5 border-r border-slate-100 text-center">△（案のみ）</td>
-                  <td className="p-5 border-r border-rose-100 text-center font-bold">○（詳細設計）</td>
-                  <td className="p-5 text-center">◎（制作ディレクション含む）</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold text-slate-500">LP構成・クリエイティブ方向性</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><span className="text-slate-300">△</span>（案のみ）</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><span className="text-emerald-500">○</span>（詳細設計）</td>
+                  <td className="p-5 text-center"><span className="text-emerald-500">◎</span>（制作ディレクション含む）</td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">情報管理基盤構築</td>
-                  <td className="p-5 border-r border-slate-100 text-center">△（設計のみ）</td>
-                  <td className="p-5 border-r border-rose-100 text-center font-bold">○（設計〜構築）</td>
-                  <td className="p-5 text-center">◎（構築〜運用）</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold text-slate-500">情報管理基盤構築</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><span className="text-slate-300">△</span>（設計のみ）</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><span className="text-emerald-500">○</span>（設計〜構築）</td>
+                  <td className="p-5 text-center"><span className="text-emerald-500">◎</span>（構築〜運用）</td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">リード管理自動化</td>
-                  <td className="p-5 border-r border-slate-100 text-center"><X className="w-4 h-4 text-slate-300 mx-auto" /></td>
-                  <td className="p-5 border-r border-rose-100 text-center">△（基本設定）</td>
-                  <td className="p-5 text-center">○（カスタマイズ）</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold text-slate-500">リード管理自動化</td>
+                  <td className="p-5 border-r border-slate-100 text-center"><X className="w-4 h-4 mx-auto text-slate-300" /></td>
+                  <td className="p-5 border-r border-slate-100 text-center"><span className="text-slate-300">△</span>（基本設定）</td>
+                  <td className="p-5 text-center"><span className="text-emerald-500">○</span>（カスタマイズ）</td>
                 </tr>
                 <tr>
-                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold">レポーティング</td>
-                  <td className="p-5 border-r border-slate-100">月次</td>
-                  <td className="p-5 border-r border-rose-100 font-bold">月次 + 週次速報</td>
-                  <td className="p-5">週次</td>
+                  <td className="p-5 bg-slate-50 border-r border-slate-200 font-bold text-slate-500">レポーティング</td>
+                  <td className="p-5 border-r border-slate-100 text-slate-500">月次</td>
+                  <td className="p-5 border-r border-slate-100 text-slate-500">月次 + 週次速報</td>
+                  <td className="p-5 text-slate-500">週次</td>
                 </tr>
                 <tr className="bg-slate-50">
-                  <td className="p-5 border-r border-slate-200 font-bold">推奨シーン</td>
+                  <td className="p-5 border-r border-slate-200 font-bold text-slate-500">推奨シーン</td>
                   <td className="p-5 border-r border-slate-100 text-slate-500">戦略立案のみ</td>
-                  <td className="p-5 border-r border-rose-100 text-rose-600 font-bold italic">戦略＋基盤構築を並行</td>
+                  <td className="p-5 border-r border-slate-100 text-slate-500">戦略＋基盤構築を並行</td>
                   <td className="p-5 text-slate-500">フルサポート</td>
                 </tr>
               </tbody>
@@ -1039,7 +1039,7 @@ export const ProposalHaomil: React.FC = () => {
                   <span className="text-sm text-slate-500 font-bold">運用手数料</span>
                   <span className="text-2xl font-serif font-bold text-slate-800 italic">広告費の 20%</span>
                 </div>
-                <div className="flex justify-between items-baseline border-b border-slate-200 pb-4">
+                <div className="flex justify-between items-baseline border-b border-slate-100 pb-4">
                   <span className="text-sm text-slate-500 font-bold">最低月額料金</span>
                   <span className="text-xl font-bold text-slate-800">20万円</span>
                 </div>
