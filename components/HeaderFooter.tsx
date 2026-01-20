@@ -142,7 +142,14 @@ export const Footer: React.FC<{ onPageChange?: (page: PageType) => void }> = ({ 
                 className="text-left hover:text-rose-400 transition-colors flex items-center gap-2 group"
               >
                 <FileText className="w-3 h-3 text-slate-600 group-hover:text-rose-500" />
-                ハオミル様 支援提案書
+                ハオミル様 支援提案書 v01
+              </button>
+              <button 
+                onClick={() => onPageChange?.('proposal-haomil-v2')}
+                className="text-left hover:text-rose-400 transition-colors flex items-center gap-2 group"
+              >
+                <FileText className="w-3 h-3 text-slate-600 group-hover:text-rose-500" />
+                ハオミル様 支援提案書 v02
               </button>
               <button 
                 onClick={() => onPageChange?.('lp-production')}
