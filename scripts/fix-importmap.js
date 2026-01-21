@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const htmlPath = path.join(__dirname, '..', 'index.html');
 let html = fs.readFileSync(htmlPath, 'utf8');
 
+// 1. importmapを置換
 const importmapReplacement = `<script type="importmap">
 {
   "imports": {
@@ -27,5 +28,11 @@ html = html.replace(
   importmapReplacement
 );
 
+// 2. index.tsxを読み込むscriptタグを追加（まだなければ）
+const scriptTag = '<script type="module" src="./index.tsx"></script>';
+if (!html.includes('src="./index.tsx"')) {
+  html = html.replace('</body>', `    ${scriptTag}\n  </body>`);
+}
+
 fs.writeFileSync(htmlPath, html);
-console.log('✅ importmap を本番用に変換しました');
+console.log('✅ importmap変換 & scriptタグ追加完了');
