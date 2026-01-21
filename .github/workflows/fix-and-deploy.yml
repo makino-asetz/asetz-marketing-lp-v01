@@ -24,16 +24,3 @@ jobs:
           git config --local user.name "GitHub Action"
           git diff --quiet || (git add -A && git commit -m "🔧 Auto-fix importmap for production")
           git push
-```
-
-### 3. 使い方
-```
-AI Studioでコード作成
-    ↓
-GitHubにpush
-    ↓
-GitHub Actionsが自動でimportmap修正
-    ↓
-Vercelが自動デプロイ
-    ↓
-サイト公開完了 ✅
