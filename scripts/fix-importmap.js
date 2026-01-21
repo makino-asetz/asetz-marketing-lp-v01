@@ -1,10 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const htmlPath = path.join(__dirname, '..', 'index.html');
 let html = fs.readFileSync(htmlPath, 'utf8');
 
-// aistudiocdn.com を esm.sh に置換
 const importmapReplacement = `<script type="importmap">
 {
   "imports": {
@@ -19,7 +22,6 @@ const importmapReplacement = `<script type="importmap">
 }
 </script>`;
 
-// importmap部分を置換
 html = html.replace(
   /<script type="importmap">[\s\S]*?<\/script>/,
   importmapReplacement
