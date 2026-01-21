@@ -16,7 +16,7 @@ jobs:
           node-version: '20'
       
       - name: Fix importmap
-        run: node scripts/fix-importmap.js
+        run: node scripts/fix-importmap.cjs
       
       - name: Commit changes
         run: |
